@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {request} from './util';
 
-import {Paginator, Loading} from './components';
+import {Reader, Loading} from './components';
 
 import logo from './logo.svg';
 import './App.css';
@@ -26,7 +26,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.fullText ? <Paginator text={this.state.fullText} /> : <Loading />}
+        {this.state.fullText ? <Reader text={this.state.fullText} /> : <Loading />}
       </div>
     );
   }

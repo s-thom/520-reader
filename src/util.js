@@ -16,3 +16,8 @@ export function request(url) {
     request.send();
   });
 }
+
+export function paginate(text) {
+  return text
+      .match(/(?:([\w\W]{1,1000})(?:[ \n]|$))/g);
+}
