@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 
 import {request} from './util';
 
-import Page from './layout/Page';
-import Loading from './components/Loading';
+import {Page, Loading} from './components';
 
 import logo from './logo.svg';
 import './App.css';
@@ -27,7 +26,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.fullText ? <Page text={this.state.fullText} /> : <Loading />}
+        {this.state.fullText ? <Page text={this.state.fullText} identifier={'temp'} /> : <Loading />}
       </div>
     );
   }
