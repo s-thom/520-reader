@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {request} from './util';
 
-import {Page, Loading} from './components';
+import {Paginator, Loading} from './components';
 
 import logo from './logo.svg';
 import './App.css';
@@ -26,7 +26,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.fullText ? <Page text={this.state.fullText} identifier={'temp'} /> : <Loading />}
+        {this.state.fullText ? <Paginator text={this.state.fullText} /> : <Loading />}
       </div>
     );
   }
