@@ -1,11 +1,11 @@
 import Page from './Page';
 import Loading from './Loading';
 import Paragraph from './Paragraph';
-import Paginator from './Paginator';
+import Reader from './Reader';
 
 export {
   Page,
   Loading,
   Paragraph,
-  Paginator
+  Reader
 };

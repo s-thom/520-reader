@@ -6,15 +6,43 @@ import {paginate} from '../util';
 const baseSplitRegex = /(?:([\w\W]{1,1000})(?:[ \n]|$))/g;
 
 class Reader extends Component {
-  render() {
-    let pages = paginate(this.props.text)
-      .map((t, i) => <Page text={t} identifier={i} key={i} />);
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      page: 0
+    };
+
+    this.pages = paginate(this.props.text)
+      .map((t, i) => <Page text={t} identifier={i} key={i} />);
+  }
+
+  render() {
     return (
       <div className="Reader">
-        {pages}
+        <div className="page-container">
+          {this.pages[this.state.page]}
+        </div>
+        <div className="temp-nav">
+          <button onClick={()=> this.prevPage()}>Prev</button>
+          <button onClick={()=> this.nextPage()}>Next</button>
+        </div>
       </div>
     );
+  }
+
+  nextPage() {
+    this.setPage(this.state.page + 1);
+  }
+
+  prevPage() {
+    this.setPage(this.state.page - 1);
+  }
+
+  setPage(page) {
+    this.setState({
+      page
+    });
   }
 }
 
