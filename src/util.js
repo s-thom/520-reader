@@ -1,3 +1,4 @@
+/* eslint-env browser */
 export function request(url) {
   return new Promise((resolve, reject) => {
     let request = new XMLHttpRequest();
@@ -19,5 +20,12 @@ export function request(url) {
 
 export function paginate(text) {
   return text
-      .match(/(?:([\w\W]{1,1000})(?:[ \n]|$))/g);
+      .match(/(?:([\w\W]{1,1000})(?:[.!?,\n]|$))/g);
 }
+
+export {document, window};
+
+export let dimensions = {
+  x: window.innerHeight,
+  y: window.innerWidth
+};

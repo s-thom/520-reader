@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import Paragraph from './Paragraph';
 import './Page.css';
 
@@ -14,9 +16,7 @@ class Page extends Component {
           identifier={id}
           key={id} 
           />;
-      }
-        
-      );
+      });
 
     return (
       <div className="Page">
@@ -27,5 +27,10 @@ class Page extends Component {
     );
   }
 }
+
+Page.propTypes = {
+  text: PropTypes.string.isRequired,
+  identifier: PropTypes.any.isRequired
+};
 
 export default Page;
