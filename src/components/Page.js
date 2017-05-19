@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 import Paragraph from './Paragraph';
 import './Page.css';
 
+/**
+ * Component that displays a page of a book
+ * 
+ * @class Page
+ * @extends {Component}
+ */
 class Page extends Component {
   render() {
     let paragraphs = this.props.text

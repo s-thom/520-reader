@@ -5,6 +5,13 @@ import Page from './Page';
 import {paginate, dimensions} from '../util';
 import './Reader.css';
 
+/**
+ * Component for the "eBook" reader
+ * Handles page display and turning
+ * 
+ * @class Reader
+ * @extends {Component}
+ */
 class Reader extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +26,7 @@ class Reader extends Component {
     this.startPosition = null;
     this.currPosition = null;
     this.reachedThreshold = false;
+    
     this.pageContainer = null;
   }
 
@@ -42,20 +50,44 @@ class Reader extends Component {
     );
   }
 
+  /**
+   * Turns to the next page
+   * 
+   * @memberof Reader
+   */
   nextPage() {
     this.setPage(Math.min(this.state.page + 1, this.pages.length));
   }
 
+  /**
+   * Turns to the previous page
+   * 
+   * @memberof Reader
+   */
   prevPage() {
     this.setPage(Math.max(this.state.page - 1, 0));
   }
 
+  /**
+   * Goes to a specific page in the book
+   * 
+   * @param {number} page Page to turn to
+   * 
+   * @memberof Reader
+   */
   setPage(page) {
     this.setState({
       page
     });
   }
 
+  /**
+   * Handles the start of a page turning
+   * 
+   * @param {React.TouchEvent} event 
+   * 
+   * @memberof Reader
+   */
   mouseDown(event) {
     if (!this.currPosition) {
       this.startPosition = event.touches[0];
@@ -63,6 +95,13 @@ class Reader extends Component {
     }
   }
 
+  /**
+   * Handles the end of a page turning
+   * 
+   * @param {React.TouchEvent} event 
+   * 
+   * @memberof Reader
+   */
   mouseUp(event) {
     if (event.touches.length === 0) {
       let requiredDiff = dimensions.x / 5;
@@ -82,6 +121,13 @@ class Reader extends Component {
     }
   }
 
+  /**
+   * Handles movement while the page is being turned
+   * 
+   * @param {React.TouchEvent} event 
+   * 
+   * @memberof Reader
+   */
   mouseMove(event) {
     let minDiff = dimensions.x / 8;
     this.currPosition = event.touches[0];

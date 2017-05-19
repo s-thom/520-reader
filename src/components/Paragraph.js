@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 
 import './Paragraph.css';
 
+/**
+ * Component that displays a paragraph of text
+ * 
+ * @class Paragraph
+ * @extends {Component}
+ */
 class Paragraph extends Component {
   render() {
     // TODO: Do name substitution?
