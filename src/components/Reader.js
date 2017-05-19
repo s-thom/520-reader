@@ -18,6 +18,7 @@ class Reader extends Component {
 
     this.startPosition = null;
     this.currPosition = null;
+    this.reachedThreshold = false;
     this.pageContainer = null;
   }
 
@@ -64,10 +65,12 @@ class Reader extends Component {
 
   mouseUp(event) {
     if (event.touches.length === 0) {
+      let requiredDiff = dimensions.x / 5;
       let xDiff = this.startPosition.clientX - this.currPosition.clientX;
-      if (xDiff > 100) {
+
+      if (xDiff > requiredDiff) {
         this.nextPage();
-      } else if (xDiff < -100) {
+      } else if (xDiff < (requiredDiff * -1)) {
         this.prevPage();
       }
 
@@ -75,15 +78,25 @@ class Reader extends Component {
 
       this.currPosition = null;
       this.startPosition = null;
+      this.reachedThreshold = false;
     }
   }
 
   mouseMove(event) {
+    let minDiff = dimensions.x / 8;
     this.currPosition = event.touches[0];
 
-
     let xDiff = this.currPosition.clientX - this.startPosition.clientX;
-    this.updateTurning(xDiff);
+
+    if (Math.abs(xDiff) > minDiff) {
+      if (!this.reachedThreshold) {
+        this.reachedThreshold = true;
+      }
+    }
+
+    if (this.reachedThreshold) {
+      this.updateTurning(xDiff);
+    }
   }
 
   updateTurning(diff) {
