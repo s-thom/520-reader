@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import Paragraph from './Paragraph';
 import './Page.css';
 
@@ -15,9 +16,7 @@ class Page extends Component {
           identifier={id}
           key={id} 
           />;
-      }
-        
-      );
+      });
 
     return (
       <div className="Page">

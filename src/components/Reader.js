@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Page from './Page';
 
+import Page from './Page';
 import {paginate} from '../util';
 
 class Reader extends Component {

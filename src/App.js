@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
-import {request} from './util';
-
 import {Reader, Loading} from './components';
-
-import logo from './logo.svg';
+import {request} from './util';
 import './App.css';
 
 class App extends Component {
