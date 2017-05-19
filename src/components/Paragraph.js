@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Paragraph.css';
 
 class Paragraph extends Component {
@@ -12,7 +13,7 @@ class Paragraph extends Component {
       
       elements.push(`${line} `);
       if (i < (lines.length - 1)) {
-        elements.push(<br />);
+        elements.push(<br key={`br-${i}`} />);
       }
     }
 
@@ -23,5 +24,10 @@ class Paragraph extends Component {
     );
   }
 }
+
+Paragraph.propTypes = {
+  text: PropTypes.string.isRequired,
+  identifier: PropTypes.any.isRequired
+};
 
 export default Paragraph;

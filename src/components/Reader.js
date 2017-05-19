@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Page from './Page';
 
 import {paginate} from '../util';
-
-const baseSplitRegex = /(?:([\w\W]{1,1000})(?:[ \n]|$))/g;
 
 class Reader extends Component {
   constructor(props) {
@@ -45,5 +44,9 @@ class Reader extends Component {
     });
   }
 }
+
+Reader.propTypes = {
+  text: PropTypes.string.isRequired
+};
 
 export default Reader;
