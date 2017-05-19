@@ -1,0 +1,12 @@
+.Reader {
+  font-family: serif;
+  overflow: hidden;
+}
+
+.page-container {
+  overflow: hidden;
+  position: relative;
+  /*-webkit-transition: left 0.1s ease-out;
+  -moz-transition: left 0.1s ease-out;
+  transition: left 0.1s ease-out;*/
+}
