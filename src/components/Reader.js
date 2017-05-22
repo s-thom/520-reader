@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Page from './Page';
+import BookLine from './BookLine';
 import {paginate, dimensions} from '../util';
 import './Reader.css';
 
@@ -31,6 +32,9 @@ class Reader extends Component {
   }
 
   render() {
+    let character = 'Alice';
+    let percentage = (this.state.page + 1) / this.pages.length;
+
     return (
       <div className="Reader">
         <div 
@@ -41,6 +45,9 @@ class Reader extends Component {
           onTouchMove={(e) => this.mouseMove(e)}
           >
           {this.pages[this.state.page]}
+        </div>
+        <div className="bookline-container">
+          <BookLine text={this.props.text} character={character} progress={percentage} />
         </div>
         <div className="temp-nav">
           <button onClick={() => this.prevPage()}>Prev</button>

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import './BookLine.css';
 
 /**
@@ -16,5 +18,15 @@ class BookLine extends Component {
     );
   }
 }
+
+BookLine.defaultProps = {
+  progress: 0
+};
+
+BookLine.propTypes = {
+  text: PropTypes.string.isRequired,
+  character: PropTypes.string.isRequired,
+  progress: PropTypes.number
+};
 
 export default BookLine;
