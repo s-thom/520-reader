@@ -10,13 +10,14 @@ import LineBase from './LineBase';
  * @extends {Component}
  */
 class BasicLine extends LineBase {
-  createLine(points) {
+  createLine(points, current) {
     // TODO: Give a line
   }
 }
 
 BasicLine.propTypes = {
-  points: PropTypes.arrayOf(PropTypes.number).isRequired
+  points: PropTypes.arrayOf(PropTypes.number).isRequired,
+  current: PropTypes.number.isRequired
 };
 
 export default BasicLine;
