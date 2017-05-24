@@ -10,8 +10,26 @@ import PropTypes from 'prop-types';
 class LineBase extends Component {
   render() {
     return (
-      <p className="LineBase">
-        Component does not override LineBase's render() function
+      <div className="LineBase">
+        {this.createLine(this.props.points)}
+      </div>
+    );
+  }
+
+
+  /**
+   * Creates a line
+   * Should be overridden for all subclasses
+   * 
+   * @param {number[]} points 
+   * @returns {React.Component} SVG (hopefully) of a line to display
+   * 
+   * @memberof LineBase
+   */
+  createLine(points) {
+    return (
+      <p>
+        Component does not override LineBase's createLine(points) function
       </p>
     );
   }
