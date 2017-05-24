@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {paginate} from '../util';
+import {NumberLine} from './lines';
 import './BookLine.css';
 
 /**
@@ -20,9 +21,12 @@ class BookLine extends Component {
   } 
 
   render() {
+    let occ = this.state.occurences;
+    let curr = this.props.current;
+
     return (
       <div className="BookLine">
-        {<p>{`${this.state.occurences.join(',')}`}</p>}
+        <NumberLine points={occ} current={curr} />
       </div>
     );
   }
@@ -47,7 +51,8 @@ BookLine.defaultProps = {
 BookLine.propTypes = {
   text: PropTypes.string.isRequired,
   character: PropTypes.string.isRequired,
-  progress: PropTypes.number
+  progress: PropTypes.number,
+  current: PropTypes.number
 };
 
 export default BookLine;

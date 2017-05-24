@@ -23,8 +23,8 @@ class LineBase extends Component {
    * 
    * @param {number[]} points Array of points to show 
    * @param {number} current Current index
-   * @returns {React.Component} SVG (hopefully) of a line to display
-   * 
+   * @returns {React.ReactElement} SVG (hopefully) of a line to display
+   *
    * @memberof LineBase
    */
   createLine(points, current) {

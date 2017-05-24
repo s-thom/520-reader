@@ -47,7 +47,7 @@ class Reader extends Component {
           {this.pages[this.state.page]}
         </div>
         <div className="bookline-container">
-          <BookLine text={this.props.text} character={character} progress={percentage} />
+          <BookLine text={this.props.text} character={character} current={this.state.page} />
         </div>
         <div className="temp-nav">
           <button onClick={() => this.prevPage()}>Prev</button>
