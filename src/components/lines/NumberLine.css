@@ -1,12 +1,3 @@
-.NumberLine {
-  white-space: nowrap;
-  overflow: hidden;
-  width: 100%;
-}
 .middle {
   font-weight: bold;
-}
-.left,
-.right {
-  max-width: 50%;
 }

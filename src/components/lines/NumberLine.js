@@ -8,19 +8,30 @@ import './NumberLine.css';
  * A simple line
  * 
  * @class NumberLine
- * @extends {Component}
+ * @extends {LineBase}
  */
 class NumberLine extends LineBase {
+  /**
+   * @param {number[]} points 
+   * @param {number} current 
+   * @returns {React.ReactElement}
+   * 
+   * @memberof NumberLine
+   */
   createLine(points, current) {
-    let left = points.slice(0, current);
+    let left = points
+      .slice(0, current)
+      .map((n, i) => <span key={i}>{n} </span>);
     let curr = points[current];
-    let right = points.slice(current + 1);
-
+    let right = points
+      .slice(current + 1)
+      .map((n, i, a) => <span key={points.length - (a.length - i)}> {n}</span>);
+    
     return (
       <p className="NumberLine">
-        <span className="left">{left.join(' ')}</span>
+        <span className="left">{left}</span>
         <span className="middle">{curr}</span>
-        <span className="right">{right.join(' ')}</span>
+        <span className="right">{right}</span>
       </p>
     );
   }
