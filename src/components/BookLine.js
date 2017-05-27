@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {paginate} from '../util';
-import {WeightedLine, BasicLine, NumberLine, ChunkedLine} from './lines';
+import {WeightedLine, BasicLine, NumberLine, ChunkedLine, LineBase} from './lines';
+import Page from './Page';
 import './BookLine.css';
 
 /**
@@ -17,7 +18,8 @@ class BookLine extends Component {
 
     this.state = {
       occurences: this.findOccurences(props.text, props.character),
-      type: 'number'
+      type: 'number',
+      showAll: false
     };
   } 
 
@@ -25,19 +27,26 @@ class BookLine extends Component {
     let occ = this.state.occurences;
     let curr = this.props.current;
 
+    let props = {
+      points: occ,
+      current: curr,
+      progress: this.props.progress,
+      showAll: this.state.showAll
+    };
+
     let line;
     switch (this.state.type) {
       case 'basic':
-        line = <BasicLine points={occ} current={curr} />;
+        line = <BasicLine {...props} />;
         break;
       case 'weighted':
-        line = <WeightedLine points={occ} current={curr} />;
+        line = <WeightedLine {...props} />;
         break;
       case 'number':
-        line = <NumberLine points={occ} current={curr} />;
+        line = <NumberLine {...props} />;
         break;
       case 'chunked':
-        line = <ChunkedLine points={occ} current={curr} chunk={3} />;
+        line = <ChunkedLine {...props} chunk={3} />;
         break;
       default:
         throw 'invalid line type';
@@ -66,6 +75,11 @@ class BookLine extends Component {
               ...this.state,
               type: 'chunked'
             })} >Chunked</button>
+          <button 
+            onClick={()=>this.setState({
+              ...this.state,
+              showAll: !this.state.showAll
+            })} >Toggle Show All</button>
         </div>
         {line}
       </div>
@@ -73,7 +87,8 @@ class BookLine extends Component {
   }
 
   findOccurences(text, character) {
-    return paginate(this.props.text)
+    return this.props.pages
+      .map(p => p.props.text)
       .map(t => t.match(new RegExp(character, 'ig')))
       .map((match) => {
         if (match) {
@@ -92,9 +107,9 @@ BookLine.defaultProps = {
 };
 
 BookLine.propTypes = {
-  text: PropTypes.string.isRequired,
+  pages: PropTypes.arrayOf(PropTypes.instanceOf(Page)),
   character: PropTypes.string.isRequired,
-  progress: PropTypes.number,
+  progress: PropTypes.number.isRequired,
   current: PropTypes.number
 };
 

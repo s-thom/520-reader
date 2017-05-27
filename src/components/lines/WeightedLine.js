@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LineBase from './LineBase';
-import {average} from '../../util';
 import './WeightedLine.css';
 
 /**
@@ -15,14 +14,21 @@ class WeightedLine extends LineBase {
   /**
    * @param {number[]} points 
    * @param {number} current 
+   * @param {number} progress 
    * @returns {React.ReactElement}
    * 
    * @memberof WeightedLine
    */
-  createLine(points, current) {
+  createLine(points, current, progress) {
     let chunkWidth = 2;
     let newPoints = points
       .map((item, index) => {
+        if (!this.props.showAll) {
+          if (index > progress) {
+            return 0;
+          }
+        }
+
         let start = Math.max(index - chunkWidth, 0);
         let end = Math.min(index + chunkWidth + 1, points.length);
 
@@ -52,10 +58,14 @@ class WeightedLine extends LineBase {
       return `L${index * xStep},${height - (point * yStep)}`;
     });
 
+    let cx = current * xStep;
+    let cy = height - (newPoints[current] * yStep);
+
     return (
       <div className="WeightedLine">
         <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
           <path className="svg-path" d={`M0,${height} ${instructions.join(' ')}`} />
+          <circle className="svg-path" cx={cx} cy={cy} r="2" />
         </svg>
       </div>
     );
@@ -64,7 +74,9 @@ class WeightedLine extends LineBase {
 
 WeightedLine.propTypes = {
   points: PropTypes.arrayOf(PropTypes.number).isRequired,
-  current: PropTypes.number.isRequired
+  current: PropTypes.number.isRequired,
+  progress: PropTypes.number.isRequired,
+  showAll: PropTypes.bool
 };
 
 export default WeightedLine;
