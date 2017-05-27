@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LineBase from './LineBase';
+import './BasicLine.css';
 
 /**
  * A simple line
@@ -11,7 +12,26 @@ import LineBase from './LineBase';
  */
 class BasicLine extends LineBase {
   createLine(points, current) {
-    // TODO: Give a line
+    let max = points.reduce((c, m) => {
+      return c > m ? c : m;
+    });
+
+    let width = points.length;
+    let height = 20;
+    let xStep = Math.floor(width / points.length);
+    let yStep = Math.floor(height / max);
+
+    let instructions = points.map((point, index) => {
+      return `L${index * xStep},${height - (point * yStep)}`;
+    });
+
+    return (
+      <div className="BasicLine">
+        <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
+          <path className="svg-path" d={`M0,${height} ${instructions.join(' ')}`} />
+        </svg>
+      </div>
+    );
   }
 }
 

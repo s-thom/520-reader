@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {paginate} from '../util';
-import {NumberLine} from './lines';
+import {BasicLine} from './lines';
 import './BookLine.css';
 
 /**
@@ -26,7 +26,7 @@ class BookLine extends Component {
 
     return (
       <div className="BookLine">
-        <NumberLine points={occ} current={curr} />
+        <BasicLine points={occ} current={curr} />
       </div>
     );
   }
