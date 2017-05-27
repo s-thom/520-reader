@@ -17,7 +17,8 @@ class BookLine extends Component {
 
     this.state = {
       occurences: this.findOccurences(props.text, props.character),
-      type: 'number'
+      type: 'number',
+      showAll: false
     };
   } 
 
@@ -25,19 +26,25 @@ class BookLine extends Component {
     let occ = this.state.occurences;
     let curr = this.props.current;
 
+    let props = {
+      points: occ,
+      current: curr,
+      showAll: this.state.showAll
+    };
+
     let line;
     switch (this.state.type) {
       case 'basic':
-        line = <BasicLine points={occ} current={curr} />;
+        line = <BasicLine {...props} />;
         break;
       case 'weighted':
-        line = <WeightedLine points={occ} current={curr} />;
+        line = <WeightedLine {...props} />;
         break;
       case 'number':
-        line = <NumberLine points={occ} current={curr} />;
+        line = <NumberLine {...props} />;
         break;
       case 'chunked':
-        line = <ChunkedLine points={occ} current={curr} chunk={3} />;
+        line = <ChunkedLine {...props} chunk={3} />;
         break;
       default:
         throw 'invalid line type';
@@ -66,6 +73,11 @@ class BookLine extends Component {
               ...this.state,
               type: 'chunked'
             })} >Chunked</button>
+          <button 
+            onClick={()=>this.setState({
+              ...this.state,
+              showAll: !this.state.showAll
+            })} >Toggle Show All</button>
         </div>
         {line}
       </div>
