@@ -14,11 +14,12 @@ class BasicLine extends LineBase {
   /**
    * @param {number[]} points 
    * @param {number} current 
+   * @param {number} progress 
    * @returns {React.ReactElement}
    * 
    * @memberof BasicLine
    */
-  createLine(points, current) {
+  createLine(points, current, progress) {
     let max = points.reduce((c, m) => {
       return c > m ? c : m;
     });
@@ -30,7 +31,7 @@ class BasicLine extends LineBase {
 
     let instructions = points.map((point, index) => {
       if (!this.props.showAll) {
-        if (index > current) {
+        if (index > progress) {
           point = 0;
         }
       }

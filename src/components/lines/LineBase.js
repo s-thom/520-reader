@@ -13,7 +13,7 @@ class LineBase extends Component {
   render() {
     return (
       <div className="BookLineContent">
-        {this.createLine(this.props.points, this.props.current)}
+        {this.createLine(this.props.points, this.props.current, this.props.progress)}
       </div>
     );
   }
@@ -25,11 +25,12 @@ class LineBase extends Component {
    * 
    * @param {number[]} points Array of points to show 
    * @param {number} current Current index
+   * @param {number} progress Highest page the user has visited
    * @returns {React.ReactElement} SVG (hopefully) of a line to display
    *
    * @memberof LineBase
    */
-  createLine(points, current) {
+  createLine(points, current, progress) {
     return (
       <p>
         Component does not override LineBase's createLine(points) function.

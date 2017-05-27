@@ -14,16 +14,17 @@ class WeightedLine extends LineBase {
   /**
    * @param {number[]} points 
    * @param {number} current 
+   * @param {number} progress 
    * @returns {React.ReactElement}
    * 
    * @memberof WeightedLine
    */
-  createLine(points, current) {
+  createLine(points, current, progress) {
     let chunkWidth = 2;
     let newPoints = points
       .map((item, index) => {
         if (!this.props.showAll) {
-          if (index > current) {
+          if (index > progress) {
             return 0;
           }
         }

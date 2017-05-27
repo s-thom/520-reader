@@ -14,11 +14,12 @@ class NumberLine extends LineBase {
   /**
    * @param {number[]} points 
    * @param {number} current 
+   * @param {number} progress 
    * @returns {React.ReactElement}
    * 
    * @memberof NumberLine
    */
-  createLine(points, current) {
+  createLine(points, current, progress) {
     let left = points
       .slice(0, current)
       .map((n, i) => <span key={i}>{n} </span>);
@@ -28,7 +29,7 @@ class NumberLine extends LineBase {
 
     if (!this.props.showAll) {
       // @ts-ignore
-      right = right.map(n => '?');
+      right = right.map((n, i) => (i > (progress - current - 1) ? '?' : n));
     }
     
     // @ts-ignore

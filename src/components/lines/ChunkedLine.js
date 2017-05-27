@@ -15,18 +15,19 @@ class ChunkedLine extends LineBase {
   /**
    * @param {number[]} points 
    * @param {number} current 
+   * @param {number} progress 
    * @returns {React.ReactElement}
    * 
    * @memberof ChunkedLine
    */
-  createLine(points, current) {
+  createLine(points, current, progress) {
     // Get averages for each section
     let chunkSize = this.props.chunk;
 
     let chunks = [];
     for (let i = 0; i < points.length; i += chunkSize) {
       if (!this.props.showAll) {
-        if (i > current) {
+        if (i > progress) {
           chunks.push([0]);
           continue;
         }
