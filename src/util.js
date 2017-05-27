@@ -36,6 +36,22 @@ export function paginate(text) {
 }
 
 /**
+ * Finds the average of an array of numbers
+ * 
+ * @export
+ * @param {number[]} arr Array to average
+ * @returns number Average value
+ */
+export function average(arr) {
+  if (arr.length === 0) {
+    return undefined;
+  }
+
+  let total = arr.reduce((c, t) => c + t, 0);
+  return total / arr.length;
+}
+
+/**
  * Document and Window globals
  */
 export {document, window};

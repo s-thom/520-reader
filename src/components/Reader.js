@@ -33,7 +33,6 @@ class Reader extends Component {
 
   render() {
     let character = 'Alice';
-    let percentage = (this.state.page + 1) / this.pages.length;
 
     return (
       <div className="Reader">
@@ -47,7 +46,7 @@ class Reader extends Component {
           {this.pages[this.state.page]}
         </div>
         <div className="bookline-container">
-          <BookLine text={this.props.text} character={character} progress={percentage} />
+          <BookLine text={this.props.text} character={character} current={this.state.page} />
         </div>
         <div className="temp-nav">
           <button onClick={() => this.prevPage()}>Prev</button>
