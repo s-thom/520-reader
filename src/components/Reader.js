@@ -48,7 +48,7 @@ class Reader extends Component {
         </div>
         <div className="bookline-container">
           <BookLine 
-            text={this.props.text}
+            pages={this.pages}
             character={character}
             current={this.state.page}
             progress={this.state.maxPage}
