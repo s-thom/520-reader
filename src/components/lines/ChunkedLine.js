@@ -54,10 +54,14 @@ class ChunkedLine extends LineBase {
 
     let path = `M0,${height} ${svgParts.join(' ')}`;
 
+    let cx = Math.floor(current * (newPoints.length / points.length)) * xStep;
+    let cy = height - (newPoints[Math.floor(current * (newPoints.length / points.length))] * yStep);
+
     return (
       <div className="ChunkedLine">
         <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
           <path className="svg-path" d={path} />
+          <circle className="svg-path" cx={cx} cy={cy} r="2" />
         </svg>
       </div>
     );

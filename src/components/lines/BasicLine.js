@@ -39,10 +39,15 @@ class BasicLine extends LineBase {
       return `L${index * xStep},${height - (point * yStep)}`;
     }, 0);
 
+
+    let cx = current * xStep;
+    let cy = height - (points[current] * yStep);
+
     return (
       <div className="BasicLine">
         <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
           <path className="svg-path" d={`M0,${height} ${instructions.join(' ')}`} />
+          <circle className="svg-path" cx={cx} cy={cy} r="2" />
         </svg>
       </div>
     );
