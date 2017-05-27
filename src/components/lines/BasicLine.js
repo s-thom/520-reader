@@ -11,6 +11,13 @@ import './BasicLine.css';
  * @extends {Component}
  */
 class BasicLine extends LineBase {
+  /**
+   * @param {number[]} points 
+   * @param {number} current 
+   * @returns {React.ReactElement}
+   * 
+   * @memberof BasicLine
+   */
   createLine(points, current) {
     let max = points.reduce((c, m) => {
       return c > m ? c : m;
