@@ -40,7 +40,8 @@ class LineBase extends Component {
 
 LineBase.propTypes = {
   points: PropTypes.arrayOf(PropTypes.number).isRequired,
-  current: PropTypes.number.isRequired
+  current: PropTypes.number.isRequired,
+  showAll: PropTypes.bool
 };
 
 export default LineBase;

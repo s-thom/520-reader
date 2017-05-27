@@ -44,7 +44,8 @@ class BasicLine extends LineBase {
 
 BasicLine.propTypes = {
   points: PropTypes.arrayOf(PropTypes.number).isRequired,
-  current: PropTypes.number.isRequired
+  current: PropTypes.number.isRequired,
+  showAll: PropTypes.bool
 };
 
 export default BasicLine;
