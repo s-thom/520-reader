@@ -47,6 +47,7 @@ class NumberLine extends LineBase {
 NumberLine.propTypes = {
   points: PropTypes.arrayOf(PropTypes.number).isRequired,
   current: PropTypes.number.isRequired,
+  progress: PropTypes.number.isRequired,
   showAll: PropTypes.bool
 };
 

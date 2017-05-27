@@ -66,6 +66,7 @@ class ChunkedLine extends LineBase {
 ChunkedLine.propTypes = {
   points: PropTypes.arrayOf(PropTypes.number).isRequired,
   current: PropTypes.number.isRequired,
+  progress: PropTypes.number.isRequired,
   chunk: PropTypes.number.isRequired,
   showAll: PropTypes.bool
 };

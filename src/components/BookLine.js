@@ -29,6 +29,7 @@ class BookLine extends Component {
     let props = {
       points: occ,
       current: curr,
+      progress: this.props.progress,
       showAll: this.state.showAll
     };
 
@@ -106,7 +107,7 @@ BookLine.defaultProps = {
 BookLine.propTypes = {
   text: PropTypes.string.isRequired,
   character: PropTypes.string.isRequired,
-  progress: PropTypes.number,
+  progress: PropTypes.number.isRequired,
   current: PropTypes.number
 };
 

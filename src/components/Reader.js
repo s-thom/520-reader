@@ -18,7 +18,8 @@ class Reader extends Component {
     super(props);
 
     this.state = {
-      page: 0
+      page: 0,
+      maxPage: 0
     };
 
     this.pages = paginate(this.props.text)
@@ -46,7 +47,12 @@ class Reader extends Component {
           {this.pages[this.state.page]}
         </div>
         <div className="bookline-container">
-          <BookLine text={this.props.text} character={character} current={this.state.page} />
+          <BookLine 
+            text={this.props.text}
+            character={character}
+            current={this.state.page}
+            progress={this.state.maxPage}
+            />
         </div>
         <div className="temp-nav">
           <button onClick={() => this.prevPage()}>Prev</button>
@@ -83,7 +89,9 @@ class Reader extends Component {
    */
   setPage(page) {
     this.setState({
-      page
+      ...this.state,
+      page: page,
+      maxPage: Math.max(page, this.state.maxPage)
     });
   }
 

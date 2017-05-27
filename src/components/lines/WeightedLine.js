@@ -70,6 +70,7 @@ class WeightedLine extends LineBase {
 WeightedLine.propTypes = {
   points: PropTypes.arrayOf(PropTypes.number).isRequired,
   current: PropTypes.number.isRequired,
+  progress: PropTypes.number.isRequired,
   showAll: PropTypes.bool
 };
 
