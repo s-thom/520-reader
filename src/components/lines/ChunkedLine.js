@@ -36,18 +36,20 @@ class ChunkedLine extends LineBase {
     }, 0);
 
     let width = newPoints.length;
-    let height = 20;
+    let height = 20 * (newPoints.length / points.length);
     let xStep = Math.floor(width / newPoints.length);
     let yStep = Math.floor(height / max);
 
-    let instructions = newPoints.map((point, index) => {
+    let svgParts = newPoints.map((point, index) => {
       return `L${index * xStep},${height - (point * yStep)}`;
     });
+
+    let path = `M0,${height} ${svgParts.join(' ')}`;
 
     return (
       <div className="ChunkedLine">
         <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
-          <path className="svg-path" d={`M0,${height} ${instructions.join(' ')}`} />
+          <path className="svg-path" d={path} />
         </svg>
       </div>
     );
