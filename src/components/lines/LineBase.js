@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import './LineBase.css';
+
 /**
  * Base component of a bookline
  * 
@@ -30,7 +32,7 @@ class LineBase extends Component {
   createLine(points, current) {
     return (
       <p>
-        Component does not override LineBase's createLine(points) function
+        Component does not override LineBase's createLine(points) function.
       </p>
     );
   }

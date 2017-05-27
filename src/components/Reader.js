@@ -33,7 +33,6 @@ class Reader extends Component {
 
   render() {
     let character = 'Alice';
-    let percentage = (this.state.page + 1) / this.pages.length;
 
     return (
       <div className="Reader">
