@@ -25,6 +25,13 @@ class ChunkedLine extends LineBase {
 
     let chunks = [];
     for (let i = 0; i < points.length; i += chunkSize) {
+      if (!this.props.showAll) {
+        if (i > current) {
+          chunks.push([0]);
+          continue;
+        }
+      }
+
       chunks.push(points.slice(i, i + chunkSize));
     }
 

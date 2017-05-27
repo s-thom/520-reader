@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LineBase from './LineBase';
-import {average} from '../../util';
 import './WeightedLine.css';
 
 /**
@@ -23,6 +22,12 @@ class WeightedLine extends LineBase {
     let chunkWidth = 2;
     let newPoints = points
       .map((item, index) => {
+        if (!this.props.showAll) {
+          if (index > current) {
+            return 0;
+          }
+        }
+
         let start = Math.max(index - chunkWidth, 0);
         let end = Math.min(index + chunkWidth + 1, points.length);
 

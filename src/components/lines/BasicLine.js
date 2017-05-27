@@ -29,6 +29,12 @@ class BasicLine extends LineBase {
     let yStep = Math.floor(height / max);
 
     let instructions = points.map((point, index) => {
+      if (!this.props.showAll) {
+        if (index > current) {
+          point = 0;
+        }
+      }
+
       return `L${index * xStep},${height - (point * yStep)}`;
     }, 0);
 

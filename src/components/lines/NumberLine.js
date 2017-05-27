@@ -24,8 +24,15 @@ class NumberLine extends LineBase {
       .map((n, i) => <span key={i}>{n} </span>);
     let curr = points[current];
     let right = points
-      .slice(current + 1)
-      .map((n, i, a) => <span key={points.length - (a.length - i)}> {n}</span>);
+      .slice(current + 1);
+
+    if (!this.props.showAll) {
+      // @ts-ignore
+      right = right.map(n => '?');
+    }
+    
+    // @ts-ignore
+    right = right.map((n, i, a) => <span key={points.length - (a.length - i)}> {n}</span>);
     
     return (
       <p className="NumberLine">
