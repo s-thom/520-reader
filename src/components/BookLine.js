@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {paginate} from '../util';
-import {BasicLine} from './lines';
+import {ChunkedLine} from './lines';
 import './BookLine.css';
 
 /**
@@ -26,7 +26,7 @@ class BookLine extends Component {
 
     return (
       <div className="BookLine">
-        <BasicLine points={occ} current={curr} />
+        <ChunkedLine points={occ} current={curr} chunk={3} />
       </div>
     );
   }

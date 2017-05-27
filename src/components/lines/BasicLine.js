@@ -30,7 +30,7 @@ class BasicLine extends LineBase {
 
     let instructions = points.map((point, index) => {
       return `L${index * xStep},${height - (point * yStep)}`;
-    });
+    }, 0);
 
     return (
       <div className="BasicLine">
