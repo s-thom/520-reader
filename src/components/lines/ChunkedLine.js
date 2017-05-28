@@ -61,7 +61,7 @@ class ChunkedLine extends LineBase {
       <div className="ChunkedLine">
         <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
           <path className="svg-path" d={path} />
-          <circle className="svg-path" cx={cx} cy={cy} r="2" />
+          <circle className="svg-here" cx={cx} cy={cy} r="2" />
         </svg>
       </div>
     );

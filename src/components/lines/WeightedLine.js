@@ -65,7 +65,7 @@ class WeightedLine extends LineBase {
       <div className="WeightedLine">
         <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
           <path className="svg-path" d={`M0,${height} ${instructions.join(' ')}`} />
-          <circle className="svg-path" cx={cx} cy={cy} r="2" />
+          <circle className="svg-here" cx={cx} cy={cy} r="2" />
         </svg>
       </div>
     );
