@@ -2,22 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LineBase from './LineBase';
-import './WeightedLine.css';
+import './DivergingLine.css';
 
 /**
  * A simple line
  * 
- * @class WeightedLine
+ * @class DivergingLine
  * @extends {Component}
  */
-class WeightedLine extends LineBase {
+class DivergingLine extends LineBase {
   /**
    * @param {number[]} points 
    * @param {number} current 
    * @param {number} progress 
    * @returns {React.ReactElement}
    * 
-   * @memberof WeightedLine
+   * @memberof DivergingLine
    */
   createLine(points, current, progress) {
     let chunkWidth = Math.floor(points.length / 100);
@@ -50,7 +50,7 @@ class WeightedLine extends LineBase {
     }, 0);
 
     let width = newPoints.length;
-    let height = 20;
+    let height = 10;
     let xStep = Math.floor(width / newPoints.length);
     let yStep = Math.floor(height / max);
 
@@ -58,13 +58,20 @@ class WeightedLine extends LineBase {
       return `L${index * xStep},${height - (point * yStep)}`;
     });
 
+    let reverseInstructions = newPoints.map((point, index) => {
+      return `L${index * xStep},${height + (point * yStep)}`;
+    })
+      .reverse();
+
     let cx = current * xStep;
     let cy = height - (newPoints[current] * yStep);
 
+    let data = `M0,${height} ${instructions.join(' ')} ${reverseInstructions.join(' ')} L0,${height}`;
+
     return (
-      <div className="WeightedLine">
-        <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
-          <path className="svg-path" d={`M0,${height} ${instructions.join(' ')}`} />
+      <div className="DivergingLine">
+        <svg className="svg-line" viewBox={`0 0 ${width} ${height * 2}`}>
+          <path className="svg-path" d={data} />
           <circle className="svg-here" cx={cx} cy={cy} r="2" />
         </svg>
       </div>
@@ -72,11 +79,11 @@ class WeightedLine extends LineBase {
   }
 }
 
-WeightedLine.propTypes = {
+DivergingLine.propTypes = {
   points: PropTypes.arrayOf(PropTypes.number).isRequired,
   current: PropTypes.number.isRequired,
   progress: PropTypes.number.isRequired,
   showAll: PropTypes.bool
 };
 
-export default WeightedLine;
+export default DivergingLine;
