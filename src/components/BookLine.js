@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import {paginate} from '../util';
-import {WeightedLine, BasicLine, NumberLine, ChunkedLine, LineBase} from './lines';
+import {WeightedLine, BasicLine, NumberLine, ChunkedLine} from './lines';
 import Page from './Page';
 import './BookLine.css';
 
@@ -17,7 +16,7 @@ class BookLine extends Component {
     super(props);
 
     this.state = {
-      occurences: this.findOccurences(props.text, props.character),
+      occurences: this.findOccurences(props.pages, props.character),
       type: 'number',
       showAll: false
     };
@@ -86,8 +85,8 @@ class BookLine extends Component {
     );
   }
 
-  findOccurences(text, character) {
-    return this.props.pages
+  findOccurences(pages, character) {
+    return pages
       .map(p => p.props.text)
       .map(t => t.match(new RegExp(character, 'ig')))
       .map((match) => {
