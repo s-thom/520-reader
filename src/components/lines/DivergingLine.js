@@ -63,8 +63,8 @@ class DivergingLine extends LineBase {
     })
       .reverse();
 
-    let cx = current * xStep;
-    let cy = height - (newPoints[current] * yStep);
+    let rx = current * xStep;
+    let ry = 0;
 
     let data = `M0,${height} ${instructions.join(' ')} ${reverseInstructions.join(' ')} L0,${height}`;
 
@@ -72,7 +72,7 @@ class DivergingLine extends LineBase {
       <div className="DivergingLine">
         <svg className="svg-line" viewBox={`0 0 ${width} ${height * 2}`}>
           <path className="svg-path" d={data} />
-          <circle className="svg-here" cx={cx} cy={cy} r="2" />
+          <rect className="svg-here-line" x={rx} y={ry} width="1" height={height * 2} />
         </svg>
       </div>
     );
