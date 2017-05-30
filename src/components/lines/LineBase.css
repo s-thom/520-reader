@@ -3,6 +3,14 @@
 }
 .svg-path {
   width: 100%;
-  fill: #42aaf4;
+  fill: #81c8f9;
   stroke: #3792d3;
+  stroke-width: 0.5;
+}
+.svg-here {
+  /*fill: #ffc3a5;*/
+  fill: #d8d2c9;
+  /*stroke: #cc967c;*/
+  stroke: #3792d3;
+  stroke-width: 0.5;
 }
