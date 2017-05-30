@@ -34,7 +34,7 @@ class NumberLine extends LineBase {
     
     // @ts-ignore
     right = right.map((n, i, a) => <span key={points.length - (a.length - i)}> {n}</span>);
-    
+
     return (
       <p className="NumberLine">
         <span className="left">{left}</span>

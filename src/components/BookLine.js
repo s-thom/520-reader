@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import {WeightedLine, BasicLine, NumberLine, ChunkedLine} from './lines';
+import {WeightedLine, BasicLine, NumberLine, ChunkedLine, DivergingLine} from './lines';
 import Page from './Page';
 import './BookLine.css';
 
@@ -47,6 +47,9 @@ class BookLine extends Component {
       case 'chunked':
         line = <ChunkedLine {...props} chunk={3} />;
         break;
+      case 'diverging':
+        line = <DivergingLine {...props} />;
+        break;
       default:
         throw 'invalid line type';
     }
@@ -74,6 +77,11 @@ class BookLine extends Component {
               ...this.state,
               type: 'chunked'
             })} >Chunked</button>
+          <button 
+            onClick={()=>this.setState({
+              ...this.state,
+              type: 'diverging'
+            })} >Diverging</button>
           <button 
             onClick={()=>this.setState({
               ...this.state,

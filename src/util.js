@@ -32,7 +32,7 @@ export function request(url) {
  */
 export function paginate(text) {
   return text
-      .match(/(?:([\w\W]{1,1000})(?:[.!?,\n]|$))/g);
+      .match(/(?:([\w\W]{1,500})(?:[.!?,\n]|$))/g);
 }
 
 /**
@@ -54,6 +54,7 @@ export function average(arr) {
 /**
  * Document and Window globals
  */
+// @ts-ignore
 export {document, window};
 
 /**
