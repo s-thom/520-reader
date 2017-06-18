@@ -1,11 +1,17 @@
 .Reader {
   font-family: serif;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: inherit;
 }
 
 .page-container {
   overflow: hidden;
   position: relative;
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
   /*-webkit-transition: left 0.1s ease-out;
   -moz-transition: left 0.1s ease-out;
   transition: left 0.1s ease-out;*/
