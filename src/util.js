@@ -36,6 +36,33 @@ export function paginate(text) {
 }
 
 /**
+ * Splits the string up to the given length, stopping at the final punctuation mark
+ * Returns an array:
+ *     0: The text that was split off
+ *     1: The remainder of the text
+ * Returns null if no match was found
+ * 
+ * @export
+ * @param {string} text Text to split
+ * @param {number} length Maximum length
+ * @returns {string[]} 
+ */
+export function extractLength(text, length) {
+  let exp = new RegExp(`(?:([\\s\\S]{1,${length}})(?:[.!?,\\n]|$))([\\s\\S]+)`);
+  let match = text.match(exp);
+  if (match) {
+    return match.slice(1, 2);
+  } else {
+    return null;
+  }
+}
+
+export function punctuationSplit(text) {
+  return text
+      .match(/(?:([\s\S]+?)(?:[.!?,\n]|$))/g);
+}
+
+/**
  * Finds the average of an array of numbers
  * 
  * @export
