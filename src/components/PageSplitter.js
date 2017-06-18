@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Paragraph from './Paragraph';
 import './Page.css';
+import './PageSplitter.css';
 import {punctuationSplit} from '../util';
 
 const MAX_LENGTH = 5000;
@@ -97,7 +98,7 @@ class PageSplitter extends Component {
       });
 
     return (
-      <div className="Page" ref={(c)=>{this.page = c;}}>
+      <div className="Page PageSplitter" ref={(c)=>{this.page = c;}}>
         <div className="paragraph-container">
           {paragraphs}
         </div>
