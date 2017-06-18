@@ -5,10 +5,10 @@ import Paragraph from './Paragraph';
 import './Page.css';
 import {punctuationSplit} from '../util';
 
-const maxLength = 5000;
+const MAX_LENGTH = 5000;
 
 /**
- * Component that displays a page of a book
+ * Component that determines how much text can be displayed on a page
  * 
  * @class PageSplitter
  * @extends {Component}
@@ -18,7 +18,7 @@ class PageSplitter extends Component {
     super(props);
 
     this.state = {
-      items: punctuationSplit(this.props.text.substring(0, 2000)),
+      items: punctuationSplit(this.props.text.substring(0, MAX_LENGTH)),
       count: 0,
       prevString: '',
       currentString: '',
@@ -31,19 +31,22 @@ class PageSplitter extends Component {
   componentDidMount() {
     // Limit to 200 characters. May have to increase for larget tablets
     // This just reduces the load on the component
-    this.items = punctuationSplit(this.props.text.substring(0, 2000));
-
     this.setState({
       ...this.state,
-      currentString: this.items[0]
+      currentString: this.state.items[0]
     });
   }
 
   componentWillReceiveProps(newProps) {
+    if (newProps.text === '') {
+      this.doFinish('');
+      return;
+    }
+
     // Limit to 200 characters. May have to increase for larget tablets
     // This just reduces the load on the component
     this.setState({
-      items: punctuationSplit(newProps.text.substring(0, 2000)),
+      items: punctuationSplit(newProps.text.substring(0, MAX_LENGTH)),
       count: 0,
       prevString: '',
       currentString: '',
@@ -55,7 +58,7 @@ class PageSplitter extends Component {
     // Finish this split if:
     //   The page has all items, or
     //   the page has rendered larger than the container (i.e. there's a scrollbar)
-    if (this.state.count === this.items.length) {
+    if (this.state.count === this.state.items.length) {
       this.doFinish(this.state.prevString);
       return;
     }

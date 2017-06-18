@@ -47,11 +47,11 @@ class Reader extends Component {
     let rest = this.state.remainingText.slice(result.length);
     let nextPage = this.state.page + 1;
 
-    if (rest === '') {
+    if (result === '' || rest === '') {
       maxPage = this.state.page;
       stillSplit = false;
       nextPage = 0;
-      
+
       console.log(`splitting complete, with ${maxPage + 1} pages`);
     }
 
