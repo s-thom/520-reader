@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Page from './Page';
+import PageSplitter from './PageSplitter';
 import BookLine from './BookLine';
 import {paginate, dimensions} from '../util';
 import './Reader.css';
@@ -19,11 +20,13 @@ class Reader extends Component {
 
     this.state = {
       page: 0,
-      maxPage: 0
+      maxPage: 0,
+      splitting: true,
+      remainingText: this.props.text,
+      showBookline: false
     };
 
-    this.pages = paginate(this.props.text)
-      .map((t, i) => <Page text={t} identifier={i} key={i} />);
+    this.pages = [];
 
     this.startPosition = null;
     this.currPosition = null;
@@ -32,8 +35,67 @@ class Reader extends Component {
     this.pageContainer = null;
   }
 
+  /**
+   * Called when the PageSplitter determines the text to be displayed
+   * 
+   * @param {string} result 
+   * 
+   * @memberof Reader
+   */
+  onSplitterFinish(result) {
+    let maxPage = this.state.maxPage;
+    let stillSplit = this.state.splitting;
+    let rest = this.state.remainingText.slice(result.length);
+    let nextPage = this.state.page + 1;
+
+    if (result === '' || rest === '') {
+      maxPage = this.state.page;
+      stillSplit = false;
+      nextPage = 0;
+
+      console.log(`splitting complete, with ${maxPage + 1} pages`);
+    }
+
+    this.pages.push(
+      <Page 
+        text={result} 
+        identifier={this.state.page} 
+        key={this.state.page} />
+    );
+
+    this.setState({
+      ...this.state,
+      page: nextPage,
+      splitting: stillSplit,
+      maxPage: maxPage,
+      remainingText: rest
+    });
+  }
+
   render() {
     let character = 'Alice';
+
+
+    let page = this.state.splitting ? (
+      <PageSplitter
+        text={this.state.remainingText}
+        identifier={this.state.page} 
+        onfinish={(t)=>this.onSplitterFinish(t)}
+        />
+    ) : (
+      this.pages[this.state.page]
+    );
+    let bookline = this.state.splitting ? (
+      null
+    ) : (
+      <BookLine 
+        pages={this.pages}
+        character={character}
+        current={this.state.page}
+        progress={this.state.maxPage}
+        />
+    );
+    let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
 
     return (
       <div className="Reader">
@@ -44,15 +106,10 @@ class Reader extends Component {
           onTouchEnd={(e) => this.mouseUp(e)}
           onTouchMove={(e) => this.mouseMove(e)}
           >
-          {this.pages[this.state.page]}
+          {page}
         </div>
-        <div className="bookline-container">
-          <BookLine 
-            pages={this.pages}
-            character={character}
-            current={this.state.page}
-            progress={this.state.maxPage}
-            />
+        <div className={booklineClass}>
+          {bookline}
         </div>
         <div className="temp-nav">
           <button onClick={() => this.prevPage()}>Prev</button>
@@ -121,10 +178,19 @@ class Reader extends Component {
       let requiredDiff = dimensions.x / 5;
       let xDiff = this.startPosition.clientX - this.currPosition.clientX;
 
+      // Check page turning
       if (xDiff > requiredDiff) {
         this.nextPage();
       } else if (xDiff < (requiredDiff * -1)) {
         this.prevPage();
+      } else 
+      // Check bookline condition
+      if (!this.reachedThreshold) {
+        // Show/hide bookline
+        this.setState({
+          ...this.state,
+          showBookline: !this.state.showBookline
+        });
       }
 
       this.updateTurning(0);
