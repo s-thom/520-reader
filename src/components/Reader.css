@@ -1,12 +1,33 @@
 .Reader {
   font-family: serif;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: inherit;
 }
 
 .page-container {
   overflow: hidden;
   position: relative;
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
   /*-webkit-transition: left 0.1s ease-out;
   -moz-transition: left 0.1s ease-out;
   transition: left 0.1s ease-out;*/
+}
+
+.bookline-container {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  background-color: #fffaf2;
+  box-shadow: 0 0 6px rgba(0,0,0,0.16), 0 0 6px rgba(0,0,0,0.23);
+  transform: translateY(0);
+  -webkit-transition: transform 0.2s ease-out;
+  -moz-transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+}
+.bookline-container:not(.bookline-show) {
+  transform: translateY(calc(100% + 10px));
 }

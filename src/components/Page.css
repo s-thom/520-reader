@@ -1,3 +1,7 @@
+.Page {
+  display: flex;
+}
+
 .paragraph-container {
   padding: 1em;
 }
