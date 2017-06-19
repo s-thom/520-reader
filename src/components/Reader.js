@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactSVG from 'react-svg';
 
 import Page from './Page';
 import PageSplitter from './PageSplitter';
