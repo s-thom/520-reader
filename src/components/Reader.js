@@ -100,6 +100,8 @@ class Reader extends Component {
     );
     let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
 
+    let navClass = `navigation${this.state.splitting?' hidden':''}`;
+
     return (
       <div className="Reader">
         <div 
@@ -114,9 +116,19 @@ class Reader extends Component {
         <div className={booklineClass}>
           {bookline}
         </div>
-        <div className="temp-nav">
-          <button onClick={() => this.prevPage()}>Prev</button>
-          <button onClick={() => this.nextPage()}>Next</button>
+        <div className={navClass}>
+          <button 
+            className="navigation-button" 
+            onClick={() => this.prevPage()}>
+            <ReactSVG
+              path={leftArrow} />
+          </button>
+          <button 
+            className="navigation-button" 
+            onClick={() => this.nextPage()}>
+            <ReactSVG
+              path={rightArrow} />
+          </button>
         </div>
       </div>
     );
@@ -148,6 +160,10 @@ class Reader extends Component {
    * @memberof Reader
    */
   setPage(page) {
+    if (this.state.splitting) {
+      return;
+    }
+
     this.setState({
       ...this.state,
       page: page,
