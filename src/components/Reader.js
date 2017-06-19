@@ -22,7 +22,8 @@ class Reader extends Component {
       page: 0,
       maxPage: 0,
       splitting: true,
-      remainingText: this.props.text
+      remainingText: this.props.text,
+      showBookline: false
     };
 
     this.pages = [];
@@ -84,6 +85,17 @@ class Reader extends Component {
     ) : (
       this.pages[this.state.page]
     );
+    let bookline = this.state.splitting ? (
+      null
+    ) : (
+      <BookLine 
+        pages={this.pages}
+        character={character}
+        current={this.state.page}
+        progress={this.state.maxPage}
+        />
+    );
+    let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
 
     return (
       <div className="Reader">
@@ -96,14 +108,9 @@ class Reader extends Component {
           >
           {page}
         </div>
-        {/*<div className="bookline-container">
-          <BookLine 
-            pages={this.pages}
-            character={character}
-            current={this.state.page}
-            progress={this.state.maxPage}
-            />
-        </div>*/}
+        <div className={booklineClass}>
+          {bookline}
+        </div>
         <div className="temp-nav">
           <button onClick={() => this.prevPage()}>Prev</button>
           <button onClick={() => this.nextPage()}>Next</button>
@@ -171,10 +178,19 @@ class Reader extends Component {
       let requiredDiff = dimensions.x / 5;
       let xDiff = this.startPosition.clientX - this.currPosition.clientX;
 
+      // Check page turning
       if (xDiff > requiredDiff) {
         this.nextPage();
       } else if (xDiff < (requiredDiff * -1)) {
         this.prevPage();
+      } else 
+      // Check bookline condition
+      if (!this.reachedThreshold) {
+        // Show/hide bookline
+        this.setState({
+          ...this.state,
+          showBookline: !this.state.showBookline
+        });
       }
 
       this.updateTurning(0);
