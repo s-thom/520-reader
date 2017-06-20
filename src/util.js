@@ -59,7 +59,7 @@ export function extractLength(text, length) {
 
 export function punctuationSplit(text) {
   return text
-      .match(/(?:([\s\S]+?)(?:[.!?,\n]|$))/g);
+      .match(/(?:([\s\S]+?)(?:['’.!?,\n]+|$))/g);
 }
 
 /**
