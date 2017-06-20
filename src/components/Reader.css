@@ -31,3 +31,18 @@
 .bookline-container:not(.bookline-show) {
   transform: translateY(calc(100% + 10px));
 }
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation-button {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.hidden {
+  visibility: hidden;
+}
