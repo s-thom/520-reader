@@ -24,58 +24,9 @@ export function request(url) {
   });
 }
 
-/**
- * Splits text up into smaller chunks
- * 
- * @param {any} text Text to split between pages
- * @returns {string[]} Text for each page
- */
-export function paginate(text) {
-  return text
-      .match(/(?:([\w\W]{1,500})(?:[.!?,\n]|$))/g);
-}
-
-/**
- * Splits the string up to the given length, stopping at the final punctuation mark
- * Returns an array:
- *     0: The text that was split off
- *     1: The remainder of the text
- * Returns null if no match was found
- * 
- * @export
- * @param {string} text Text to split
- * @param {number} length Maximum length
- * @returns {string[]} 
- */
-export function extractLength(text, length) {
-  let exp = new RegExp(`(?:([\\s\\S]{1,${length}})(?:[.!?,\\n]|$))([\\s\\S]+)`);
-  let match = text.match(exp);
-  if (match) {
-    return match.slice(1, 2);
-  } else {
-    return null;
-  }
-}
-
 export function punctuationSplit(text) {
   return text
       .match(/(?:([\s\S]+?)(?:['’.!?,\n]+|$))/g);
-}
-
-/**
- * Finds the average of an array of numbers
- * 
- * @export
- * @param {number[]} arr Array to average
- * @returns number Average value
- */
-export function average(arr) {
-  if (arr.length === 0) {
-    return undefined;
-  }
-
-  let total = arr.reduce((c, t) => c + t, 0);
-  return total / arr.length;
 }
 
 /**
