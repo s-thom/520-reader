@@ -24,6 +24,13 @@ export function request(url) {
   });
 }
 
+/**
+ * Splits text on punctuation
+ * 
+ * @export
+ * @param {string} text Text to split
+ * @returns {string[]} List of sequence fragments
+ */
 export function punctuationSplit(text) {
   return text
       .match(/(?:([\s\S]+?)(?:['’.!?,\n]+|$))/g);

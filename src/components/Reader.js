@@ -5,7 +5,7 @@ import ReactSVG from 'react-svg';
 import Page from './Page';
 import PageSplitter from './PageSplitter';
 import BookLine from './BookLine';
-import {paginate, dimensions} from '../util';
+import {dimensions} from '../util';
 import './Reader.css';
 import leftArrow from '../res/ic_keyboard_arrow_left_black_24px.svg';
 import rightArrow from '../res/ic_keyboard_arrow_right_black_24px.svg';
@@ -56,6 +56,7 @@ class Reader extends Component {
       stillSplit = false;
       nextPage = 0;
 
+      // eslint-disable-next-line no-console
       console.log(`splitting complete, with ${maxPage + 1} pages`);
     }
 
