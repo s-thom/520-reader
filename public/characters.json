@@ -5,5 +5,187 @@
       "Alice"
     ],
     "image": ""
+  },
+  {
+    "display-name": "White Kitten",
+    "names": [
+      "White Kitten",
+      "Snowdrop"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Black Kitten",
+    "names": [
+      "Black Kitten",
+      "Kitty"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Dinah",
+    "names": [
+      "Dinah",
+      "old cat"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Red King",
+    "names": [
+      "Red King"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Red Queen",
+    "names": [
+      "Red Queen"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "White King",
+    "names": [
+      "White King"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "White Queen",
+    "names": [
+      "White Queen"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Lily",
+    "names": [
+      "Lily"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "White Knight",
+    "names": [
+      "White Knight",
+      "the knight"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Tiger-lily",
+    "names": [
+      "Tiger-lily"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "The Rose",
+    "names": [
+      "The Rose"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Daisy",
+    "names": [
+      "Daisy"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "The Guard",
+    "names": [
+      "The Guard"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "The Gnat",
+    "names": [
+      "the little voice",
+      "the gnat"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Tweedledum",
+    "names": [
+      "Tweedledum"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Tweedledee",
+    "names": [
+      "Tweedledee"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "The Sheep",
+    "names": [
+      "The Sheep"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Humpty Dumpty",
+    "names": [
+      "Humpty Dumpty"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Haigha",
+    "names": [
+      "The messenger",
+      "Haigha"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Hatta",
+    "names": [
+      "Hatta",
+      "haigha"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "The Lion",
+    "names": [
+      "The Lion"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "The Unicorn",
+    "names": [
+      "The Unicorn"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "Red Knight",
+    "names": [
+      "Red Knight"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "The Frog",
+    "names": [
+      "The Frog"
+    ],
+    "image": ""
+  },
+  {
+    "display-name": "The Pudding",
+    "names": [
+      "The Pudding"
+    ],
+    "image": ""
   }
 ]
