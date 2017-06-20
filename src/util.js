@@ -36,6 +36,18 @@ export function punctuationSplit(text) {
       .match(/(?:([\s\S]+?)(?:['’.!?,\n]+|$))/g);
 }
 
+const escapeExp = /[-\/\\^$*+?.()|[\]{}]/g;
+/**
+ * Escapes special characters is a string used for RegEx
+ * 
+ * @export
+ * @param {string} text Text to escape
+ * @returns {string} Escaped text
+ */
+export function escapeRegex(text) {
+  return text.replace(escapeExp, '\\$&');
+}
+
 /**
  * Document and Window globals
  */

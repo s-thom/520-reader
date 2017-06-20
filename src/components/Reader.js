@@ -5,6 +5,7 @@ import ReactSVG from 'react-svg';
 import Page from './Page';
 import PageSplitter from './PageSplitter';
 import BookLine from './BookLine';
+import Character from '../Character';
 import {dimensions} from '../util';
 import './Reader.css';
 import leftArrow from '../res/ic_keyboard_arrow_left_black_24px.svg';
@@ -251,7 +252,8 @@ class Reader extends Component {
 }
 
 Reader.propTypes = {
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired
 };
 
 export default Reader;
