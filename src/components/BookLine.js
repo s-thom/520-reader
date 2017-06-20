@@ -33,6 +33,7 @@ class BookLine extends Component {
       showAll: this.state.showAll
     };
 
+    // Choose which type of line to use
     let line;
     switch (this.state.type) {
       case 'basic':
@@ -56,6 +57,7 @@ class BookLine extends Component {
 
     return (
       <div className="BookLine">
+        {/* Line type selection */}
         <div>
           <button 
             onClick={()=>this.setState({
@@ -105,8 +107,6 @@ class BookLine extends Component {
         }
       });
   }
-
-  
 }
 
 BookLine.defaultProps = {

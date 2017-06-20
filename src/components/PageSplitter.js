@@ -10,6 +10,7 @@ const MAX_LENGTH = 5000;
 
 /**
  * Component that determines how much text can be displayed on a page
+ * Calls the onfinish callback property with the final text
  * 
  * @class PageSplitter
  * @extends {Component}
@@ -39,6 +40,7 @@ class PageSplitter extends Component {
   }
 
   componentWillReceiveProps(newProps) {
+    // Going to render new page, set initial state
     if (newProps.text === '') {
       this.doFinish('');
       return;
@@ -56,6 +58,8 @@ class PageSplitter extends Component {
   }
 
   componentDidUpdate() {
+    // State updated, add another sentence fragment, or finish
+
     // Finish this split if:
     //   The page has all items, or
     //   the page has rendered larger than the container (i.e. there's a scrollbar)
@@ -78,6 +82,13 @@ class PageSplitter extends Component {
     });
   }
 
+  /**
+   * Calls the callback on the next tick, which reduces call stack overflows
+   * 
+   * @param {string} text Text that fits on the page
+   * 
+   * @memberof PageSplitter
+   */
   doFinish(text) {
     setImmediate(() => {
       this.props.onfinish(text);
