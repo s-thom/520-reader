@@ -1,0 +1,14 @@
+.CharacterList {
+  /* Reduce font size here */
+  font-size: 0.75em;
+  display: flex;
+}
+
+.char {
+  background-color: #fff;
+  border-radius: 1em;
+  margin: .5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  box-shadow: 0 0 3px rgba(0,0,0,0.16), 0 0 3px rgba(0,0,0,0.23);
+}

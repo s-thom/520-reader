@@ -18,14 +18,19 @@ class CharacterList extends Component {
 
   render() {
     let curr = this.props.current;
-
     let page = this.props.pages[curr];
 
-    // Choose which type of line to use
-    let list = this.findCharacters(page.props.text)
-      .map(c => c.name)
-      .join(', ');
-    console.log(`${curr}: ${list}`);
+    let characters = this.findCharacters(page.props.text);
+
+    let list = characters.map((char) => {
+      return (
+        <div 
+          key={`char-${char.name}`}
+          className="char">
+          <span className="char-name">{char.name}</span>
+        </div>
+      );
+    });
 
     return (
       <div className="CharacterList">
