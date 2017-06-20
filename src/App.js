@@ -34,13 +34,6 @@ class App extends Component {
           characters
         });
       });
-
-    request('/looking-glass.txt')
-      .then((body) => {
-        this.setState({
-          text: body
-        });
-      });
   }
 
   render() {

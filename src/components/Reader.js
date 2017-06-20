@@ -5,6 +5,7 @@ import ReactSVG from 'react-svg';
 import Page from './Page';
 import PageSplitter from './PageSplitter';
 import BookLine from './BookLine';
+import CharacterList from './CharacterList';
 import Character from '../Character';
 import {dimensions} from '../util';
 import './Reader.css';
@@ -92,14 +93,22 @@ class Reader extends Component {
     );
     let bookline = this.state.splitting ? (
       null
-    ) : (
+    ) : ([
+      <CharacterList 
+        key="characterlist"
+        pages={this.pages}
+        characters={this.props.characters}
+        current={this.state.page}
+        progress={this.state.maxPage}
+        />,
       <BookLine 
+        key="bookline"
         pages={this.pages}
         character={character}
         current={this.state.page}
         progress={this.state.maxPage}
         />
-    );
+    ]);
     let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
 
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
