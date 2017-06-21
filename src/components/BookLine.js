@@ -21,7 +21,18 @@ class BookLine extends Component {
       type: 'number',
       showAll: false
     };
-  } 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.character === this.props.character) {
+      return;
+    }
+
+    this.setState({
+      ...this.state,
+      occurences: this.findOccurences(nextProps.pages, nextProps.character)
+    });
+  }
 
   render() {
     let occ = this.state.occurences;
