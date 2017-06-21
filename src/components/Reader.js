@@ -79,7 +79,7 @@ class Reader extends Component {
   }
 
   render() {
-    let character = 'Alice';
+    let character = this.props.characters[0];
 
 
     let page = this.state.splitting ? (
@@ -100,6 +100,7 @@ class Reader extends Component {
         characters={this.props.characters}
         current={this.state.page}
         progress={this.state.maxPage}
+        selected={character}
         />,
       <BookLine 
         key="bookline"

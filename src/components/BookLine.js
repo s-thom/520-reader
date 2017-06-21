@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Character  from '../Character';
 import {WeightedLine, BasicLine, NumberLine, ChunkedLine, DivergingLine} from './lines';
 import Page from './Page';
 import './BookLine.css';
@@ -98,13 +99,8 @@ class BookLine extends Component {
   findOccurences(pages, character) {
     return pages
       .map(p => p.props.text)
-      .map(t => t.match(new RegExp(character, 'ig')))
-      .map((match) => {
-        if (match) {
-          return match.length;
-        } else {
-          return 0;
-        }
+      .map((text) => {
+        return character.numberOfOccurrences(text);
       });
   }
 }
@@ -114,8 +110,8 @@ BookLine.defaultProps = {
 };
 
 BookLine.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.instanceOf(Page)),
-  character: PropTypes.string.isRequired,
+  pages: PropTypes.arrayOf(PropTypes.instanceOf(Page)).isRequired,
+  character: PropTypes.instanceOf(Character).isRequired,
   progress: PropTypes.number.isRequired,
   current: PropTypes.number
 };
