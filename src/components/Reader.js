@@ -5,6 +5,8 @@ import ReactSVG from 'react-svg';
 import Page from './Page';
 import PageSplitter from './PageSplitter';
 import BookLine from './BookLine';
+import CharacterList from './CharacterList';
+import Character from '../Character';
 import {dimensions} from '../util';
 import './Reader.css';
 import leftArrow from '../res/ic_keyboard_arrow_left_black_24px.svg';
@@ -26,7 +28,8 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       remainingText: this.props.text,
-      showBookline: false
+      showBookline: false,
+      character: null
     };
 
     this.pages = [];
@@ -76,10 +79,22 @@ class Reader extends Component {
     });
   }
 
+  onCharacterSelected(character) {
+    if (character === this.state.character) {
+      this.setState({
+        ...this.state,
+        character: null
+      });
+      return;
+    }
+
+    this.setState({
+      ...this.state,
+      character: character
+    });
+  }
+
   render() {
-    let character = 'Alice';
-
-
     let page = this.state.splitting ? (
       <PageSplitter
         text={this.state.remainingText}
@@ -91,14 +106,24 @@ class Reader extends Component {
     );
     let bookline = this.state.splitting ? (
       null
-    ) : (
-      <BookLine 
+    ) : ([
+      <CharacterList 
+        key="characterlist"
         pages={this.pages}
-        character={character}
+        characters={this.props.characters}
         current={this.state.page}
         progress={this.state.maxPage}
-        />
-    );
+        selected={this.state.character}
+        onselected={(c)=>this.onCharacterSelected(c)}
+        />,
+      this.state.character ? <BookLine 
+        key="bookline"
+        pages={this.pages}
+        character={this.state.character}
+        current={this.state.page}
+        progress={this.state.maxPage}
+        /> : null
+    ]);
     let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
 
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
@@ -251,7 +276,8 @@ class Reader extends Component {
 }
 
 Reader.propTypes = {
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired
 };
 
 export default Reader;

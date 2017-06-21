@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {Reader, Loading} from './components';
+import Character from './Character';
 import {request} from './util';
 import './App.css';
 
@@ -16,13 +17,21 @@ class App extends Component {
     super(props);
 
     this.state = {
-      fullText: undefined
+      text: undefined
     };
 
-    request('/looking-glass.txt')
-      .then((body) => {
+    Promise.all([
+      request('/looking-glass.txt'),
+      request('/characters.json')
+        .then(JSON.parse)
+        .then((cs) => {
+          return cs.map(c => new Character(c['display-name'], c.names, c.image));
+        })
+    ])
+      .then(([text, characters]) => {
         this.setState({
-          fullText: body
+          text,
+          characters
         });
       });
   }
@@ -31,7 +40,7 @@ class App extends Component {
     return (
       <div className="App">
         {/* Show a loading component until the text has loaded */}
-        {this.state.fullText ? <Reader text={this.state.fullText} /> : <Loading />}
+        {this.state.text ? <Reader {...this.state} /> : <Loading />}
       </div>
     );
   }
