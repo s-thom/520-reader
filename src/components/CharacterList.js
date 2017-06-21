@@ -27,6 +27,7 @@ class CharacterList extends Component {
         <div 
           key={`char-${char.name}`}
           className="char">
+          {char.imageUrl && <img className="char-img" src={char.imageUrl} />}
           <span className="char-name">{char.name}</span>
         </div>
       );

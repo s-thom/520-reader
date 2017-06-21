@@ -2,13 +2,25 @@
   /* Reduce font size here */
   font-size: 0.75em;
   display: flex;
+  flex-wrap: wrap;
+  /*justify-content: space-between;*/
 }
 
 .char {
   background-color: #fff;
   border-radius: 1em;
-  margin: .5em;
+  margin: .25em;
+  box-shadow: 0 0 3px rgba(0,0,0,0.16), 0 0 3px rgba(0,0,0,0.23);
+}
+
+.char-img {
+  height: 2em;
+  width: 2em;
+  vertical-align: bottom;
+  border-radius: 1em;
+}
+
+.char-name {
   padding-left: 0.5em;
   padding-right: 0.5em;
-  box-shadow: 0 0 3px rgba(0,0,0,0.16), 0 0 3px rgba(0,0,0,0.23);
 }
