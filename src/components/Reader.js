@@ -28,7 +28,8 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       remainingText: this.props.text,
-      showBookline: false
+      showBookline: false,
+      character: null
     };
 
     this.pages = [];
@@ -78,10 +79,22 @@ class Reader extends Component {
     });
   }
 
+  onCharacterSelected(character) {
+    if (character === this.state.character) {
+      this.setState({
+        ...this.state,
+        character: null
+      });
+      return;
+    }
+
+    this.setState({
+      ...this.state,
+      character: character
+    });
+  }
+
   render() {
-    let character = this.props.characters[0];
-
-
     let page = this.state.splitting ? (
       <PageSplitter
         text={this.state.remainingText}
@@ -100,15 +113,16 @@ class Reader extends Component {
         characters={this.props.characters}
         current={this.state.page}
         progress={this.state.maxPage}
-        selected={character}
+        selected={this.state.character}
+        onselected={(c)=>this.onCharacterSelected(c)}
         />,
-      <BookLine 
+      this.state.character ? <BookLine 
         key="bookline"
         pages={this.pages}
-        character={character}
+        character={this.state.character}
         current={this.state.page}
         progress={this.state.maxPage}
-        />
+        /> : null
     ]);
     let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
 

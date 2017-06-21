@@ -29,7 +29,8 @@ class CharacterList extends Component {
       return (
         <div 
           key={`char-${char.name}`}
-          className={charClass}>
+          className={charClass}
+          onClick={()=>this.onSelect(char)}>
           {char.imageUrl && <img 
             className="char-img" 
             src={char.imageUrl}
@@ -51,6 +52,14 @@ class CharacterList extends Component {
       return character.numberOfOccurrences(text) > 0;
     });
   }
+
+  onSelect(char) {
+    setImmediate(() => {
+      if (this.props.onselected) {
+        this.props.onselected(char);
+      }
+    });
+  }
 }
 
 CharacterList.defaultProps = {
@@ -62,7 +71,8 @@ CharacterList.propTypes = {
   progress: PropTypes.number.isRequired,
   current: PropTypes.number,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
-  selected: PropTypes.instanceOf(Character)
+  selected: PropTypes.instanceOf(Character),
+  onselected: PropTypes.func
 };
 
 export default CharacterList;
