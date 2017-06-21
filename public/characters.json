@@ -4,7 +4,7 @@
     "names": [
       "Alice"
     ],
-    "image": ""
+    "image": "/img/alice.png"
   },
   {
     "display-name": "White Kitten",
@@ -12,7 +12,7 @@
       "White Kitten",
       "Snowdrop"
     ],
-    "image": ""
+    "image": "/img/white-kitten.png"
   },
   {
     "display-name": "Black Kitten",
@@ -20,7 +20,7 @@
       "Black Kitten",
       "Kitty"
     ],
-    "image": ""
+    "image": "/img/black-kitten.png"
   },
   {
     "display-name": "Dinah",
@@ -35,35 +35,28 @@
     "names": [
       "Red King"
     ],
-    "image": ""
+    "image": "/img/red-king.png"
   },
   {
     "display-name": "Red Queen",
     "names": [
       "Red Queen"
     ],
-    "image": ""
+    "image": "/img/red-queen.png"
   },
   {
     "display-name": "White King",
     "names": [
       "White King"
     ],
-    "image": ""
+    "image": "/img/white-king.png"
   },
   {
     "display-name": "White Queen",
     "names": [
       "White Queen"
     ],
-    "image": ""
-  },
-  {
-    "display-name": "Lily",
-    "names": [
-      "Lily"
-    ],
-    "image": ""
+    "image": "/img/white-queen.png"
   },
   {
     "display-name": "White Knight",
@@ -71,21 +64,21 @@
       "White Knight",
       "the knight"
     ],
-    "image": ""
+    "image": "/img/white-knight.png"
   },
   {
     "display-name": "Tiger-lily",
     "names": [
       "Tiger-lily"
     ],
-    "image": ""
+    "image": "/img/tiger-lily.png"
   },
   {
     "display-name": "The Rose",
     "names": [
       "The Rose"
     ],
-    "image": ""
+    "image": "/img/rose.png"
   },
   {
     "display-name": "Daisy",
@@ -99,7 +92,7 @@
     "names": [
       "The Guard"
     ],
-    "image": ""
+    "image": "/img/traing-guard.png"
   },
   {
     "display-name": "The Gnat",
@@ -114,28 +107,28 @@
     "names": [
       "Tweedledum"
     ],
-    "image": ""
+    "image": "/img/dum.png"
   },
   {
     "display-name": "Tweedledee",
     "names": [
       "Tweedledee"
     ],
-    "image": ""
+    "image": "/img/dee.png"
   },
   {
     "display-name": "The Sheep",
     "names": [
       "The Sheep"
     ],
-    "image": ""
+    "image": "/img/sheep.png"
   },
   {
     "display-name": "Humpty Dumpty",
     "names": [
       "Humpty Dumpty"
     ],
-    "image": ""
+    "image": "/img/humpty-dumpty.png"
   },
   {
     "display-name": "Haigha",
@@ -143,29 +136,28 @@
       "The messenger",
       "Haigha"
     ],
-    "image": ""
+    "image": "/img/hare.png"
   },
   {
     "display-name": "Hatta",
     "names": [
-      "Hatta",
-      "haigha"
+      "Hatta"
     ],
-    "image": ""
+    "image": "/img/hatter.png"
   },
   {
     "display-name": "The Lion",
     "names": [
       "The Lion"
     ],
-    "image": ""
+    "image": "/img/lion.png"
   },
   {
     "display-name": "The Unicorn",
     "names": [
       "The Unicorn"
     ],
-    "image": ""
+    "image": "/img/unicorn.png"
   },
   {
     "display-name": "Red Knight",
