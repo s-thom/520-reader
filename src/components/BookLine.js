@@ -46,31 +46,31 @@ class BookLine extends Component {
     };
 
     // Choose which type of line to use
-    let line;
-    switch (this.state.type) {
-      case 'basic':
-        line = <BasicLine {...props} />;
-        break;
-      case 'weighted':
-        line = <WeightedLine {...props} />;
-        break;
-      case 'number':
-        line = <NumberLine {...props} />;
-        break;
-      case 'chunked':
-        line = <ChunkedLine {...props} chunk={3} />;
-        break;
-      case 'diverging':
-        line = <DivergingLine {...props} />;
-        break;
-      default:
-        throw 'invalid line type';
-    }
+    let line = <WeightedLine {...props} />;
+    // switch (this.state.type) {
+    //   case 'basic':
+    //     line = <BasicLine {...props} />;
+    //     break;
+    //   case 'weighted':
+    //     line = <WeightedLine {...props} />;
+    //     break;
+    //   case 'number':
+    //     line = <NumberLine {...props} />;
+    //     break;
+    //   case 'chunked':
+    //     line = <ChunkedLine {...props} chunk={3} />;
+    //     break;
+    //   case 'diverging':
+    //     line = <DivergingLine {...props} />;
+    //     break;
+    //   default:
+    //     throw 'invalid line type';
+    // }
 
     return (
       <div className="BookLine">
         {/* Line type selection */}
-        <div>
+        {/*<div>
           <button 
             onClick={()=>this.setState({
               ...this.state,
@@ -101,7 +101,7 @@ class BookLine extends Component {
               ...this.state,
               showAll: !this.state.showAll
             })} >Toggle Show All</button>
-        </div>
+        </div>*/}
         {line}
       </div>
     );
