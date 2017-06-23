@@ -48,18 +48,16 @@ class Reader extends Component {
    * @memberof Reader
    */
   onSplitterFinish(result) {
-    let maxPage = this.state.maxPage;
     let stillSplit = this.state.splitting;
     let rest = this.state.remainingText.slice(result.length);
     let nextPage = this.state.page + 1;
 
     if (result === '' || rest === '') {
-      maxPage = this.state.page;
       stillSplit = false;
       nextPage = 0;
 
       // eslint-disable-next-line no-console
-      console.log(`splitting complete, with ${maxPage + 1} pages`);
+      console.log(`splitting complete, with ${this.state.page + 1} pages`);
     }
 
     this.pages.push(
@@ -73,7 +71,7 @@ class Reader extends Component {
       ...this.state,
       page: nextPage,
       splitting: stillSplit,
-      maxPage: maxPage,
+      maxPage: 0,
       remainingText: rest
     });
   }
