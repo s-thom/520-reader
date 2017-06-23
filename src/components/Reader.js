@@ -115,6 +115,7 @@ class Reader extends Component {
         progress={this.state.maxPage}
         selected={this.state.character}
         onselected={(c)=>this.onCharacterSelected(c)}
+        wrap
         />,
       this.state.character ? <BookLine 
         key="bookline"

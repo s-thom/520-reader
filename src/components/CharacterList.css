@@ -9,6 +9,10 @@
   flex-wrap: wrap;
 }
 
+.CharacterList.vertical {
+  flex-direction: column;
+}
+
 .char {
   background-color: #fff;
   border-radius: 1em;

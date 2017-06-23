@@ -24,7 +24,13 @@ class CharacterList extends Component {
     }
 
     let list = characters.map((char) => {
-      let charClass = `char${char === this.props.selected ? ' char-selected' : ''}`;
+      let charClasses = [
+        'char'
+      ];
+      if (char === this.props.selected) {
+        charClasses.push('char-selected');
+      }
+
       let charIcon = char.imageUrl ? (
         <img 
           className="char-icon char-img" 
@@ -36,19 +42,28 @@ class CharacterList extends Component {
         </span>
       );
 
+      let showLabel = !this.props.vertical || char === this.props.selected;
+
       return (
         <div 
           key={`char-${char.name}`}
-          className={charClass}
+          className={charClasses.join(' ')}
           onClick={()=>this.onSelect(char)}>
-          <span className="char-name">{char.name}</span>
           {charIcon}
+          {showLabel && <span className="char-name">{char.name}</span>}
         </div>
       );
     });
 
+    let classes = [
+      'CharacterList'
+    ];
+    if (this.props.wrap) {
+      classes.push('wrap');
+    }
+
     return (
-      <div className="CharacterList wrap">
+      <div className={classes.join(' ')}>
         {list}
       </div>
     );
@@ -79,7 +94,9 @@ CharacterList.propTypes = {
   current: PropTypes.number,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   selected: PropTypes.instanceOf(Character),
-  onselected: PropTypes.func
+  onselected: PropTypes.func,
+  wrap: PropTypes.bool,
+  vertical: PropTypes.bool
 };
 
 export default CharacterList;
