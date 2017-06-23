@@ -5,6 +5,8 @@ import ReactSVG from 'react-svg';
 import Page from './Page';
 import PageSplitter from './PageSplitter';
 import BookLine from './BookLine';
+import CharacterList from './CharacterList';
+import Character from '../Character';
 import {dimensions} from '../util';
 import './Reader.css';
 import leftArrow from '../res/ic_keyboard_arrow_left_black_24px.svg';
@@ -26,7 +28,7 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       remainingText: this.props.text,
-      showBookline: false
+      character: null
     };
 
     this.pages = [];
@@ -46,18 +48,16 @@ class Reader extends Component {
    * @memberof Reader
    */
   onSplitterFinish(result) {
-    let maxPage = this.state.maxPage;
     let stillSplit = this.state.splitting;
     let rest = this.state.remainingText.slice(result.length);
     let nextPage = this.state.page + 1;
 
     if (result === '' || rest === '') {
-      maxPage = this.state.page;
       stillSplit = false;
       nextPage = 0;
 
       // eslint-disable-next-line no-console
-      console.log(`splitting complete, with ${maxPage + 1} pages`);
+      console.log(`splitting complete, with ${this.state.page + 1} pages`);
     }
 
     this.pages.push(
@@ -71,15 +71,27 @@ class Reader extends Component {
       ...this.state,
       page: nextPage,
       splitting: stillSplit,
-      maxPage: maxPage,
+      maxPage: 0,
       remainingText: rest
     });
   }
 
+  onCharacterSelected(character) {
+    if (character === this.state.character) {
+      this.setState({
+        ...this.state,
+        character: null
+      });
+      return;
+    }
+
+    this.setState({
+      ...this.state,
+      character: character
+    });
+  }
+
   render() {
-    let character = 'Alice';
-
-
     let page = this.state.splitting ? (
       <PageSplitter
         text={this.state.remainingText}
@@ -89,19 +101,34 @@ class Reader extends Component {
     ) : (
       this.pages[this.state.page]
     );
-    let bookline = this.state.splitting ? (
-      null
-    ) : (
+    let bookline = ((!this.state.splitting) && this.state.character) ? (
       <BookLine 
+        key="bookline"
         pages={this.pages}
-        character={character}
+        character={this.state.character}
         current={this.state.page}
         progress={this.state.maxPage}
         />
-    );
-    let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
+    ) : null;
+    let booklineClass = `bookline-container${this.state.character?' bookline-show':''}`;
+
+    let charList = (!this.state.splitting) ? (
+      <div className="reader-characters">
+        <CharacterList 
+          key="characterlist"
+          pages={this.pages}
+          characters={this.props.characters}
+          current={this.state.page}
+          progress={this.state.maxPage}
+          selected={this.state.character}
+          onselected={(c)=>this.onCharacterSelected(c)}
+          vertical
+          />
+      </div>
+    ) : null;
 
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
+    let charName = this.state.character ? this.state.character.name : 'UNKNOWN';
 
     return (
       <div className="Reader">
@@ -114,7 +141,9 @@ class Reader extends Component {
           >
           {page}
         </div>
+        {charList}
         <div className={booklineClass}>
+          <h2>{`Bookline for ${charName}`}</h2>
           {bookline}
         </div>
         <div className={navClass}>
@@ -209,7 +238,7 @@ class Reader extends Component {
         // Show/hide bookline
         this.setState({
           ...this.state,
-          showBookline: !this.state.showBookline
+          character: null
         });
       }
 
@@ -251,7 +280,8 @@ class Reader extends Component {
 }
 
 Reader.propTypes = {
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired
 };
 
 export default Reader;

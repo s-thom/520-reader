@@ -36,6 +36,34 @@ export function punctuationSplit(text) {
       .match(/(?:([\s\S]+?)(?:['’.!?,\n]+|$))/g);
 }
 
+const escapeExp = /[-\/\\^$*+?.()|[\]{}]/g;
+/**
+ * Escapes special characters is a string used for RegEx
+ * 
+ * @export
+ * @param {string} text Text to escape
+ * @returns {string} Escaped text
+ */
+export function escapeRegex(text) {
+  return text.replace(escapeExp, '\\$&');
+}
+
+/** 
+ * Finds the average of an array of numbers 
+ *  
+ * @export 
+ * @param {number[]} arr Array to average 
+ * @returns number Average value 
+ */ 
+export function average(arr) { 
+  if (arr.length === 0) { 
+    return undefined; 
+  } 
+ 
+  let total = arr.reduce((c, t) => c + t, 0); 
+  return total / arr.length; 
+} 
+
 /**
  * Document and Window globals
  */
