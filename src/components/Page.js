@@ -14,6 +14,7 @@ class Page extends Component {
   render() {
     let paragraphs = this.props.text
       .split(/\r?\n\r?\n/)
+      .filter(t => !!t)
       .map((para, i) => {
         let id = `${this.props.identifier}-${i}`;
 
