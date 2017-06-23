@@ -2,8 +2,11 @@
   /* Reduce font size here */
   font-size: 0.75em;
   display: flex;
-  flex-wrap: wrap;
   /*justify-content: space-between;*/
+}
+
+.CharacterList.wrap {
+  flex-wrap: wrap;
 }
 
 .char {
@@ -13,11 +16,25 @@
   box-shadow: 0 0 3px rgba(0,0,0,0.16), 0 0 3px rgba(0,0,0,0.23);
 }
 
-.char-img {
+.char-icon {
   height: 2em;
   width: 2em;
-  vertical-align: bottom;
   border-radius: 1em;
+}
+
+.char-img {
+  vertical-align: bottom;
+}
+
+.char-initial {
+  background-color: #333;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+}
+
+.char-initial-content {
+  font-size: 1.2em;
 }
 
 .char:not(.char-selected) .char-img {

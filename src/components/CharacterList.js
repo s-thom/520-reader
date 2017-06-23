@@ -25,23 +25,30 @@ class CharacterList extends Component {
 
     let list = characters.map((char) => {
       let charClass = `char${char === this.props.selected ? ' char-selected' : ''}`;
+      let charIcon = char.imageUrl ? (
+        <img 
+          className="char-icon char-img" 
+          src={char.imageUrl}
+          alt={char.name} />
+      ) : (
+        <span className="char-icon char-initial">
+          <span className="char-initial-content">{char.name[0].toUpperCase()}</span>
+        </span>
+      );
 
       return (
         <div 
           key={`char-${char.name}`}
           className={charClass}
           onClick={()=>this.onSelect(char)}>
-          {char.imageUrl && <img 
-            className="char-img" 
-            src={char.imageUrl}
-            alt={char.name} />}
           <span className="char-name">{char.name}</span>
+          {charIcon}
         </div>
       );
     });
 
     return (
-      <div className="CharacterList">
+      <div className="CharacterList wrap">
         {list}
       </div>
     );
