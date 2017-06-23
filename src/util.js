@@ -76,6 +76,6 @@ export {document, window};
  * TODO: Update with window resizing
  */
 export let dimensions = {
-  x: window.innerHeight,
-  y: window.innerWidth
+  x: window.innerWidth,
+  y: window.innerHeight
 };
