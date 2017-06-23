@@ -2,8 +2,16 @@
   /* Reduce font size here */
   font-size: 0.75em;
   display: flex;
-  flex-wrap: wrap;
   /*justify-content: space-between;*/
+}
+
+.CharacterList.wrap {
+  flex-wrap: wrap;
+}
+
+.CharacterList.vertical {
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .char {
@@ -11,16 +19,39 @@
   border-radius: 1em;
   margin: .25em;
   box-shadow: 0 0 3px rgba(0,0,0,0.16), 0 0 3px rgba(0,0,0,0.23);
+  display: inline-flex;
+  -webkit-transition: width .2s;
+  -moz-transition: width .2s;
+  transition: width .2s;
+}
+
+.char-icon {
+  height: 2em;
+  width: 2em;
+  border-radius: 1em;
+  transition: opacity 0.2s;
 }
 
 .char-img {
-  height: 2em;
-  width: 2em;
   vertical-align: bottom;
-  border-radius: 1em;
 }
 
-.char:not(.char-selected) .char-img {
+.char-initial {
+  background-color: #333;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+}
+
+.char-initial-content {
+  font-size: 1.2em;
+}
+
+.vertical .char .char-name {
+  order: -1;
+}
+
+.char:not(.char-selected) .char-icon {
   opacity: 0.5;
 }
 

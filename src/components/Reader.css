@@ -12,6 +12,8 @@
   flex-grow: 1;
   flex-shrink: 1;
   display: flex;
+  padding-left: .5em;
+  padding-right: 1.5em;
   /*-webkit-transition: left 0.1s ease-out;
   -moz-transition: left 0.1s ease-out;
   transition: left 0.1s ease-out;*/
@@ -45,4 +47,11 @@
 
 .hidden {
   visibility: hidden;
+}
+
+.reader-characters {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 1em;
 }

@@ -28,7 +28,6 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       remainingText: this.props.text,
-      showBookline: false,
       character: null
     };
 
@@ -49,18 +48,16 @@ class Reader extends Component {
    * @memberof Reader
    */
   onSplitterFinish(result) {
-    let maxPage = this.state.maxPage;
     let stillSplit = this.state.splitting;
     let rest = this.state.remainingText.slice(result.length);
     let nextPage = this.state.page + 1;
 
     if (result === '' || rest === '') {
-      maxPage = this.state.page;
       stillSplit = false;
       nextPage = 0;
 
       // eslint-disable-next-line no-console
-      console.log(`splitting complete, with ${maxPage + 1} pages`);
+      console.log(`splitting complete, with ${this.state.page + 1} pages`);
     }
 
     this.pages.push(
@@ -74,7 +71,7 @@ class Reader extends Component {
       ...this.state,
       page: nextPage,
       splitting: stillSplit,
-      maxPage: maxPage,
+      maxPage: 0,
       remainingText: rest
     });
   }
@@ -104,27 +101,31 @@ class Reader extends Component {
     ) : (
       this.pages[this.state.page]
     );
-    let bookline = this.state.splitting ? (
-      null
-    ) : ([
-      <CharacterList 
-        key="characterlist"
-        pages={this.pages}
-        characters={this.props.characters}
-        current={this.state.page}
-        progress={this.state.maxPage}
-        selected={this.state.character}
-        onselected={(c)=>this.onCharacterSelected(c)}
-        />,
-      this.state.character ? <BookLine 
+    let bookline = ((!this.state.splitting) && this.state.character) ? (
+      <BookLine 
         key="bookline"
         pages={this.pages}
         character={this.state.character}
         current={this.state.page}
         progress={this.state.maxPage}
-        /> : null
-    ]);
-    let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
+        />
+    ) : null;
+    let booklineClass = `bookline-container${this.state.character?' bookline-show':''}`;
+
+    let charList = (!this.state.splitting) ? (
+      <div className="reader-characters">
+        <CharacterList 
+          key="characterlist"
+          pages={this.pages}
+          characters={this.props.characters}
+          current={this.state.page}
+          progress={this.state.maxPage}
+          selected={this.state.character}
+          onselected={(c)=>this.onCharacterSelected(c)}
+          vertical
+          />
+      </div>
+    ) : null;
 
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
 
@@ -139,6 +140,7 @@ class Reader extends Component {
           >
           {page}
         </div>
+        {charList}
         <div className={booklineClass}>
           {bookline}
         </div>
@@ -234,7 +236,7 @@ class Reader extends Component {
         // Show/hide bookline
         this.setState({
           ...this.state,
-          showBookline: !this.state.showBookline
+          character: null
         });
       }
 
