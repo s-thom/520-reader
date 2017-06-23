@@ -20,12 +20,16 @@
   margin: .25em;
   box-shadow: 0 0 3px rgba(0,0,0,0.16), 0 0 3px rgba(0,0,0,0.23);
   display: inline-flex;
+  -webkit-transition: width .2s;
+  -moz-transition: width .2s;
+  transition: width .2s;
 }
 
 .char-icon {
   height: 2em;
   width: 2em;
   border-radius: 1em;
+  transition: opacity 0.2s;
 }
 
 .char-img {
@@ -47,7 +51,7 @@
   order: -1;
 }
 
-.char:not(.char-selected) .char-img {
+.char:not(.char-selected) .char-icon {
   opacity: 0.5;
 }
 
