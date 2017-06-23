@@ -128,6 +128,7 @@ class Reader extends Component {
     ) : null;
 
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
+    let charName = this.state.character ? this.state.character.name : 'UNKNOWN';
 
     return (
       <div className="Reader">
@@ -142,6 +143,7 @@ class Reader extends Component {
         </div>
         {charList}
         <div className={booklineClass}>
+          <h2>{`Bookline for ${charName}`}</h2>
           {bookline}
         </div>
         <div className={navClass}>

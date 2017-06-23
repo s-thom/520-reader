@@ -54,18 +54,22 @@ class WeightedLine extends LineBase {
     let xStep = Math.floor(width / newPoints.length);
     let yStep = Math.floor(height / max);
 
-    let instructions = newPoints.map((point, index) => {
+    let currentX = current * xStep;
+    let progressX = progress * xStep;
+
+    let seenPages = newPoints.slice(0, progress + 1);
+    let instructions = seenPages.map((point, index) => {
       return `L${index * xStep},${height - (point * yStep)}`;
     });
+    let seenInstructions = `M0,${height} ${instructions.join(' ')} L${progressX},${height}`;
 
-    let cx = current * xStep;
-    let cy = height - (newPoints[current] * yStep);
 
     return (
       <div className="WeightedLine">
         <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
-          <path className="svg-path" d={`M0,${height} ${instructions.join(' ')}`} />
-          <circle className="svg-here" cx={cx} cy={cy} r="2" />
+          <path className="svg-path-fade" d={`M${progressX},${height} L${width},${height}`} />
+          <path className="svg-path" d={seenInstructions} />
+          <rect className="svg-here-line" x={currentX} y={0} width="1" height={height} />
         </svg>
       </div>
     );
