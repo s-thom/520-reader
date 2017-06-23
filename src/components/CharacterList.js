@@ -61,6 +61,9 @@ class CharacterList extends Component {
     if (this.props.wrap) {
       classes.push('wrap');
     }
+    if (this.props.vertical) {
+      classes.push('vertical');
+    }
 
     return (
       <div className={classes.join(' ')}>

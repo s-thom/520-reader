@@ -104,28 +104,31 @@ class Reader extends Component {
     ) : (
       this.pages[this.state.page]
     );
-    let bookline = this.state.splitting ? (
-      null
-    ) : ([
-      <CharacterList 
-        key="characterlist"
-        pages={this.pages}
-        characters={this.props.characters}
-        current={this.state.page}
-        progress={this.state.maxPage}
-        selected={this.state.character}
-        onselected={(c)=>this.onCharacterSelected(c)}
-        wrap
-        />,
-      this.state.character ? <BookLine 
+    let bookline = ((!this.state.splitting) && this.state.character) ? (
+      <BookLine 
         key="bookline"
         pages={this.pages}
         character={this.state.character}
         current={this.state.page}
         progress={this.state.maxPage}
-        /> : null
-    ]);
+        />
+    ) : null;
     let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
+
+    let charList = (!this.state.splitting) ? (
+      <div className="reader-characters">
+        <CharacterList 
+          key="characterlist"
+          pages={this.pages}
+          characters={this.props.characters}
+          current={this.state.page}
+          progress={this.state.maxPage}
+          selected={this.state.character}
+          onselected={(c)=>this.onCharacterSelected(c)}
+          vertical
+          />
+      </div>
+    ) : null;
 
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
 
@@ -140,6 +143,7 @@ class Reader extends Component {
           >
           {page}
         </div>
+        {charList}
         <div className={booklineClass}>
           {bookline}
         </div>

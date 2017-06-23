@@ -46,3 +46,9 @@
 .hidden {
   visibility: hidden;
 }
+
+.reader-characters {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

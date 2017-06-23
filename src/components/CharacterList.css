@@ -11,6 +11,7 @@
 
 .CharacterList.vertical {
   flex-direction: column;
+  align-items: flex-end;
 }
 
 .char {
@@ -18,6 +19,7 @@
   border-radius: 1em;
   margin: .25em;
   box-shadow: 0 0 3px rgba(0,0,0,0.16), 0 0 3px rgba(0,0,0,0.23);
+  display: inline-flex;
 }
 
 .char-icon {
@@ -39,6 +41,10 @@
 
 .char-initial-content {
   font-size: 1.2em;
+}
+
+.vertical .char .char-name {
+  order: -1;
 }
 
 .char:not(.char-selected) .char-img {
