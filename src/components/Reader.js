@@ -187,7 +187,7 @@ class Reader extends Component {
    * @memberof Reader
    */
   nextPage() {
-    this.setPage(Math.min(this.state.page + 1, this.pages.length));
+    this.setPage(Math.min(this.state.page + 1, this.pages.length - 1));
   }
 
   /**
