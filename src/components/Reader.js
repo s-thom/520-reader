@@ -147,7 +147,8 @@ class Reader extends Component {
       <div 
         tabIndex={0}
         className="Reader"
-        onKeyDown={(e)=>this.onKey(e)}>
+        onKeyDown={(e)=>this.onKey(e)}
+        ref={el => el && el.focus()}>
         <div 
           className="page-container"
           ref={(c) => this.pageContainer = c}
