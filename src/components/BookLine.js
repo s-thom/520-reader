@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Character  from '../Character';
-import {WeightedLine, BasicLine, NumberLine, ChunkedLine, DivergingLine} from './lines';
+import {WeightedLine} from './lines';
 import Page from './Page';
 import './BookLine.css';
 

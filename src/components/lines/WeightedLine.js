@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import LineBase from './LineBase';
 import './WeightedLine.css';
 
+import {dimensions} from '../../util';
+
 /**
  * A simple line
  * 
@@ -20,7 +22,7 @@ class WeightedLine extends LineBase {
    * @memberof WeightedLine
    */
   createLine(points, current, progress) {
-    let chunkWidth = Math.floor(points.length / 100);
+    let chunkWidth = Math.max(Math.floor(points.length / 100), 1);
     let newPoints = points
       .map((item, index) => {
         if (!this.props.showAll) {
@@ -49,10 +51,10 @@ class WeightedLine extends LineBase {
       return c > m ? c : m;
     }, 0);
 
-    let width = newPoints.length;
-    let height = 20;
-    let xStep = Math.floor(width / newPoints.length);
-    let yStep = Math.floor(height / max);
+    let width = dimensions.x;
+    let height = dimensions.y / 10;
+    let xStep = width / newPoints.length;
+    let yStep = height / max;
 
     let currentX = current * xStep;
     let progressX = progress * xStep;
