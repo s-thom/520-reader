@@ -91,6 +91,19 @@ class Reader extends Component {
     });
   }
 
+  onKey({key}) {
+    switch (key) {
+      case 'a':
+      case 'ArrowLeft':
+        this.prevPage();
+        break;
+      case 'd':
+      case 'ArrowRight':
+        this.nextPage();
+        break;
+    }
+  }
+
   render() {
     let page = this.state.splitting ? (
       <PageSplitter
@@ -131,7 +144,10 @@ class Reader extends Component {
     let charName = this.state.character ? this.state.character.name : 'UNKNOWN';
 
     return (
-      <div className="Reader">
+      <div 
+        tabIndex={0}
+        className="Reader"
+        onKeyDown={(e)=>this.onKey(e)}>
         <div 
           className="page-container"
           ref={(c) => this.pageContainer = c}
