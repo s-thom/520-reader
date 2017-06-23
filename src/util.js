@@ -36,7 +36,7 @@ export function punctuationSplit(text) {
       .match(/(?:([\s\S]+?)(?:['’.!?,\n]+|$))/g);
 }
 
-const escapeExp = /[-\/\\^$*+?.()|[\]{}]/g;
+const escapeExp = /[-/\\^$*+?.()|[\]{}]/g;
 /**
  * Escapes special characters is a string used for RegEx
  * 

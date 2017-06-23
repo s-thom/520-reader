@@ -101,6 +101,8 @@ class Reader extends Component {
       case 'ArrowRight':
         this.nextPage();
         break;
+      default:
+        break;
     }
   }
 
