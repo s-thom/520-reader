@@ -53,8 +53,8 @@ class WeightedLine extends LineBase {
 
     let width = dimensions.x;
     let height = dimensions.y / 10;
-    let xStep = Math.floor(width / newPoints.length);
-    let yStep = Math.floor(height / max);
+    let xStep = width / newPoints.length;
+    let yStep = height / max;
 
     let currentX = current * xStep;
     let progressX = progress * xStep;
