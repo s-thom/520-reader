@@ -67,6 +67,7 @@ class WeightedLine extends LineBase {
     return (
       <div className="WeightedLine">
         <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
+          <path className="svg-path-fade" d={`M${progressX},${height} L${width},${height}`} />
           <path className="svg-path" d={seenInstructions} />
           <rect className="svg-here-line" x={currentX} y={0} width="1" height={height} />
         </svg>
