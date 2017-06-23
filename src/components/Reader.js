@@ -28,7 +28,6 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       remainingText: this.props.text,
-      showBookline: false,
       character: null
     };
 
@@ -113,7 +112,7 @@ class Reader extends Component {
         progress={this.state.maxPage}
         />
     ) : null;
-    let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
+    let booklineClass = `bookline-container${this.state.character?' bookline-show':''}`;
 
     let charList = (!this.state.splitting) ? (
       <div className="reader-characters">
@@ -239,7 +238,7 @@ class Reader extends Component {
         // Show/hide bookline
         this.setState({
           ...this.state,
-          showBookline: !this.state.showBookline
+          character: null
         });
       }
 
