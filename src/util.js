@@ -36,7 +36,7 @@ export function punctuationSplit(text) {
       .match(/(?:([\s\S]+?)(?:['’.!?,\n]+|$))/g);
 }
 
-const escapeExp = /[-\/\\^$*+?.()|[\]{}]/g;
+const escapeExp = /[-/\\^$*+?.()|[\]{}]/g;
 /**
  * Escapes special characters is a string used for RegEx
  * 
@@ -76,6 +76,6 @@ export {document, window};
  * TODO: Update with window resizing
  */
 export let dimensions = {
-  x: window.innerHeight,
-  y: window.innerWidth
+  x: window.innerWidth,
+  y: window.innerHeight
 };
