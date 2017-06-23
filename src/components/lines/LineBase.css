@@ -1,5 +1,6 @@
 .svg-line {
   width: 100%;
+  display: block;
 }
 
 .svg-path {
