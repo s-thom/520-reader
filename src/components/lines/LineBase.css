@@ -1,12 +1,21 @@
 .svg-line {
   width: 100%;
 }
+
 .svg-path {
   width: 100%;
   fill: #81c8f9;
   stroke: #3792d3;
   stroke-width: 0.5;
 }
+
+.svg-path-fade {
+  width: 100%;
+  fill: transparent;
+  stroke: #AEAEAE;
+  stroke-width: 0.5;
+}
+
 .svg-here {
   /*fill: #ffc3a5;*/
   fill: #d8d2c9;
