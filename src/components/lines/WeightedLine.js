@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import LineBase from './LineBase';
 import './WeightedLine.css';
 
+import {dimensions} from '../../util';
+
 /**
  * A simple line
  * 
@@ -49,8 +51,8 @@ class WeightedLine extends LineBase {
       return c > m ? c : m;
     }, 0);
 
-    let width = newPoints.length;
-    let height = 20;
+    let width = dimensions.x;
+    let height = dimensions.y / 10;
     let xStep = Math.floor(width / newPoints.length);
     let yStep = Math.floor(height / max);
 
