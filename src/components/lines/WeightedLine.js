@@ -22,7 +22,7 @@ class WeightedLine extends LineBase {
    * @memberof WeightedLine
    */
   createLine(points, current, progress) {
-    let chunkWidth = Math.floor(points.length / 100);
+    let chunkWidth = Math.max(Math.floor(points.length / 100), 1);
     let newPoints = points
       .map((item, index) => {
         if (!this.props.showAll) {
