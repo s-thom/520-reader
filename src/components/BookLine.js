@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import Character  from '../Character';
 import {WeightedLine} from './lines';
-import Page from './Page';
 import './BookLine.css';
 
 /**
@@ -24,6 +23,7 @@ class BookLine extends Component {
   render() {
     let lines = this.props.characters
       .map((char, index) => {
+        // Don't add lines for placeholder indicies
         if (!char) {
           return null;
         }
@@ -37,6 +37,7 @@ class BookLine extends Component {
           showAll: this.state.showAll
         };
 
+        // line-item-${index} determines the colour of the line
         let containerClass = [
           'line-item',
           `line-item-${index}`

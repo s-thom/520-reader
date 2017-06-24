@@ -20,10 +20,12 @@ class LineBase extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // Don't chage state if the character hasn't changed
     if (nextProps.character === this.props.character) {
       return;
     }
 
+    // New character, so recalculate the occuences of the character
     this.setState({
       ...this.state,
       points: this.findOccurences(nextProps.pages, nextProps.character)
