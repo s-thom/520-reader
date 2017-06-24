@@ -23,8 +23,11 @@ class BookLine extends Component {
 
   render() {
     let lines = this.props.characters
-      .filter(c => c)
       .map((char, index) => {
+        if (!char) {
+          return null;
+        }
+
         let props = {
           key: `line-${index}`,
           pages: this.props.pages,
@@ -34,7 +37,17 @@ class BookLine extends Component {
           showAll: this.state.showAll
         };
 
-        return <WeightedLine {...props} />;
+        let containerClass = [
+          'line-item',
+          `line-item-${index}`
+        ].join(' ');
+
+        return (
+          <div
+            className={containerClass}>
+            <WeightedLine {...props} />
+          </div>
+        );
       });
 
     return (
