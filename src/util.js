@@ -33,7 +33,7 @@ export function request(url) {
  */
 export function punctuationSplit(text) {
   return text
-      .match(/(?:([\s\S]+?)(?:['’.!?,\n]+|$))/g);
+      .match(/(?:([\s\S]+?)(?:['’.!?,\n]+\W+|$))/g);
 }
 
 const escapeExp = /[-/\\^$*+?.()|[\]{}]/g;
