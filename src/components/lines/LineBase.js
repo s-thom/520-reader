@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Character from '../../Character';
 import './LineBase.css';
 
 /**
@@ -10,10 +11,29 @@ import './LineBase.css';
  * @extends {Component}
  */
 class LineBase extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      points: this.findOccurences(props.pages, props.character)
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.character === this.props.character) {
+      return;
+    }
+
+    this.setState({
+      ...this.state,
+      points: this.findOccurences(nextProps.pages, nextProps.character)
+    });
+  }
+
   render() {
     return (
       <div className="BookLineContent">
-        {this.createLine(this.props.points, this.props.current, this.props.progress)}
+        {this.createLine(this.state.points, this.props.current, this.props.progress)}
       </div>
     );
   }
@@ -37,10 +57,27 @@ class LineBase extends Component {
       </p>
     );
   }
+
+  /**
+   * Finds the number of times a characxter appears in each page
+   * 
+   * @param {Page[]} pages Pages to search through
+   * @param {Character} character Character to find
+   * @returns 
+   * @memberof LineBase
+   */
+  findOccurences(pages, character) {
+    return pages
+      .map(p => p.props.text)
+      .map((text) => {
+        return character.numberOfOccurrences(text);
+      });
+  }
 }
 
 LineBase.propTypes = {
-  points: PropTypes.arrayOf(PropTypes.number).isRequired,
+  pages: PropTypes.arrayOf(PropTypes.element).isRequired,
+  character: PropTypes.instanceOf(Character).isRequired,
   current: PropTypes.number.isRequired,
   progress: PropTypes.number.isRequired,
   showAll: PropTypes.bool

@@ -17,8 +17,6 @@ class BookLine extends Component {
     super(props);
 
     this.state = {
-      occurences: this.findOccurences(props.pages, props.character),
-      type: 'number',
       showAll: false
     };
   }
@@ -107,13 +105,6 @@ class BookLine extends Component {
     );
   }
 
-  findOccurences(pages, character) {
-    return pages
-      .map(p => p.props.text)
-      .map((text) => {
-        return character.numberOfOccurrences(text);
-      });
-  }
 }
 
 BookLine.defaultProps = {
