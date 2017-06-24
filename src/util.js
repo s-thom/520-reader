@@ -62,7 +62,25 @@ export function average(arr) {
  
   let total = arr.reduce((c, t) => c + t, 0); 
   return total / arr.length; 
-} 
+}
+
+/**
+ * A comparator function for primitive types
+ * 
+ * @export
+ * @param {any} a First item to compare
+ * @param {any} b Second item to compare
+ * @returns {number} Comparison
+ */
+export function primitiveComparator(a, b) {
+  if (a > b) {
+    return 1;
+  } else if (a < b) {
+    return -1;
+  } else {
+    return 0;
+  }
+}
 
 /**
  * Document and Window globals

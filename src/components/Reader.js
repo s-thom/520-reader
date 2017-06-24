@@ -7,7 +7,7 @@ import PageSplitter from './PageSplitter';
 import BookLine from './BookLine';
 import CharacterList from './CharacterList';
 import Character from '../Character';
-import {dimensions} from '../util';
+import {dimensions, primitiveComparator} from '../util';
 import './Reader.css';
 import leftArrow from '../res/ic_keyboard_arrow_left_black_24px.svg';
 import rightArrow from '../res/ic_keyboard_arrow_right_black_24px.svg';
@@ -77,21 +77,24 @@ class Reader extends Component {
   }
 
   onCharacterSelected(character) {
+    let charArray;
+
     // @ts-ignore
     if (this.state.characters.includes(character)) {
-      this.setState({
-        ...this.state,
-        characters: this.state.characters.filter(c => c !== character)
-      });
+      charArray = this.state.characters.filter(c => c !== character);
     } else {
-      this.setState({
-        ...this.state,
-        characters: [
-          ...this.state.characters,
-          character
-        ]
-      });
+      charArray = [
+        ...this.state.characters,
+        character
+      ];
     }
+
+    charArray.sort((a, b) => primitiveComparator(a.name, b.name))
+
+    this.setState({
+      ...this.state,
+      characters: charArray
+    });
   }
 
   onKey({key}) {

@@ -5,6 +5,8 @@ import Character from '../Character';
 import Page from './Page';
 import './CharacterList.css';
 
+import {primitiveComparator} from '../util';
+
 /**
  * Component to display a list of Characters
  * 
@@ -24,6 +26,8 @@ class CharacterList extends Component {
         }
       });
     }
+
+    characters.sort((a, b) => primitiveComparator(a.name, b.name));
 
     let list = characters.map((char) => {
       let charClasses = [
