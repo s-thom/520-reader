@@ -28,7 +28,7 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       remainingText: this.props.text,
-      character: null
+      characters: []
     };
 
     this.pages = [];
@@ -77,18 +77,21 @@ class Reader extends Component {
   }
 
   onCharacterSelected(character) {
-    if (character === this.state.character) {
+    // @ts-ignore
+    if (this.state.characters.includes(character)) {
       this.setState({
         ...this.state,
-        character: null
+        characters: this.state.characters.filter(c => c !== character)
       });
-      return;
+    } else {
+      this.setState({
+        ...this.state,
+        characters: [
+          ...this.state.characters,
+          character
+        ]
+      });
     }
-
-    this.setState({
-      ...this.state,
-      character: character
-    });
   }
 
   onKey({key}) {
@@ -135,7 +138,7 @@ class Reader extends Component {
           characters={this.props.characters}
           current={this.state.page}
           progress={this.state.maxPage}
-          selected={this.state.character}
+          selected={this.state.characters}
           onselected={(c)=>this.onCharacterSelected(c)}
           vertical
           />

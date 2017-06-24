@@ -17,17 +17,19 @@ class CharacterList extends Component {
     let page = this.props.pages[curr];
 
     let characters = this.findCharacters(page.props.text);
-    if (this.props.selected) {
-      if (!characters.includes(this.props.selected)) {
-        characters.unshift(this.props.selected);
-      }
+    if (this.props.selected.length) {
+      this.props.selected.forEach((char) => {
+        if (!characters.includes(char)) {
+          characters.unshift(char);
+        }
+      });
     }
 
     let list = characters.map((char) => {
       let charClasses = [
         'char'
       ];
-      if (char === this.props.selected) {
+      if (this.props.selected.includes(char)) {
         charClasses.push('char-selected');
       }
 
@@ -42,7 +44,7 @@ class CharacterList extends Component {
         </span>
       );
 
-      let showLabel = !this.props.vertical || char === this.props.selected;
+      let showLabel = !this.props.vertical || this.props.selected.includes(char);
 
       return (
         <div 
@@ -96,7 +98,7 @@ CharacterList.propTypes = {
   progress: PropTypes.number.isRequired,
   current: PropTypes.number,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
-  selected: PropTypes.instanceOf(Character),
+  selected: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   onselected: PropTypes.func,
   wrap: PropTypes.bool,
   vertical: PropTypes.bool
