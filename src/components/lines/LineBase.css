@@ -5,9 +5,10 @@
 
 .svg-path {
   width: 100%;
-  fill: #81c8f9;
-  stroke: #3792d3;
+  fill: #4CB3F7;
+  stroke: #0079D1;
   stroke-width: 0.5;
+  opacity: 0.5;
 }
 
 .svg-path-fade {
