@@ -81,15 +81,18 @@ class Reader extends Component {
 
     // @ts-ignore
     if (this.state.characters.includes(character)) {
-      charArray = this.state.characters.filter(c => c !== character);
+      charArray = this.state.characters.map(c => (c === character ? null : c));
     } else {
-      charArray = [
-        ...this.state.characters,
-        character
-      ];
+      // Make copy of array, so it is not mutated
+      charArray = this.state.characters.slice();
+      let i;
+      for (i = 0; i < charArray.length; i++) {
+        if (!charArray[i]) {
+          break;
+        }
+      }
+      charArray[i] = character;
     }
-
-    charArray.sort((a, b) => primitiveComparator(a.name, b.name))
 
     this.setState({
       ...this.state,

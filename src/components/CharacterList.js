@@ -21,6 +21,10 @@ class CharacterList extends Component {
     let characters = this.findCharacters(page.props.text);
     if (this.props.selected.length) {
       this.props.selected.forEach((char) => {
+        if (!char) {
+          return;
+        }
+
         if (!characters.includes(char)) {
           characters.unshift(char);
         }
@@ -35,6 +39,7 @@ class CharacterList extends Component {
       ];
       if (this.props.selected.includes(char)) {
         charClasses.push('char-selected');
+        charClasses.push(`selected-${this.props.selected.indexOf(char)}`);
       }
 
       let charIcon = char.imageUrl ? (
