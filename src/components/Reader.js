@@ -125,21 +125,21 @@ class Reader extends Component {
     ) : (
       this.pages[this.state.page]
     );
-    let bookline = ((!this.state.splitting) && this.state.character) ? (
+
+    let shouldMakeLine = ((!this.state.splitting) && this.state.characters.filter(c=>c).length);
+    let bookline = shouldMakeLine ? (
       <BookLine 
-        key="bookline"
         pages={this.pages}
-        character={this.state.character}
+        characters={this.state.characters}
         current={this.state.page}
         progress={this.state.maxPage}
         />
     ) : null;
-    let booklineClass = `bookline-container${this.state.character?' bookline-show':''}`;
+    let booklineClass = `bookline-container${shouldMakeLine?' bookline-show':''}`;
 
     let charList = (!this.state.splitting) ? (
       <div className="reader-characters">
         <CharacterList 
-          key="characterlist"
           pages={this.pages}
           characters={this.props.characters}
           current={this.state.page}
@@ -152,7 +152,10 @@ class Reader extends Component {
     ) : null;
 
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
-    let charName = this.state.character ? this.state.character.name : 'UNKNOWN';
+    let charName = this.state.characters
+      .filter(c=>c)
+      .map(c=>c.name)
+      .join(', ') || 'UNKNOWN';
 
     return (
       <div 
