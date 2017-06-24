@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import Character  from '../Character';
 import {WeightedLine} from './lines';
-import Page from './Page';
 import './BookLine.css';
 
 /**
@@ -17,103 +16,49 @@ class BookLine extends Component {
     super(props);
 
     this.state = {
-      occurences: this.findOccurences(props.pages, props.character),
-      type: 'number',
       showAll: false
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.character === this.props.character) {
-      return;
-    }
-
-    this.setState({
-      ...this.state,
-      occurences: this.findOccurences(nextProps.pages, nextProps.character)
-    });
-  }
-
   render() {
-    let occ = this.state.occurences;
-    let curr = this.props.current;
+    let lines = this.props.characters
+      .map((char, index) => {
+        // Don't add lines for placeholder indicies
+        if (!char) {
+          return null;
+        }
 
-    let props = {
-      points: occ,
-      current: curr,
-      progress: this.props.progress,
-      showAll: this.state.showAll
-    };
+        let props = {
+          key: `line-${index}`,
+          pages: this.props.pages,
+          character: char,
+          current: this.props.current,
+          progress: this.props.progress,
+          showAll: this.state.showAll
+        };
 
-    // Choose which type of line to use
-    let line = <WeightedLine {...props} />;
-    // switch (this.state.type) {
-    //   case 'basic':
-    //     line = <BasicLine {...props} />;
-    //     break;
-    //   case 'weighted':
-    //     line = <WeightedLine {...props} />;
-    //     break;
-    //   case 'number':
-    //     line = <NumberLine {...props} />;
-    //     break;
-    //   case 'chunked':
-    //     line = <ChunkedLine {...props} chunk={3} />;
-    //     break;
-    //   case 'diverging':
-    //     line = <DivergingLine {...props} />;
-    //     break;
-    //   default:
-    //     throw 'invalid line type';
-    // }
+        // line-item-${index} determines the colour of the line
+        let containerClass = [
+          'line-item',
+          `line-item-${index}`
+        ].join(' ');
+
+        return (
+          <div
+            className={containerClass}>
+            <WeightedLine {...props} />
+          </div>
+        );
+      });
 
     return (
       <div className="BookLine">
-        {/* Line type selection */}
-        {/*<div>
-          <button 
-            onClick={()=>this.setState({
-              ...this.state,
-              type: 'weighted'
-            })} >Weighted </button>
-          <button 
-            onClick={()=>this.setState({
-              ...this.state,
-              type: 'basic'
-            })} >Basic</button>
-          <button 
-            onClick={()=>this.setState({
-              ...this.state,
-              type: 'number'
-            })} >Number</button>
-          <button 
-            onClick={()=>this.setState({
-              ...this.state,
-              type: 'chunked'
-            })} >Chunked</button>
-          <button 
-            onClick={()=>this.setState({
-              ...this.state,
-              type: 'diverging'
-            })} >Diverging</button>
-          <button 
-            onClick={()=>this.setState({
-              ...this.state,
-              showAll: !this.state.showAll
-            })} >Toggle Show All</button>
-        </div>*/}
-        {line}
+        {lines}
       </div>
     );
   }
 
-  findOccurences(pages, character) {
-    return pages
-      .map(p => p.props.text)
-      .map((text) => {
-        return character.numberOfOccurrences(text);
-      });
-  }
+  
 }
 
 BookLine.defaultProps = {
@@ -121,8 +66,8 @@ BookLine.defaultProps = {
 };
 
 BookLine.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.instanceOf(Page)).isRequired,
-  character: PropTypes.instanceOf(Character).isRequired,
+  pages: PropTypes.arrayOf(PropTypes.element).isRequired,
+  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   progress: PropTypes.number.isRequired,
   current: PropTypes.number
 };

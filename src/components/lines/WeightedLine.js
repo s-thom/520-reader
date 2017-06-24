@@ -23,14 +23,18 @@ class WeightedLine extends LineBase {
    */
   createLine(points, current, progress) {
     let chunkWidth = Math.max(Math.floor(points.length / 100), 1);
+
+    // Create array of smoothed points
     let newPoints = points
       .map((item, index) => {
+        // Set unseen pages to 0
         if (!this.props.showAll) {
           if (index > progress) {
             return 0;
           }
         }
 
+        // Set bounds of smoothing for this 
         let start = Math.max(index - chunkWidth, 0);
         let end = Math.min(index + chunkWidth + 1, points.length);
 
@@ -39,6 +43,11 @@ class WeightedLine extends LineBase {
         let t = 0;
         let c = 0;
         items.forEach((item, index) => {
+          // Gives a higher weight to closer pages
+          // e.g. for chunkWidth = 2:
+          //     1, 2, 3, 2, 1
+          // and for chunkWidth = 3:
+          //     1, 2, 3, 4, 3, 2, 1
           let weight =  (chunkWidth + 1) - (Math.abs(chunkWidth - index));
           t += weight;
           c += item * weight;
@@ -47,10 +56,12 @@ class WeightedLine extends LineBase {
         return c / t;
       });
 
+    // Find maximum value
     let max = newPoints.reduce((c, m) => {
       return c > m ? c : m;
     }, 0);
 
+    // Set dimensions for the line
     let width = dimensions.x;
     let height = dimensions.y / 10;
     let xStep = width / newPoints.length;
@@ -59,12 +70,12 @@ class WeightedLine extends LineBase {
     let currentX = current * xStep;
     let progressX = progress * xStep;
 
+    // Map points to SVG path instructions
     let seenPages = newPoints.slice(0, progress + 1);
     let instructions = seenPages.map((point, index) => {
       return `L${index * xStep},${height - (point * yStep)}`;
     });
     let seenInstructions = `M0,${height} ${instructions.join(' ')} L${progressX},${height}`;
-
 
     return (
       <div className="WeightedLine">
@@ -77,12 +88,5 @@ class WeightedLine extends LineBase {
     );
   }
 }
-
-WeightedLine.propTypes = {
-  points: PropTypes.arrayOf(PropTypes.number).isRequired,
-  current: PropTypes.number.isRequired,
-  progress: PropTypes.number.isRequired,
-  showAll: PropTypes.bool
-};
 
 export default WeightedLine;
