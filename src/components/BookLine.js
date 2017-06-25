@@ -51,15 +51,6 @@ class BookLine extends Component {
           return null;
         }
 
-        let props = {
-          key: `line-${index}`,
-          pages: this.props.pages,
-          character: char,
-          current: this.props.current,
-          progress: this.props.progress,
-          showAll: this.state.showAll
-        };
-
         // line-item-${index} determines the colour of the line
         let containerClass = [
           'line-item',
@@ -70,6 +61,7 @@ class BookLine extends Component {
           <div
             className={containerClass}
             key={`line-${char.name}`}>
+            {/* Create the book line for this character */}
             {this.createLine(this.occurences.get(char), this.props.current, this.props.progress, max)}
           </div>
         );
@@ -101,17 +93,16 @@ class BookLine extends Component {
    * @memberof BookLine
    */
   findMaximum(progress, pointses) {
-    let r= pointses.reduce((max, points) => {
+    // For each character
+    return pointses.reduce((max, points) => {
       let curr = points
-        .map((p,i) => (i < progress ? p : 0))
+        .map((p,i) => (i < progress ? p : 0)) // Ignore pages that haven't been read
         .reduce((c, m) => {
-          return c > m ? c : m;
+          return Math.max(c, m);
         }, 0);
 
-      return curr > max ? curr : max;
+      return Math.max(curr, max);
     }, 0);
-
-    return r;
   }
 
   createLine(points, current, progress, max) {
