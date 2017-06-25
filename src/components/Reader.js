@@ -28,7 +28,7 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       remainingText: this.props.text,
-      character: null
+      characters: []
     };
 
     this.pages = [];
@@ -76,22 +76,48 @@ class Reader extends Component {
     });
   }
 
+  /**
+   * Called when a character is selected
+   * 
+   * @param {Character} character Selected character
+   * @memberof Reader
+   */
   onCharacterSelected(character) {
-    if (character === this.state.character) {
-      this.setState({
-        ...this.state,
-        character: null
-      });
-      return;
+    let charArray;
+
+    // Set the character array to the new value
+    // @ts-ignore
+    if (this.state.characters.includes(character)) {
+      // Make the selected charater index null
+      // By not modifying other character's indicies, their colours won't change
+      charArray = this.state.characters.map(c => (c === character ? null : c));
+    } else {
+      // Make copy of array, so it is not mutated
+      charArray = this.state.characters.slice();
+      // Find first empty spot in array, or end of array
+      let i;
+      for (i = 0; i < charArray.length; i++) {
+        if (!charArray[i]) {
+          break;
+        }
+      }
+      charArray[i] = character;
     }
 
     this.setState({
       ...this.state,
-      character: character
+      characters: charArray
     });
   }
 
+  /**
+   * Called when a key is pressed
+   * 
+   * @param {KeyboardEvent} {key} Event
+   * @memberof Reader
+   */
   onKey({key}) {
+    // Keyboard navigation
     switch (key) {
       case 'a':
       case 'ArrowLeft':
@@ -107,6 +133,7 @@ class Reader extends Component {
   }
 
   render() {
+    // If splitting, make a PageSplitter, otherwise display the page
     let page = this.state.splitting ? (
       <PageSplitter
         text={this.state.remainingText}
@@ -116,26 +143,28 @@ class Reader extends Component {
     ) : (
       this.pages[this.state.page]
     );
-    let bookline = ((!this.state.splitting) && this.state.character) ? (
+
+    // Create the bookline
+    let shouldMakeLine = ((!this.state.splitting) && this.state.characters.filter(c=>c).length);
+    let bookline = shouldMakeLine ? (
       <BookLine 
-        key="bookline"
         pages={this.pages}
-        character={this.state.character}
+        characters={this.state.characters}
         current={this.state.page}
         progress={this.state.maxPage}
         />
     ) : null;
-    let booklineClass = `bookline-container${this.state.character?' bookline-show':''}`;
+    let booklineClass = `bookline-container${shouldMakeLine?' bookline-show':''}`;
 
+    // Create the character list
     let charList = (!this.state.splitting) ? (
       <div className="reader-characters">
         <CharacterList 
-          key="characterlist"
           pages={this.pages}
           characters={this.props.characters}
           current={this.state.page}
           progress={this.state.maxPage}
-          selected={this.state.character}
+          selected={this.state.characters}
           onselected={(c)=>this.onCharacterSelected(c)}
           vertical
           />
@@ -143,7 +172,10 @@ class Reader extends Component {
     ) : null;
 
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
-    let charName = this.state.character ? this.state.character.name : 'UNKNOWN';
+    let charName = this.state.characters
+      .filter(c=>c)
+      .map(c=>c.name)
+      .join(', ');
 
     return (
       <div 
@@ -151,6 +183,8 @@ class Reader extends Component {
         className="Reader"
         onKeyDown={(e)=>this.onKey(e)}
         ref={el => el && el.focus()}>
+
+        {/* Page content */}
         <div 
           className="page-container"
           ref={(c) => this.pageContainer = c}
@@ -160,11 +194,15 @@ class Reader extends Component {
           >
           {page}
         </div>
+
+        {/* List and line */}
         {charList}
         <div className={booklineClass}>
           <h2>{`Bookline for ${charName}`}</h2>
           {bookline}
         </div>
+
+        {/* Navigation */}
         <div className={navClass}>
           <button 
             className="navigation-button" 
@@ -263,6 +301,7 @@ class Reader extends Component {
 
       this.updateTurning(0);
 
+      // Reset variables
       this.currPosition = null;
       this.startPosition = null;
       this.reachedThreshold = false;
@@ -293,6 +332,12 @@ class Reader extends Component {
     }
   }
 
+  /**
+   * Sets the position of the page (for turning 'animation')
+   * 
+   * @param {number} diff Positioning
+   * @memberof Reader
+   */
   updateTurning(diff) {
     this.pageContainer.style.left = `${diff}px`;
   }

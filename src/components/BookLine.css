@@ -1,0 +1,68 @@
+.svg-line {
+  width: 100%;
+  display: block;
+}
+
+.svg-path {
+  width: 100%;
+  fill: #4CB3F7;
+  stroke: #0079D1;
+  stroke-width: 0.5;
+  opacity: 0.5;
+}
+
+.svg-path-fade {
+  width: 100%;
+  fill: transparent;
+  stroke: #AEAEAE;
+  stroke-width: 0.5;
+}
+
+.svg-here {
+  /*fill: #ffc3a5;*/
+  fill: #d8d2c9;
+  /*stroke: #cc967c;*/
+  stroke: #3792d3;
+  stroke-width: 0.5;
+}
+
+/* Overlap lines */
+.line-item:not(:first-child) {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Coloured lines */
+.line-item-0 .svg-path {
+  fill: #7FB6FF;
+  stroke: #0072FF;
+}
+.line-item-1 .svg-path {
+  fill: #FF4E44;
+  stroke: #FF0000;
+}
+.line-item-2 .svg-path {
+  fill: #84CD6D;
+  stroke: #3CCC0C;
+}
+.line-item-3 .svg-path {
+  fill: #C382CC;
+  stroke: #B418CC;
+}
+.line-item-4 .svg-path {
+  fill: #C6CC61;
+  stroke: #DCE52D;
+}
+.line-item-5 .svg-path {
+  fill: #70CCA5;
+  stroke: #14CC7C;
+}
+.line-item-6 .svg-path {
+  fill: #CC8693;
+  stroke: #CC415D;
+}
+.line-item-7 .svg-path {
+  fill: #CC9859;
+  stroke: #FF7E26;
+}

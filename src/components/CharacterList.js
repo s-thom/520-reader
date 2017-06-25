@@ -5,6 +5,8 @@ import Character from '../Character';
 import Page from './Page';
 import './CharacterList.css';
 
+import {primitiveComparator} from '../util';
+
 /**
  * Component to display a list of Characters
  * 
@@ -17,20 +19,37 @@ class CharacterList extends Component {
     let page = this.props.pages[curr];
 
     let characters = this.findCharacters(page.props.text);
-    if (this.props.selected) {
-      if (!characters.includes(this.props.selected)) {
-        characters.unshift(this.props.selected);
-      }
+    // Add selected, but not present, characters
+    if (this.props.selected.length) {
+      this.props.selected.forEach((char) => {
+        // Make sure to not add the filler spots in the selected array
+        if (!char) {
+          return;
+        }
+
+        // Don't add duplicate characters
+        if (!characters.includes(char)) {
+          characters.unshift(char);
+        }
+      });
     }
 
+    // Sort list by name alphabetically
+    // It makes more snese than the order in the JSON
+    characters.sort((a, b) => primitiveComparator(a.name, b.name));
+
+    // Create items for each character
     let list = characters.map((char) => {
       let charClasses = [
         'char'
       ];
-      if (char === this.props.selected) {
+      // Sets opacity and colour
+      if (this.props.selected.includes(char)) {
         charClasses.push('char-selected');
+        charClasses.push(`selected-${this.props.selected.indexOf(char)}`);
       }
 
+      // Add image, or initial if there's no image, for character
       let charIcon = char.imageUrl ? (
         <img 
           className="char-icon char-img" 
@@ -42,7 +61,7 @@ class CharacterList extends Component {
         </span>
       );
 
-      let showLabel = !this.props.vertical || char === this.props.selected;
+      let showLabel = !this.props.vertical || this.props.selected.includes(char);
 
       return (
         <div 
@@ -55,6 +74,7 @@ class CharacterList extends Component {
       );
     });
 
+    // Add classes to container
     let classes = [
       'CharacterList'
     ];
@@ -72,12 +92,25 @@ class CharacterList extends Component {
     );
   }
 
+  /**
+   * Finds which characters occur in the text
+   * 
+   * @param {string} text Text to search
+   * @returns {Character[]} Characters that are in the text
+   * @memberof CharacterList
+   */
   findCharacters(text) {
     return this.props.characters.filter((character) => {
       return character.numberOfOccurrences(text) > 0;
     });
   }
 
+  /**
+   * Called when a character is selected
+   * 
+   * @param {Character} char Selected character
+   * @memberof CharacterList
+   */
   onSelect(char) {
     setImmediate(() => {
       if (this.props.onselected) {
@@ -96,7 +129,7 @@ CharacterList.propTypes = {
   progress: PropTypes.number.isRequired,
   current: PropTypes.number,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
-  selected: PropTypes.instanceOf(Character),
+  selected: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   onselected: PropTypes.func,
   wrap: PropTypes.bool,
   vertical: PropTypes.bool
