@@ -22,6 +22,7 @@ class BookLine extends Component {
 
     // Holds the list of points used by a character
     this.occurences = new Map();
+    this.componentWillReceiveProps(props);
   }
 
   componentWillReceiveProps(nextProps) {
