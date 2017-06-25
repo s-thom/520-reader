@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Character  from '../Character';
-import {WeightedLine} from './lines';
 import './BookLine.css';
 
 import {dimensions} from '../util';
@@ -63,7 +62,7 @@ class BookLine extends Component {
         return (
           <div
             className={containerClass}>
-            <WeightedLine {...props} />
+            {this.createLine(this.occurences.get(char), this.props.current, this.props.progress)}
           </div>
         );
       });
