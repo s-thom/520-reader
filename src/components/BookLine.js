@@ -17,7 +17,8 @@ class BookLine extends Component {
     super(props);
 
     this.state = {
-      showAll: false
+      showAll: false,
+      flip: false
     };
 
     // Holds the list of points used by a character
@@ -51,11 +52,21 @@ class BookLine extends Component {
           return null;
         }
 
+        // If flipping second line, don't add more than two
+        if (this.state.flip && index > 2) {
+          return null;
+        }
+
         // line-item-${index} determines the colour of the line
-        let containerClass = [
+        let containerClasses = [
           'line-item',
           `line-item-${index}`
-        ].join(' ');
+        ];
+        if (this.state.flip) {
+          containerClasses.push('flipped');
+        }
+
+        let containerClass = containerClasses.join(' ');
 
         return (
           <div
