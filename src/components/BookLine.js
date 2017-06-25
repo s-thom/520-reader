@@ -38,6 +38,7 @@ class BookLine extends Component {
   }
 
   render() {
+    let max = this.findMaximum(this.props.progress, Array.from(this.occurences.values()));
     let lines = this.props.characters
       .map((char, index) => {
         // Don't add lines for placeholder indicies
@@ -62,8 +63,9 @@ class BookLine extends Component {
 
         return (
           <div
-            className={containerClass}>
-            {this.createLine(this.occurences.get(char), this.props.current, this.props.progress)}
+            className={containerClass}
+            key={`line-${char.name}`}>
+            {this.createLine(this.occurences.get(char), this.props.current, this.props.progress, max)}
           </div>
         );
       });
@@ -83,8 +85,29 @@ class BookLine extends Component {
       });
   }
 
+  /**
+   * Finds the maximum ion a point array
+   * 
+   * @param {number} progress Highest page that has been read
+   * @param {number[][]} pointses List of lisrs of points
+   * @returns 
+   * @memberof BookLine
+   */
+  findMaximum(progress, pointses) {
+    let r= pointses.reduce((max, points) => {
+      let curr = points
+        .map((p,i) => (i < progress ? p : 0))
+        .reduce((c, m) => {
+          return c > m ? c : m;
+        }, 0);
 
-  createLine(points, current, progress) {
+      return curr > max ? curr : max;
+    }, 0);
+
+    return r;
+  }
+
+  createLine(points, current, progress, max) {
     let chunkWidth = Math.max(Math.floor(points.length / 100), 1);
 
     // Create array of smoothed points
@@ -119,11 +142,6 @@ class BookLine extends Component {
         return c / t;
       });
 
-    // Find maximum value
-    let max = newPoints.reduce((c, m) => {
-      return c > m ? c : m;
-    }, 0);
-
     // Set dimensions for the line
     let width = dimensions.x;
     let height = dimensions.y / 10;
@@ -136,6 +154,7 @@ class BookLine extends Component {
     // Map points to SVG path instructions
     let seenPages = newPoints.slice(0, progress + 1);
     let instructions = seenPages.map((point, index) => {
+      console.log(point);
       return `L${index * xStep},${height - (point * yStep)}`;
     });
     let seenInstructions = `M0,${height} ${instructions.join(' ')} L${progressX},${height}`;
