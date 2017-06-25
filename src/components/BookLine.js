@@ -45,6 +45,7 @@ class BookLine extends Component {
       Array.from(this.occurences.values()).slice(0, this.props.progress)
     );
 
+    let charCount = 0;
     let lines = this.props.characters
       .map((char, index) => {
         // Don't add lines for placeholder indicies
@@ -52,8 +53,9 @@ class BookLine extends Component {
           return null;
         }
 
+        charCount++;
         // If flipping second line, don't add more than two
-        if (this.state.flip && index > 2) {
+        if (this.state.flip && charCount > 2) {
           return null;
         }
 
