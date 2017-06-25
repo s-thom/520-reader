@@ -32,6 +32,11 @@
   bottom: 0;
   width: 100%;
 }
+/* Or flip if needed */
+.line-item.flipped:nth-child(2) {
+  position: initial;
+  transform: scaleY(-1);
+}
 
 /* Coloured lines */
 .line-item-0 .svg-path {
