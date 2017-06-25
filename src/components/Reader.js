@@ -175,7 +175,7 @@ class Reader extends Component {
     let charName = this.state.characters
       .filter(c=>c)
       .map(c=>c.name)
-      .join(', ') || 'UNKNOWN';
+      .join(', ');
 
     return (
       <div 
