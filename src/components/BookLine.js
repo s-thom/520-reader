@@ -38,7 +38,12 @@ class BookLine extends Component {
   }
 
   render() {
-    let max = this.findMaximum(this.props.progress, Array.from(this.occurences.values()));
+    let max = this.findMaximum(
+      this.props.progress, 
+      // Only find maximum of viewed pages
+      Array.from(this.occurences.values()).slice(0, this.props.progress)
+    );
+
     let lines = this.props.characters
       .map((char, index) => {
         // Don't add lines for placeholder indicies
@@ -78,11 +83,13 @@ class BookLine extends Component {
   }
 
   findOccurences(pages, character) {
-    return pages
+    let occurences = pages
       .map(p => p.props.text)
       .map((text) => {
         return character.numberOfOccurrences(text);
       });
+
+    return this.smoothPoints(occurences);
   }
 
   /**
@@ -108,18 +115,44 @@ class BookLine extends Component {
   }
 
   createLine(points, current, progress, max) {
+    // Set dimensions for the line
+    let width = dimensions.x;
+    let height = dimensions.y / 10;
+    let xStep = width / points.length;
+    let yStep = height / max;
+
+    let currentX = current * xStep;
+    let progressX = progress * xStep;
+
+    // Map points to SVG path instructions
+    let seenPages = points.slice(0, progress + 1);
+    let instructions = seenPages.map((point, index) => {
+      return `L${index * xStep},${height - (point * yStep)}`;
+    });
+    let seenInstructions = `M0,${height} ${instructions.join(' ')} L${progressX},${height}`;
+
+    return (
+      <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
+        <path className="svg-path-fade" d={`M${progressX},${height} L${width},${height}`} />
+        <path className="svg-path" d={seenInstructions} />
+        <rect className="svg-here-line" x={currentX} y={0} width="1" height={height} />
+      </svg>
+    );
+  }
+
+  /**
+   * 
+   * 
+   * @param {number[]} points 
+   * @param {number} progress 
+   * @returns {number[]}
+   * @memberof BookLine
+   */
+  smoothPoints(points) {
     let chunkWidth = Math.max(Math.floor(points.length / 100), 1);
 
-    // Create array of smoothed points
-    let newPoints = points
+    return points
       .map((item, index) => {
-        // Set unseen pages to 0
-        if (!this.state.showAll) {
-          if (index > progress) {
-            return 0;
-          }
-        }
-
         // Set bounds of smoothing for this 
         let start = Math.max(index - chunkWidth, 0);
         let end = Math.min(index + chunkWidth + 1, points.length);
@@ -141,31 +174,6 @@ class BookLine extends Component {
 
         return c / t;
       });
-
-    // Set dimensions for the line
-    let width = dimensions.x;
-    let height = dimensions.y / 10;
-    let xStep = width / newPoints.length;
-    let yStep = height / max;
-
-    let currentX = current * xStep;
-    let progressX = progress * xStep;
-
-    // Map points to SVG path instructions
-    let seenPages = newPoints.slice(0, progress + 1);
-    let instructions = seenPages.map((point, index) => {
-      console.log(point);
-      return `L${index * xStep},${height - (point * yStep)}`;
-    });
-    let seenInstructions = `M0,${height} ${instructions.join(' ')} L${progressX},${height}`;
-
-    return (
-      <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
-        <path className="svg-path-fade" d={`M${progressX},${height} L${width},${height}`} />
-        <path className="svg-path" d={seenInstructions} />
-        <rect className="svg-here-line" x={currentX} y={0} width="1" height={height} />
-      </svg>
-    );
   }
 }
 
