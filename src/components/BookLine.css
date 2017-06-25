@@ -26,6 +26,13 @@
   stroke-width: 0.5;
 }
 
+/* Overlap lines */
+.line-item:not(:first-child) {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 /* Coloured lines */
 .line-item-0 .svg-path {
   fill: #7FB6FF;
