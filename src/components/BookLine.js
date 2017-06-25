@@ -20,6 +20,21 @@ class BookLine extends Component {
     this.state = {
       showAll: false
     };
+
+    // Holds the list of points used by a character
+    this.occurences = new Map();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    nextProps.characters.forEach((char) => {
+      if (!char) {
+        return;
+      }
+
+      if (!this.occurences.has(char)) {
+        this.occurences.set(char, this.findOccurences(nextProps.pages, char));
+      }
+    });
   }
 
   render() {
