@@ -59,7 +59,13 @@ class Paragraph extends Component {
 
       // Add character
       let char = characterFromName(match[0], this.props.characters);
-      items.push(<span className="para-char">{match[0]}</span>);
+      items.push(
+        <span 
+          className="para-char" 
+          onClick={()=>this.props.oncharclick(char)}>
+          {match[0]}
+        </span>
+      );
 
       prevLast = exp.lastIndex;
     }
@@ -76,7 +82,8 @@ class Paragraph extends Component {
 Paragraph.propTypes = {
   text: PropTypes.string.isRequired,
   identifier: PropTypes.any.isRequired,
-  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired
+  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
+  oncharclick: PropTypes.func.isRequired
 };
 
 export default Paragraph;
