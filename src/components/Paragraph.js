@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Character  from '../Character';
+import {createExpression, characterFromName} from '../util';
 import './Paragraph.css';
 
 /**
@@ -17,8 +19,14 @@ class Paragraph extends Component {
 
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
-      
-      elements.push(`${line} `);
+
+      if (this.props.characters.length) {
+        let items = this.characterSplit(line, i);
+        elements = [...elements, ...items];
+      } else {
+        elements.push(line);
+      }
+
       if (i < (lines.length - 1)) {
         elements.push(<br key={`br-${i}`} />);
       }
@@ -30,11 +38,53 @@ class Paragraph extends Component {
       </p>
     );
   }
+
+  /**
+   * 
+   * 
+   * @param {string} text 
+   * @param {number} index
+   * @returns {React.Element[]}
+   * @memberof Paragraph
+   */
+  characterSplit(text, index) {
+    let exp = createExpression(this.props.characters);
+
+    let match;
+    let prevLast = 0;
+    let items = [];
+    while ((match = exp.exec(text)) !== null) {
+      // Add string section
+      let prev = text.slice(prevLast, match.index);
+      items.push(<span key={`${index}-text-${items.length}`}>{prev}</span>);
+
+      // Add character
+      let char = characterFromName(match[0], this.props.characters);
+      items.push(
+        <span 
+          key={`${index}-${items.length}`}
+          className="para-char" 
+          onClick={()=>this.props.oncharclick(char)}>
+          {match[0]}
+        </span>
+      );
+
+      prevLast = exp.lastIndex;
+    }
+
+    // Add string section
+    let prev = text.slice(prevLast);
+    items.push(<span key={`${index}-final-${items.length}`}>{prev}</span>);
+
+    return items;
+  }
 }
 
 Paragraph.propTypes = {
   text: PropTypes.string.isRequired,
-  identifier: PropTypes.any.isRequired
+  identifier: PropTypes.any.isRequired,
+  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
+  oncharclick: PropTypes.func.isRequired
 };
 
 export default Paragraph;

@@ -48,6 +48,34 @@ export function escapeRegex(text) {
   return text.replace(escapeExp, '\\$&');
 }
 
+/**
+ * 
+ * 
+ * @export
+ * @param {Character[]} characters 
+ * @returns {RegExp} Expression
+ */
+export function createExpression(characters) {
+  let exp = characters
+    .map(c => c.names)
+    .reduce((p, c) => [...p, ...c])
+    .join('|');
+
+  return new RegExp(exp, 'ig');
+}
+
+/**
+ * 
+ * 
+ * @export
+ * @param {string} name 
+ * @param {Character[]} characters 
+ * @returns {Character}
+ */
+export function characterFromName(name, characters) {
+  return characters.find(c => c.names.find(n => n.toLowerCase() === name.toLowerCase()));
+}
+
 /** 
  * Finds the average of an array of numbers 
  *  

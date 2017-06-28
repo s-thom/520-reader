@@ -64,6 +64,8 @@ class Reader extends Component {
       <Page 
         text={result} 
         identifier={this.state.page} 
+        characters={this.props.characters}
+        oncharclick={(c)=>this.onTextCharacterSelected(c)}
         key={this.state.page} />
     );
 
@@ -74,6 +76,10 @@ class Reader extends Component {
       maxPage: 0,
       remainingText: rest
     });
+  }
+
+  onTextCharacterSelected(character) {
+    this.onCharacterSelected(character);
   }
 
   /**
