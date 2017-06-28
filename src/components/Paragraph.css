@@ -1,3 +1,20 @@
 .para-char {
-  font-weight: bold;
+  position: relative;
+  cursor: pointer;
+}
+.para-char::before {
+  position: absolute;
+  height: 0.1em;
+  width: 100%;
+  background-color: #2b2b2b;
+  opacity: 0.1;
+  content: ' ';
+  left: 0;
+  bottom: 0;
+  -webkit-transition: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+.para-char:hover::before {
+  opacity: 0.3;
 }
