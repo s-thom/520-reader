@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Character  from '../Character';
 import Paragraph from './Paragraph';
 import './Page.css';
 
@@ -21,6 +22,7 @@ class Page extends Component {
         return <Paragraph 
           text={para} 
           identifier={id}
+          characters={this.props.characters}
           key={id} 
           />;
       });
@@ -37,7 +39,8 @@ class Page extends Component {
 
 Page.propTypes = {
   text: PropTypes.string.isRequired,
-  identifier: PropTypes.any.isRequired
+  identifier: PropTypes.any.isRequired,
+  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired
 };
 
 export default Page;

@@ -64,6 +64,7 @@ class Reader extends Component {
       <Page 
         text={result} 
         identifier={this.state.page} 
+        characters={this.props.characters}
         key={this.state.page} />
     );
 

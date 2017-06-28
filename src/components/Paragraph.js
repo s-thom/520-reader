@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Character  from '../Character';
 import './Paragraph.css';
 
 /**
@@ -17,8 +18,11 @@ class Paragraph extends Component {
 
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
-      
-      elements.push(`${line} `);
+
+      if (this.props.characters.length) {
+      } else {
+      }
+
       if (i < (lines.length - 1)) {
         elements.push(<br key={`br-${i}`} />);
       }
@@ -34,7 +38,8 @@ class Paragraph extends Component {
 
 Paragraph.propTypes = {
   text: PropTypes.string.isRequired,
-  identifier: PropTypes.any.isRequired
+  identifier: PropTypes.any.isRequired,
+  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired
 };
 
 export default Paragraph;
