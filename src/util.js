@@ -73,7 +73,7 @@ export function createExpression(characters) {
  * @returns {Character}
  */
 export function characterFromName(name, characters) {
-  return characters.find(c => c.names.includes(name));
+  return characters.find(c => c.names.find(n => n.toLowerCase() === name.toLowerCase()));
 }
 
 /** 
