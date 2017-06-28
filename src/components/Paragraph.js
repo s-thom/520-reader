@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Character  from '../Character';
+import {createExpression, characterFromName} from '../util';
 import './Paragraph.css';
 
 /**
@@ -20,7 +21,10 @@ class Paragraph extends Component {
       let line = lines[i];
 
       if (this.props.characters.length) {
+        let items = this.characterSplit(line);
+        elements = [...elements, ...items];
       } else {
+        elements.push(line);
       }
 
       if (i < (lines.length - 1)) {
@@ -33,6 +37,39 @@ class Paragraph extends Component {
         {elements}
       </p>
     );
+  }
+
+  /**
+   * 
+   * 
+   * @param {string} text 
+   * @returns {React.Element[]}
+   * @memberof Paragraph
+   */
+  characterSplit(text) {
+    let exp = createExpression(this.props.characters);
+
+    let match;
+    let prevLast = 0;
+    let items = [];
+    while ((match = exp.exec(text)) !== null) {
+      // Add string section
+      let prev = text.slice(prevLast, match.index);
+      items.push(<span>{prev}</span>);
+
+      // Add character
+      let char = characterFromName(match[0], this.props.characters);
+      items.push(<span className="para-char">{match[0]}</span>);
+
+      prevLast = exp.lastIndex;
+    }
+
+    // Add string section
+    let prev = text.slice(prevLast);
+    items.push(<span>{prev}</span>);
+
+
+    return items;
   }
 }
 
