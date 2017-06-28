@@ -104,6 +104,7 @@ class PageSplitter extends Component {
         return <Paragraph 
           text={para} 
           identifier={id}
+          characters={[]}
           key={id} 
           />;
       });
