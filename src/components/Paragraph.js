@@ -21,7 +21,7 @@ class Paragraph extends Component {
       let line = lines[i];
 
       if (this.props.characters.length) {
-        let items = this.characterSplit(line);
+        let items = this.characterSplit(line, i);
         elements = [...elements, ...items];
       } else {
         elements.push(line);
@@ -43,10 +43,11 @@ class Paragraph extends Component {
    * 
    * 
    * @param {string} text 
+   * @param {number} index
    * @returns {React.Element[]}
    * @memberof Paragraph
    */
-  characterSplit(text) {
+  characterSplit(text, index) {
     let exp = createExpression(this.props.characters);
 
     let match;
@@ -55,12 +56,13 @@ class Paragraph extends Component {
     while ((match = exp.exec(text)) !== null) {
       // Add string section
       let prev = text.slice(prevLast, match.index);
-      items.push(<span>{prev}</span>);
+      items.push(<span key={`${index}-text-${items.length}`}>{prev}</span>);
 
       // Add character
       let char = characterFromName(match[0], this.props.characters);
       items.push(
         <span 
+          key={`${index}-${items.length}`}
           className="para-char" 
           onClick={()=>this.props.oncharclick(char)}>
           {match[0]}
@@ -72,8 +74,7 @@ class Paragraph extends Component {
 
     // Add string section
     let prev = text.slice(prevLast);
-    items.push(<span>{prev}</span>);
-
+    items.push(<span key={`${index}-final-${items.length}`}>{prev}</span>);
 
     return items;
   }
