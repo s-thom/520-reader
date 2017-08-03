@@ -20,3 +20,12 @@ export function event(userId, name, data = {}) {
 
   window.localStorage.setItem('events', store);
 }
+
+/**
+ * Resets the events stored in localStorage
+ * 
+ * @export
+ */
+export function reset() {
+  window.localStorage.removeItem('events');
+}
