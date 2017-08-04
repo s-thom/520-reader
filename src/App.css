@@ -6,3 +6,9 @@
   line-height: 1.5em;
   font-size: 20px;
 }
+
+.App-ready-modal {
+  max-width: 53em;
+  margin: 0 auto;
+  text-align: center;
+}
