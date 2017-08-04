@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {Reader, Loading} from './components';
 import Character from './Character';
 import {request} from './util';
-import {event} from './track';
+import {event, setUser} from './track';
 import './App.css';
 
 /**
@@ -18,6 +18,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      userId: -1,
       text: undefined,
       characters: undefined,
     };
@@ -38,13 +39,51 @@ class App extends Component {
           characters
         });
       });
+    
+    this.userInput = null;
+
+    this.su = this.setUser.bind(this);
+  }
+
+  setUser() {
+    let user = parseInt(this.userInput.value);
+
+    setUser(user);
+
+    this.setState({
+      ...this.state,
+      userId: user
+    });
   }
 
   render() {
+    let el;
+    let isUserSet = this.state.userId !== -1;
+
+    if (!isUserSet) {
+      let userClass = isUserSet ? 'App-ready-success' : 'App-ready-fail';
+
+      let setUser = (
+        <div className={userClass}>
+          <input type="text" placeholder="Participant ID" ref={e => this.userInput = e}/>
+          <button onClick={this.su}>Set Participant ID</button>
+        </div>
+      );
+
+      el = (
+        <div className="App-ready-modal">
+          {setUser}
+        </div>
+      );
+    } else if (!(this.state.text && this.state.characters)) {
+      el = <Loading />;
+    } else {
+      el = <Reader {...this.state} />;
+    }
+
     return (
-      <div className="App">
-        {/* Show a loading component until the text has loaded */}
-        {this.state.text ? <Reader {...this.state} /> : <Loading />}
+      <div className="App" ref={e => this.root = e}>
+        {el}
       </div>
     );
   }
