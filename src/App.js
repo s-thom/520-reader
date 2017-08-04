@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {Reader, Loading} from './components';
 import Character from './Character';
 import {request} from './util';
+import {event} from './track';
 import './App.css';
 
 /**
@@ -17,7 +18,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      text: undefined
+      text: undefined,
+      characters: undefined,
     };
 
     Promise.all([
@@ -29,7 +31,9 @@ class App extends Component {
         })
     ])
       .then(([text, characters]) => {
+        event('http-load');
         this.setState({
+          ...this.state,
           text,
           characters
         });
