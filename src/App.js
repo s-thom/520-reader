@@ -88,7 +88,7 @@ class App extends Component {
           <h2>and What Alice Found There</h2>
           <h3>Lewis Carroll</h3>
           {setUser}
-          <p><a href="http://www.gutenberg.org/1/12/">From Project Guttenberg</a></p>
+          <p>Text from <a href="http://www.gutenberg.org/1/12/">Project Guttenberg</a></p>
         </div>
       );
     } else if (!(this.state.text && this.state.characters)) {
