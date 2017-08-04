@@ -1,5 +1,7 @@
 import { window } from './util';
 
+let userId = -1;
+
 /**
  * Stores an event in the browser's localStorage
  * 
@@ -8,8 +10,9 @@ import { window } from './util';
  * @param {string} name Name of the event
  * @param {any} [data={}] Extra data to include
  */
-export function event(userId, name, data = {}) {
-  let store = window.localStorage.getItem('events') || [];
+export function event(name, data = {}) {
+  let str = window.localStorage.getItem('events') || '[]';
+  let store = JSON.parse(str);
 
   store.push({
     user: userId,
@@ -18,7 +21,17 @@ export function event(userId, name, data = {}) {
     data,
   });
 
-  window.localStorage.setItem('events', store);
+  window.localStorage.setItem('events', JSON.stringify(store));
+}
+
+/**
+ * Sets the user ID for this session
+ * 
+ * @export
+ * @param {number} id 
+ */
+export function setUser(id) {
+  userId = id;
 }
 
 /**
