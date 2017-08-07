@@ -3,12 +3,22 @@
   height: 100vh;
   line-height: 1.5em;
   font-size: 20px;
+  background-color: #fffaf2;
+  color: #2b2b2b;
+  -webkit-transition: background-color 2s;
+  -moz-transition: background-color 2s;
+  transition: background-color 2s;
+}
+
+.App.reader-active {
+  background-color: #000000;
 }
 
 .App-ready-modal {
   max-width: 53em;
   margin: 0 auto;
   text-align: center;
+  overflow: auto;
 }
 
 .App-ready-pid {
@@ -17,6 +27,7 @@
 }
 
 .App-reader-container {
+  background-color: #fffaf2;
   max-width: 900px;
   max-height: 100vh;
   height: 100%;

@@ -75,6 +75,7 @@ class App extends Component {
     let buttonAttr = {
       disabled: !this.state.idTyping,
     };
+    let appClass = `App${isUserSet ? ' reader-active': ''}`;
 
     if (!isUserSet) {
       let setUser = (
@@ -116,7 +117,7 @@ class App extends Component {
     }
 
     return (
-      <div className="App" ref={e => this.root = e}>
+      <div className={appClass} ref={e => this.root = e}>
         {el}
       </div>
     );
