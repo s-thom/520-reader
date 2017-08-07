@@ -1,8 +1,11 @@
 .Page {
   display: flex;
-  overflow: auto;
 }
 
 .paragraph-container {
   padding: 1em;
+}
+
+.paragraph-container :first-child {
+  margin-top: 0;
 }
