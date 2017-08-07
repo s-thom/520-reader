@@ -74,7 +74,22 @@ class BookLine extends Component {
       Array.from(this.occurences.values()).slice(0, this.props.progress)
     );
 
-    let charCount = 0;
+    // Set dimensions for the line
+    let width = dimensions.x;
+    let height = dimensions.y / 10;
+    let xStep = width / this.props.pages.length;
+    let yStep = height / max;
+
+    let currentX = this.props.current * xStep;
+    let progressX = this.props.progress * xStep;
+
+    let lineCommonProps = {
+      progress: this.props.progress,
+      height,
+      xStep,
+      yStep,
+    };
+
     let lines = this.props.characters
       .map((char, index) => {
         // Don't add lines for placeholder indicies
@@ -82,36 +97,29 @@ class BookLine extends Component {
           return null;
         }
 
-        charCount++;
-        // If flipping second line, don't add more than two
-        if (this.state.flip && charCount > 2) {
-          return null;
-        }
-
         // line-item-${index} determines the colour of the line
-        let containerClasses = [
+        let containerClass = [
           'line-item',
           `line-item-${index}`
-        ];
-        if (this.state.flip) {
-          containerClasses.push('flipped');
-        }
-
-        let containerClass = containerClasses.join(' ');
+        ].join(' ');
 
         return (
-          <div
+          <g
             className={containerClass}
             key={`line-${char.name}`}>
             {/* Create the book line for this character */}
-            {this.createLine(this.occurences.get(char), this.props.current, this.props.progress, max)}
-          </div>
+            <Line points={this.occurences.get(char)} {...lineCommonProps} />
+          </g>
         );
       });
 
     return (
       <div className="BookLine">
-        {lines}
+        <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
+          <path className="svg-path-fade" d={`M${progressX},${height} L${width},${height}`} />
+          <rect className="svg-here-line" x={currentX} y={0} width="1" height={height} />
+          {lines}
+        </svg>
       </div>
     );
   }
@@ -145,32 +153,6 @@ class BookLine extends Component {
 
       return Math.max(curr, max);
     }, 0);
-  }
-
-  createLine(points, current, progress, max) {
-    // Set dimensions for the line
-    let width = dimensions.x;
-    let height = dimensions.y / 10;
-    let xStep = width / points.length;
-    let yStep = height / max;
-
-    let currentX = current * xStep;
-    let progressX = progress * xStep;
-
-    // Map points to SVG path instructions
-    let seenPages = points.slice(0, progress + 1);
-    let instructions = seenPages.map((point, index) => {
-      return `L${index * xStep},${height - (point * yStep)}`;
-    });
-    let seenInstructions = `M0,${height} ${instructions.join(' ')} L${progressX},${height}`;
-
-    return (
-      <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
-        <path className="svg-path-fade" d={`M${progressX},${height} L${width},${height}`} />
-        <path className="svg-path" d={seenInstructions} />
-        <rect className="svg-here-line" x={currentX} y={0} width="1" height={height} />
-      </svg>
-    );
   }
 
   /**
