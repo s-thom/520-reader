@@ -21,6 +21,7 @@ class App extends Component {
       userId: getStartupUser(),
       text: undefined,
       characters: undefined,
+      idTyping: '',
     };
 
     Promise.all([
@@ -43,6 +44,7 @@ class App extends Component {
     this.userInput = null;
 
     this.su = this.setUser.bind(this);
+    this.ot = this.onType.bind(this);
   }
 
   setUser() {
@@ -60,9 +62,20 @@ class App extends Component {
     });
   }
 
+  onType(event) {
+    this.setState({
+      ...this.state,
+      idTyping: event.target.value,
+    });
+  }
+
   render() {
     let el;
     let isUserSet = this.state.userId !== -1;
+    let buttonAttr = {
+      disabled: !this.state.idTyping,
+    };
+    let appClass = `App${isUserSet ? ' reader-active': ''}`;
 
     if (!isUserSet) {
       let setUser = (
@@ -73,21 +86,23 @@ class App extends Component {
               className="App-ready-pid"
               type="text"
               placeholder="Participant ID"
+              onChange={this.ot}
+              value={this.state.idTyping}
               ref={e => this.userInput = e}
             />
           </p>
-          <p>When you're ready to start reading, click the button below.There will be a short delay as the eBook reader starts up. Read at your own pace. </p>
-          <button className="App-ready-button" onClick={this.su}>Get Started</button>
+          <p>When you're ready to start reading, click the button below. There will be a short delay as the eBook reader starts up. Read at your own pace. </p>
+          <button className="App-ready-button" onClick={this.su} {...buttonAttr}>Get Started</button>
         </div>
       );
 
       el = (
         <div className="App-ready-modal">
+          {setUser}
           <h1>Through the Looking Glass</h1>
           <h2>and What Alice Found There</h2>
           <h3>Lewis Carroll</h3>
-          {setUser}
-          <p>Text from <a href="http://www.gutenberg.org/1/12/">Project Guttenberg</a></p>
+          <p>Text from <a href="http://www.gutenberg.org/1/12/">Project Gutenberg</a></p>
         </div>
       );
     } else if (!(this.state.text && this.state.characters)) {
@@ -102,7 +117,7 @@ class App extends Component {
     }
 
     return (
-      <div className="App" ref={e => this.root = e}>
+      <div className={appClass} ref={e => this.root = e}>
         {el}
       </div>
     );

@@ -29,7 +29,8 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       remainingText: this.props.text,
-      characters: []
+      characters: [],
+      showBookline: false,
     };
 
     this.pages = [];
@@ -132,7 +133,8 @@ class Reader extends Component {
 
     this.setState({
       ...this.state,
-      characters: charArray
+      characters: charArray,
+      showBookline: true,
     });
   }
 
@@ -153,6 +155,23 @@ class Reader extends Component {
       case 'ArrowRight':
         this.nextPage();
         break;
+      case 'w':
+      case 'ArrowUp':
+        this.setState({
+          ...this.state,
+          showBookline: true,
+        });
+        break;
+      case 's':
+      case 'ArrowDown':
+        this.setState({
+          ...this.state,
+          showBookline: false,
+        });
+        break;
+      case 'Home':
+        this.setPage(0);
+        break;
       default:
         break;
     }
@@ -171,7 +190,7 @@ class Reader extends Component {
     );
 
     // Create the bookline
-    let shouldMakeLine = ((!this.state.splitting) && this.state.characters.filter(c=>c).length);
+    let shouldMakeLine = ((!this.state.splitting) && this.state.showBookline);
     let bookline = shouldMakeLine ? (
       <BookLine 
         pages={this.pages}
@@ -236,6 +255,7 @@ class Reader extends Component {
             <ReactSVG
               path={leftArrow} />
           </button>
+          <span>{this.state.page + 1} / {this.pages.length}</span>
           <button 
             className="navigation-button" 
             onClick={() => this.nextPage()}>
