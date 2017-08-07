@@ -134,7 +134,7 @@ class Reader extends Component {
     this.setState({
       ...this.state,
       characters: charArray,
-      showBookline: true,
+      showBookline: charArray.filter(a => a).length > 0,
     });
   }
 
