@@ -8,6 +8,7 @@ import BookLine from './BookLine';
 import CharacterList from './CharacterList';
 import Character from '../Character';
 import {dimensions} from '../util';
+import {event} from '../track';
 import './Reader.css';
 import leftArrow from '../res/ic_keyboard_arrow_left_black_24px.svg';
 import rightArrow from '../res/ic_keyboard_arrow_right_black_24px.svg';
@@ -28,7 +29,8 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       remainingText: this.props.text,
-      characters: []
+      characters: [],
+      showBookline: false,
     };
 
     this.pages = [];
@@ -38,6 +40,8 @@ class Reader extends Component {
     this.reachedThreshold = false;
     
     this.pageContainer = null;
+
+    event('pages-split-start');
   }
 
   /**
@@ -58,6 +62,8 @@ class Reader extends Component {
 
       // eslint-disable-next-line no-console
       console.log(`splitting complete, with ${this.state.page + 1} pages`);
+
+      event('pages-split-finish', { num: this.state.page + 1});
     }
 
     this.pages.push(
@@ -90,6 +96,7 @@ class Reader extends Component {
    */
   onCharacterSelected(character) {
     let charArray;
+    let isNowSelected;
 
     // Set the character array to the new value
     // @ts-ignore
@@ -97,6 +104,7 @@ class Reader extends Component {
       // Make the selected charater index null
       // By not modifying other character's indicies, their colours won't change
       charArray = this.state.characters.map(c => (c === character ? null : c));
+      isNowSelected = false;
     } else {
       // Make copy of array, so it is not mutated
       charArray = this.state.characters.slice();
@@ -108,11 +116,25 @@ class Reader extends Component {
         }
       }
       charArray[i] = character;
+      isNowSelected = true;
+    }
+
+    if (isNowSelected) {
+      event('character-select', {
+        character: character.name,
+        fullList: charArray.map(c => c ? c.name : '')
+      });
+    } else {
+      event('character-deselect', {
+        character: character.name,
+        fullList: charArray.map(c => c ? c.name : '')
+      });
     }
 
     this.setState({
       ...this.state,
-      characters: charArray
+      characters: charArray,
+      showBookline: true,
     });
   }
 
@@ -133,6 +155,23 @@ class Reader extends Component {
       case 'ArrowRight':
         this.nextPage();
         break;
+      case 'w':
+      case 'ArrowUp':
+        this.setState({
+          ...this.state,
+          showBookline: true,
+        });
+        break;
+      case 's':
+      case 'ArrowDown':
+        this.setState({
+          ...this.state,
+          showBookline: false,
+        });
+        break;
+      case 'Home':
+        this.setPage(0);
+        break;
       default:
         break;
     }
@@ -151,7 +190,7 @@ class Reader extends Component {
     );
 
     // Create the bookline
-    let shouldMakeLine = ((!this.state.splitting) && this.state.characters.filter(c=>c).length);
+    let shouldMakeLine = ((!this.state.splitting) && this.state.showBookline);
     let bookline = shouldMakeLine ? (
       <BookLine 
         pages={this.pages}
@@ -216,6 +255,7 @@ class Reader extends Component {
             <ReactSVG
               path={leftArrow} />
           </button>
+          <span>{this.state.page + 1} / {this.pages.length}</span>
           <button 
             className="navigation-button" 
             onClick={() => this.nextPage()}>
@@ -256,6 +296,8 @@ class Reader extends Component {
     if (this.state.splitting) {
       return;
     }
+
+    event('new-page', {page});
 
     this.setState({
       ...this.state,
