@@ -255,6 +255,7 @@ class Reader extends Component {
             <ReactSVG
               path={leftArrow} />
           </button>
+          <span>{this.state.page + 1} / {this.pages.length}</span>
           <button 
             className="navigation-button" 
             onClick={() => this.nextPage()}>
