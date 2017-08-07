@@ -1,5 +1,6 @@
 .Page {
   display: flex;
+  overflow: auto;
 }
 
 .paragraph-container {
