@@ -111,6 +111,18 @@ export function primitiveComparator(a, b) {
 }
 
 /**
+ * Attaches something to window
+ * Should be used sparingly
+ * 
+ * @export
+ * @param {string} name 
+ * @param {any} item 
+ */
+export function globalize(name, item) {
+  window[name] = item;
+}
+
+/**
  * Document and Window globals
  */
 // @ts-ignore
