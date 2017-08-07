@@ -32,6 +32,12 @@ export function event(name, data = {}) {
  */
 export function setUser(id) {
   userId = id;
+  window.localStorage.setItem('uid', id.toString());
+}
+
+export function getStartupUser() {
+  userId = parseInt(window.localStorage.getItem('uid')) || -1;
+  return userId;
 }
 
 /**
@@ -41,4 +47,5 @@ export function setUser(id) {
  */
 export function reset() {
   window.localStorage.removeItem('events');
+  window.localStorage.removeItem('uid');
 }

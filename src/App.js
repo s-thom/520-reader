@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {Reader} from './components';
 import Character from './Character';
 import {request} from './util';
-import {event, setUser} from './track';
+import {event, setUser, getStartupUser} from './track';
 import './App.css';
 
 /**
@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      userId: -1,
+      userId: getStartupUser(),
       text: undefined,
       characters: undefined,
     };
