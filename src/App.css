@@ -26,6 +26,11 @@
   padding: 0.2em;
 }
 
+.App-ready-button {
+  padding: 0.5em;
+  font-size: 1.2em;
+}
+
 .App-reader-container {
   background-color: #fffaf2;
   max-width: 900px;

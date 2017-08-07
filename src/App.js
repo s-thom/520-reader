@@ -91,18 +91,18 @@ class App extends Component {
               ref={e => this.userInput = e}
             />
           </p>
-          <p>When you're ready to start reading, click the button below.There will be a short delay as the eBook reader starts up. Read at your own pace. </p>
+          <p>When you're ready to start reading, click the button below. There will be a short delay as the eBook reader starts up. Read at your own pace. </p>
           <button className="App-ready-button" onClick={this.su} {...buttonAttr}>Get Started</button>
         </div>
       );
 
       el = (
         <div className="App-ready-modal">
+          {setUser}
           <h1>Through the Looking Glass</h1>
           <h2>and What Alice Found There</h2>
           <h3>Lewis Carroll</h3>
-          {setUser}
-          <p>Text from <a href="http://www.gutenberg.org/1/12/">Project Guttenberg</a></p>
+          <p>Text from <a href="http://www.gutenberg.org/1/12/">Project Gutenberg</a></p>
         </div>
       );
     } else if (!(this.state.text && this.state.characters)) {
