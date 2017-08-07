@@ -6,6 +6,35 @@ import './BookLine.css';
 
 import {dimensions} from '../util';
 
+
+function Line({
+  points,
+  progress,
+  height,
+  xStep,
+  yStep
+}) {
+  let progressX = progress * xStep;
+
+  // Map points to SVG path instructions
+  let seenPages = points.slice(0, progress + 1);
+  let instructions = seenPages.map((point, index) => {
+    return `L${index * xStep},${height - (point * yStep)}`;
+  });
+  let seenInstructions = `M0,${height} ${instructions.join(' ')} L${progressX},${height}`;
+
+
+  return  <path className="svg-path" d={seenInstructions} />;
+}
+
+Line.propTypes = {
+  points: PropTypes.arrayOf(PropTypes.number),
+  progress: PropTypes.number,
+  height: PropTypes.number,
+  xStep: PropTypes.number,
+  yStep: PropTypes.number,
+};
+
 /**
  * Component to display the occurence of a name throughout the text
  * 
