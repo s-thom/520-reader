@@ -21,6 +21,7 @@ class App extends Component {
       userId: getStartupUser(),
       text: undefined,
       characters: undefined,
+      idTyping: '',
     };
 
     Promise.all([
@@ -43,6 +44,7 @@ class App extends Component {
     this.userInput = null;
 
     this.su = this.setUser.bind(this);
+    this.ot = this.onType.bind(this);
   }
 
   setUser() {
@@ -60,9 +62,19 @@ class App extends Component {
     });
   }
 
+  onType(event) {
+    this.setState({
+      ...this.state,
+      idTyping: event.target.value,
+    });
+  }
+
   render() {
     let el;
     let isUserSet = this.state.userId !== -1;
+    let buttonAttr = {
+      disabled: !this.state.idTyping,
+    };
 
     if (!isUserSet) {
       let setUser = (
@@ -73,11 +85,13 @@ class App extends Component {
               className="App-ready-pid"
               type="text"
               placeholder="Participant ID"
+              onChange={this.ot}
+              value={this.state.idTyping}
               ref={e => this.userInput = e}
             />
           </p>
           <p>When you're ready to start reading, click the button below.There will be a short delay as the eBook reader starts up. Read at your own pace. </p>
-          <button className="App-ready-button" onClick={this.su}>Get Started</button>
+          <button className="App-ready-button" onClick={this.su} {...buttonAttr}>Get Started</button>
         </div>
       );
 
