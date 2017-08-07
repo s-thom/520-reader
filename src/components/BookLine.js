@@ -68,6 +68,14 @@ class BookLine extends Component {
   }
 
   render() {
+    if (this.props.characters.filter(a => a).length === 0) {
+      return (
+        <div className="BookLine">
+          <p>To view the bookline for a character, select their name in the text or in the list on the right-hand side of the page.</p>
+        </div>
+      );
+    }
+
     let max = this.findMaximum(
       this.props.progress, 
       // Only find maximum of viewed pages
