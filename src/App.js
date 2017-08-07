@@ -66,12 +66,11 @@ class App extends Component {
 
     if (!isUserSet) {
       let setUser = (
-        <div 
-          className={`App-ready-box App-ready-${isUserSet ? 'success' : 'fail'}`}
-        >
+        <div className="App-ready-box">
           <p>Thank you for participating in this study. You will have received an anonymous participant ID from the study supervisor. Please enter it in the box below.</p>
           <p>
             <input
+              className="App-ready-pid"
               type="text"
               placeholder="Participant ID"
               ref={e => this.userInput = e}
@@ -99,7 +98,7 @@ class App extends Component {
         </div>
       );
     } else {
-      el = <Reader {...this.state} />;
+      el = <div className="App-reader-container"><Reader {...this.state} /></div>;
     }
 
     return (
