@@ -134,7 +134,7 @@ class Reader extends Component {
     this.setState({
       ...this.state,
       characters: charArray,
-      showBookline: true,
+      showBookline: charArray.filter(a => a).length > 0,
     });
   }
 
@@ -190,7 +190,7 @@ class Reader extends Component {
     );
 
     // Create the bookline
-    let shouldMakeLine = ((!this.state.splitting) && this.state.showBookline);
+    let shouldMakeLine = !this.state.splitting;
     let bookline = shouldMakeLine ? (
       <BookLine 
         pages={this.pages}
@@ -199,7 +199,7 @@ class Reader extends Component {
         progress={this.state.maxPage}
         />
     ) : null;
-    let booklineClass = `bookline-container${shouldMakeLine?' bookline-show':''}`;
+    let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
 
     // Create the character list
     let charList = (!this.state.splitting) ? (
