@@ -53,6 +53,8 @@ class BookLine extends Component {
     // Holds the list of points used by a character
     this.occurences = new Map();
     this.componentWillReceiveProps(props);
+
+    this.container = null;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,52 +84,60 @@ class BookLine extends Component {
       Array.from(this.occurences.values()).slice(0, this.props.progress)
     );
 
-    // Set dimensions for the line
-    let width = dimensions.x;
-    let height = dimensions.y / 10;
-    let xStep = width / this.props.pages.length;
-    let yStep = height / max;
+    let content;
 
-    let currentX = this.props.current * xStep;
-    let progressX = this.props.progress * xStep;
+    if (this.container) {
+      // Set dimensions for the line
+      let width = this.container.clientWidth;
+      let height = dimensions.y / 10;
+      let xStep = width / this.props.pages.length;
+      let yStep = height / max;
 
-    let lineCommonProps = {
-      progress: this.props.progress,
-      height,
-      xStep,
-      yStep,
-    };
+      let currentX = this.props.current * xStep;
+      let progressX = this.props.progress * xStep;
 
-    let lines = this.props.characters
-      .map((char, index) => {
-        // Don't add lines for placeholder indicies
-        if (!char) {
-          return null;
-        }
+      let lineCommonProps = {
+        progress: this.props.progress,
+        height,
+        xStep,
+        yStep,
+      };
 
-        // line-item-${index} determines the colour of the line
-        let containerClass = [
-          'line-item',
-          `line-item-${index}`
-        ].join(' ');
+      let lines = this.props.characters
+        .map((char, index) => {
+          // Don't add lines for placeholder indicies
+          if (!char) {
+            return null;
+          }
 
-        return (
-          <g
-            className={containerClass}
-            key={`line-${char.name}`}>
-            {/* Create the book line for this character */}
-            <Line points={this.occurences.get(char)} {...lineCommonProps} />
-          </g>
-        );
-      });
+          // line-item-${index} determines the colour of the line
+          let containerClass = [
+            'line-item',
+            `line-item-${index}`
+          ].join(' ');
 
-    return (
-      <div className="BookLine">
+          return (
+            <g
+              className={containerClass}
+              key={`line-${char.name}`}>
+              {/* Create the book line for this character */}
+              <Line points={this.occurences.get(char)} {...lineCommonProps} />
+            </g>
+          );
+        });
+
+      content = (
         <svg className="svg-line" viewBox={`0 0 ${width} ${height}`}>
           <path className="svg-path-fade" d={`M${progressX},${height} L${width},${height}`} />
           <rect className="svg-here-line" x={currentX} y={0} width="1" height={height} />
           {lines}
         </svg>
+      );
+    }
+
+    return (
+      <div className="BookLine" ref={e => this.container = e}>
+        {content}
       </div>
     );
   }
