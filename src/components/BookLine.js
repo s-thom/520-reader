@@ -70,23 +70,14 @@ class BookLine extends Component {
   }
 
   render() {
-    if (this.props.characters.filter(a => a).length === 0) {
-      return (
-        <div className="BookLine">
-          <p>To view the bookline for a character, select their name in the text or in the list on the right-hand side of the page.</p>
-        </div>
-      );
-    }
-
-    let max = this.findMaximum(
-      this.props.progress, 
-      // Only find maximum of viewed pages
-      Array.from(this.occurences.values()).slice(0, this.props.progress)
-    );
-
     let content;
+    if (this.container && this.props.characters.filter(a => a).length > 0) {
+      let max = this.findMaximum(
+        this.props.progress,
+        // Only find maximum of viewed pages
+        Array.from(this.occurences.values()).slice(0, this.props.progress)
+      );
 
-    if (this.container) {
       // Set dimensions for the line
       let width = this.container.clientWidth;
       let height = dimensions.y / 10;
@@ -132,6 +123,10 @@ class BookLine extends Component {
           <rect className="svg-here-line" x={currentX} y={0} width="1" height={height} />
           {lines}
         </svg>
+      );
+    } else {
+      content = (
+        <p>To view the bookline for a character, select their name in the text or in the list on the right-hand side of the page.</p>
       );
     }
 
