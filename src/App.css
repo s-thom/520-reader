@@ -33,7 +33,7 @@
 
 .App-reader-container {
   background-color: #fffaf2;
-  max-width: 900px;
+  max-width: 75vh;
   max-height: 100vh;
   height: 100%;
   overflow: hidden;
