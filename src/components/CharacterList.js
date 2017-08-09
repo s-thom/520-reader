@@ -18,7 +18,7 @@ class CharacterList extends Component {
     let curr = this.props.current;
     let page = this.props.pages[curr];
 
-    let characters = this.findCharacters(page.props.text);
+    let characters = this.findCharacters(page);
     // Add selected, but not present, characters
     if (this.props.selected.length) {
       this.props.selected.forEach((char) => {
@@ -125,7 +125,7 @@ CharacterList.defaultProps = {
 };
 
 CharacterList.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.instanceOf(Page)),
+  pages: PropTypes.arrayOf(PropTypes.string),
   progress: PropTypes.number.isRequired,
   current: PropTypes.number,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,

@@ -139,7 +139,6 @@ class BookLine extends Component {
 
   findOccurences(pages, character) {
     let occurences = pages
-      .map(p => p.props.text)
       .map((text) => {
         return character.numberOfOccurrences(text);
       });
@@ -210,7 +209,7 @@ BookLine.defaultProps = {
 };
 
 BookLine.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.element).isRequired,
+  pages: PropTypes.arrayOf(PropTypes.string).isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   progress: PropTypes.number.isRequired,
   current: PropTypes.number
