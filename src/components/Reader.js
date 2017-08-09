@@ -199,7 +199,6 @@ class Reader extends Component {
         progress={this.state.maxPage}
         />
     ) : null;
-    let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
 
     // Create the character list
     let charList = (!this.state.splitting) ? (
@@ -222,10 +221,12 @@ class Reader extends Component {
       .map(c=>c.name)
       .join(', ');
 
+    let readerClass = `Reader${this.state.showBookline?' bookline-show':''}`;
+
     return (
       <div 
         tabIndex={0}
-        className="Reader"
+        className={readerClass}
         onKeyDown={(e)=>this.onKey(e)}
         ref={el => el && el.focus()}>
 
@@ -242,9 +243,11 @@ class Reader extends Component {
 
         {/* List and line */}
         {charList}
-        <div className={booklineClass}>
+        <div className="bookline-container">
           <h2>{`Bookline for ${charName}`}</h2>
-          {bookline}
+          <div className="bookline-wrapper">
+            {bookline}
+          </div>
         </div>
 
         {/* Navigation */}
