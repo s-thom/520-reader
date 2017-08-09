@@ -19,6 +19,14 @@
   /*-webkit-transition: left 0.1s ease-out;
   -moz-transition: left 0.1s ease-out;
   transition: left 0.1s ease-out;*/
+  -webkit-transition: transform 0.2s ease-out;
+  -moz-transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+  transform: scale(1);
+  transform-origin: 50% 0;
+}
+.bookline-show .page-container {
+  transform: scale(0.8);
 }
 
 .bookline-container {
@@ -48,6 +56,14 @@
 .navigation {
   display: flex;
   justify-content: space-between;
+  position: relative;
+  bottom: 0;
+  -webkit-transition: bottom 0.2s ease-out;
+  -moz-transition: bottom 0.2s ease-out;
+  transition: bottom 0.2s ease-out;
+}
+.bookline-show .navigation {
+  bottom: 20%;
 }
 
 .navigation-button {
