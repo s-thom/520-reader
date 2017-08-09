@@ -23,7 +23,7 @@
   -moz-transition: transform 0.2s ease-out;
   transition: transform 0.2s ease-out;
   transform: scale(1);
-  transform-origin: 50% 0;
+  transform-origin: 0 0;
 }
 .bookline-show .page-container {
   transform: scale(0.8);
