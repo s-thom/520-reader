@@ -66,14 +66,7 @@ class Reader extends Component {
       event('pages-split-finish', { num: this.state.page + 1});
     }
 
-    this.pages.push(
-      <Page 
-        text={result} 
-        identifier={this.state.page} 
-        characters={this.props.characters}
-        oncharclick={(c)=>this.onTextCharacterSelected(c)}
-        key={this.state.page} />
-    );
+    this.pages.push(result);
 
     this.setState({
       ...this.state,
@@ -186,7 +179,12 @@ class Reader extends Component {
         onfinish={(t)=>this.onSplitterFinish(t)}
         />
     ) : (
-      this.pages[this.state.page]
+      <Page 
+        text={this.pages[this.state.page]} 
+        identifier={this.state.page} 
+        characters={this.props.characters}
+        oncharclick={(c)=>this.onTextCharacterSelected(c)}
+        key={this.state.page} />
     );
 
     // Create the bookline
