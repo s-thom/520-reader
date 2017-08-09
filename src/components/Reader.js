@@ -184,7 +184,9 @@ class Reader extends Component {
         identifier={this.state.page} 
         characters={this.props.characters}
         oncharclick={(c)=>this.onTextCharacterSelected(c)}
-        key={this.state.page} />
+        key={this.state.page}
+        selected={this.state.characters}
+      />
     );
 
     // Create the bookline
