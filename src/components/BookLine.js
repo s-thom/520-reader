@@ -80,7 +80,7 @@ class BookLine extends Component {
 
       // Set dimensions for the line
       let width = this.container.clientWidth;
-      let height = dimensions.y / 10;
+      let height = this.container.clientHeight;
       let xStep = width / this.props.pages.length;
       let yStep = height / max;
 
