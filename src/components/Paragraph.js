@@ -60,10 +60,14 @@ class Paragraph extends Component {
 
       // Add character
       let char = characterFromName(match[0], this.props.characters);
+      let index = this.props.selected.findIndex(c => c && c.isCalled(match[0]));
+
+      let paraClass = `para-char${index > -1 ? ` selected selected-${index}` : ''}`;
+
       items.push(
         <span 
           key={`${index}-${items.length}`}
-          className="para-char" 
+          className={paraClass} 
           onClick={()=>this.props.oncharclick(char)}>
           {match[0]}
         </span>

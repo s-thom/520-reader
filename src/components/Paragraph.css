@@ -21,10 +21,40 @@
   content: ' ';
   left: 0;
   bottom: 0;
-  -webkit-transition: opacity 0.2s;
-  -moz-transition: opacity 0.2s;
-  transition: opacity 0.2s;
+  -webkit-transition: opacity 0.2s, background-color 0.2s, height 0.2s;
+  -moz-transition: opacity 0.2s, background-color 0.2s, height 0.2s;
+  transition: opacity 0.2s, background-color 0.2s, height 0.2s;
 }
 .para-char:hover::before {
   opacity: 0.3;
+}
+
+.para-char.selected::before {
+  height: 100%;
+}
+
+/* Coloured lines */
+.bookline-show .para-char.selected-0::before {
+  background-color: #7FB6FF;
+}
+.bookline-show .para-char.selected-1::before {
+  background-color: #FF4E44;
+}
+.bookline-show .para-char.selected-2::before {
+  background-color: #84CD6D;
+}
+.bookline-show .para-char.selected-3::before {
+  background-color: #C382CC;
+}
+.bookline-show .para-char.selected-4::before {
+  background-color: #C6CC61;
+}
+.bookline-show .para-char.selected-5::before {
+  background-color: #70CCA5;
+}
+.bookline-show .para-char.selected-6::before {
+  background-color: #CC8693;
+}
+.bookline-show .para-char.selected-7::before {
+  background-color: #CC9859;
 }
