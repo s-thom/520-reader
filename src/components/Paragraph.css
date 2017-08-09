@@ -1,3 +1,13 @@
+.Paragraph { 
+  margin: .8em 0; 
+} 
+.Paragraph:first-child { 
+  margin-top: 0; 
+} 
+.Paragraph:last-child { 
+  margin-bottom: 0; 
+} 
+ 
 .para-char {
   position: relative;
   cursor: pointer;
