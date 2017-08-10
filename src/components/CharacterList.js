@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Character from '../Character';
-import Page from './Page';
 import './CharacterList.css';
 
 import {primitiveComparator} from '../util';

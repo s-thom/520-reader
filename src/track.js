@@ -36,7 +36,7 @@ export function setUser(id) {
 }
 
 export function getStartupUser() {
-  userId = parseInt(window.localStorage.getItem('uid')) || -1;
+  userId = parseInt(window.localStorage.getItem('uid'), 10) || -1;
   return userId;
 }
 

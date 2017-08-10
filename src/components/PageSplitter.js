@@ -107,6 +107,7 @@ class PageSplitter extends Component {
           characters={[]}
           selected={[]}
           key={id} 
+          oncharclick={() => undefined}
           />;
       });
 
