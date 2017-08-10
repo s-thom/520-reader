@@ -23,6 +23,7 @@ class Page extends Component {
           text={para} 
           identifier={id}
           characters={this.props.characters}
+          selected={this.props.selected}
           oncharclick={this.props.oncharclick}
           key={id} 
           />;
@@ -42,7 +43,8 @@ Page.propTypes = {
   text: PropTypes.string.isRequired,
   identifier: PropTypes.any.isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
-  oncharclick: PropTypes.func.isRequired
+  oncharclick: PropTypes.func.isRequired,
+  selected: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
 };
 
 export default Page;

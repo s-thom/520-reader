@@ -67,4 +67,15 @@ export default class Character {
       return 0;
     }
   }
+
+    /**
+     * Tests the given name to see if this character is known by that name
+     * 
+     * @param {string} name Name to check against
+     * @returns {boolean} Whether the character is known by this name
+     * @memberof Character
+     */
+  isCalled(name) {
+    return !!this.names.find(n => n.toLowerCase() === name.toLowerCase());
+  }
 }

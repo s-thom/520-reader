@@ -60,11 +60,15 @@ class Paragraph extends Component {
 
       // Add character
       let char = characterFromName(match[0], this.props.characters);
+      let index = this.props.selected.findIndex(c => c && c.isCalled(match[0]));
+
+      let paraClass = `para-char${index > -1 ? ` selected selected-${index}` : ''}`;
+
       items.push(
         <span 
           key={`${index}-${items.length}`}
-          className="para-char" 
-          onClick={()=>this.props.oncharclick(char)}>
+          className={paraClass} 
+          onClick={(e)=>this.props.oncharclick(char, e.shiftKey)}>
           {match[0]}
         </span>
       );
@@ -84,7 +88,8 @@ Paragraph.propTypes = {
   text: PropTypes.string.isRequired,
   identifier: PropTypes.any.isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
-  oncharclick: PropTypes.func.isRequired
+  oncharclick: PropTypes.func.isRequired,
+  selected: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
 };
 
 export default Paragraph;
