@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Paragraph from './Paragraph';
-import './Page.css';
-import './PageSplitter.css';
-import {punctuationSplit} from '../util';
+import Paragraph from '../Paragraph';
+import '../Page/index.css';
+import './index.css';
+import {punctuationSplit} from '../../util';
 
 const MAX_LENGTH = 5000;
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Character  from '../Character';
-import './BookLine.css';
+import Character  from '../../Character';
+import './index.css';
 
 
 function Line({
