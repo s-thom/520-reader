@@ -64,9 +64,9 @@ class Reader extends Component {
       console.log(`splitting complete, with ${this.state.page + 1} pages`);
 
       event('pages-split-finish', { num: this.state.page + 1});
+    } else {
+      this.pages.push(result);
     }
-
-    this.pages.push(result);
 
     this.setState({
       ...this.state,
