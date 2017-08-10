@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import {Reader} from './components';
-import Character from './Character';
-import {request} from './util';
-import {event, setUser, getStartupUser} from './track';
-import './App.css';
+import Reader from '../Reader';
+import Character from '../../Character';
+import {request} from '../../util';
+import {event, setUser, getStartupUser} from '../../track';
+import './index.css';
 
 /**
  * Root component

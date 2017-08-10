@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Character  from '../Character';
-import {createExpression, characterFromName} from '../util';
-import './Paragraph.css';
+import Character  from '../../Character';
+import {createExpression, characterFromName} from '../../util';
+import './index.css';
 
 /**
  * Component that displays a paragraph of text

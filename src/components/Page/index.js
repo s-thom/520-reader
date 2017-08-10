@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Character  from '../Character';
-import Paragraph from './Paragraph';
-import './Page.css';
+import Character  from '../../Character';
+import Paragraph from '../Paragraph';
+import './index.css';
 
 /**
  * Component that displays a page of a book
