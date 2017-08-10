@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Character  from '../Character';
 import './BookLine.css';
 
-import {dimensions} from '../util';
-
 
 function Line({
   points,

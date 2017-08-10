@@ -53,6 +53,10 @@ class Paragraph extends Component {
     let match;
     let prevLast = 0;
     let items = [];
+
+    let nameMatcher = c => c && c.isCalled(match[0]);
+    
+    // eslint-disable-next-line no-cond-assign
     while ((match = exp.exec(text)) !== null) {
       // Add string section
       let prev = text.slice(prevLast, match.index);
@@ -60,9 +64,9 @@ class Paragraph extends Component {
 
       // Add character
       let char = characterFromName(match[0], this.props.characters);
-      let index = this.props.selected.findIndex(c => c && c.isCalled(match[0]));
+      let selectedIndex = this.props.selected.findIndex(nameMatcher);
 
-      let paraClass = `para-char${index > -1 ? ` selected selected-${index}` : ''}`;
+      let paraClass = `para-char${selectedIndex > -1 ? ` selected selected-${selectedIndex}` : ''}`;
 
       items.push(
         <span 
