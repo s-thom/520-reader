@@ -67,7 +67,7 @@ class CharacterList extends Component {
         <div 
           key={`char-${char.name}`}
           className={charClasses.join(' ')}
-          onClick={()=>this.onSelect(char)}>
+          onClick={(e)=>this.onSelect(char, e.shiftKey)}>
           {charIcon}
           {showLabel && <span className="char-name">{char.name}</span>}
         </div>
@@ -111,10 +111,10 @@ class CharacterList extends Component {
    * @param {Character} char Selected character
    * @memberof CharacterList
    */
-  onSelect(char) {
+  onSelect(char, shift) {
     setImmediate(() => {
       if (this.props.onselected) {
-        this.props.onselected(char);
+        this.props.onselected(char, shift);
       }
     });
   }

@@ -68,7 +68,7 @@ class Paragraph extends Component {
         <span 
           key={`${index}-${items.length}`}
           className={paraClass} 
-          onClick={()=>this.props.oncharclick(char)}>
+          onClick={(e)=>this.props.oncharclick(char, e.shiftKey)}>
           {match[0]}
         </span>
       );

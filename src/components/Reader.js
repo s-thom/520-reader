@@ -77,17 +77,18 @@ class Reader extends Component {
     });
   }
 
-  onTextCharacterSelected(character) {
-    this.onCharacterSelected(character);
+  onTextCharacterSelected(character, shift) {
+    this.onCharacterSelected(character, shift);
   }
 
   /**
    * Called when a character is selected
    * 
    * @param {Character} character Selected character
+   * @param {boolean} shift Whether the "shift" key was pressed
    * @memberof Reader
    */
-  onCharacterSelected(character) {
+  onCharacterSelected(character, shift) {
     let charArray;
     let isNowSelected;
 
@@ -124,10 +125,17 @@ class Reader extends Component {
       });
     }
 
+    let showLine = false;
+    if (shift) {
+      showLine = this.state.showBookline;
+    } else {
+      showLine = charArray.filter(a => a).length > 0;
+    }
+
     this.setState({
       ...this.state,
       characters: charArray,
-      showBookline: charArray.filter(a => a).length > 0,
+      showBookline: showLine,
     });
   }
 
@@ -183,7 +191,7 @@ class Reader extends Component {
         text={this.pages[this.state.page]} 
         identifier={this.state.page} 
         characters={this.props.characters}
-        oncharclick={(c)=>this.onTextCharacterSelected(c)}
+        oncharclick={(c,s)=>this.onTextCharacterSelected(c,s)}
         key={this.state.page}
         selected={this.state.characters}
       />
@@ -209,7 +217,7 @@ class Reader extends Component {
           current={this.state.page}
           progress={this.state.maxPage}
           selected={this.state.characters}
-          onselected={(c)=>this.onCharacterSelected(c)}
+          onselected={(c,s)=>this.onCharacterSelected(c,s)}
           vertical
           />
       </div>
