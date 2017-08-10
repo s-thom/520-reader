@@ -53,6 +53,10 @@ class Paragraph extends Component {
     let match;
     let prevLast = 0;
     let items = [];
+
+    let nameMatcher = c => c && c.isCalled(match[0]);
+    
+    // eslint-disable-next-line no-cond-assign
     while ((match = exp.exec(text)) !== null) {
       // Add string section
       let prev = text.slice(prevLast, match.index);
@@ -60,11 +64,15 @@ class Paragraph extends Component {
 
       // Add character
       let char = characterFromName(match[0], this.props.characters);
+      let selectedIndex = this.props.selected.findIndex(nameMatcher);
+
+      let paraClass = `para-char${selectedIndex > -1 ? ` selected selected-${selectedIndex}` : ''}`;
+
       items.push(
         <span 
           key={`${index}-${items.length}`}
-          className="para-char" 
-          onClick={()=>this.props.oncharclick(char)}>
+          className={paraClass} 
+          onClick={(e)=>this.props.oncharclick(char, e.shiftKey)}>
           {match[0]}
         </span>
       );
@@ -84,7 +92,8 @@ Paragraph.propTypes = {
   text: PropTypes.string.isRequired,
   identifier: PropTypes.any.isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
-  oncharclick: PropTypes.func.isRequired
+  oncharclick: PropTypes.func.isRequired,
+  selected: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
 };
 
 export default Paragraph;

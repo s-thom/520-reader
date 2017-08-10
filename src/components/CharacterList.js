@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Character from '../Character';
-import Page from './Page';
 import './CharacterList.css';
 
 import {primitiveComparator} from '../util';
@@ -18,7 +17,7 @@ class CharacterList extends Component {
     let curr = this.props.current;
     let page = this.props.pages[curr];
 
-    let characters = this.findCharacters(page.props.text);
+    let characters = this.findCharacters(page);
     // Add selected, but not present, characters
     if (this.props.selected.length) {
       this.props.selected.forEach((char) => {
@@ -67,7 +66,7 @@ class CharacterList extends Component {
         <div 
           key={`char-${char.name}`}
           className={charClasses.join(' ')}
-          onClick={()=>this.onSelect(char)}>
+          onClick={(e)=>this.onSelect(char, e.shiftKey)}>
           {charIcon}
           {showLabel && <span className="char-name">{char.name}</span>}
         </div>
@@ -111,10 +110,10 @@ class CharacterList extends Component {
    * @param {Character} char Selected character
    * @memberof CharacterList
    */
-  onSelect(char) {
+  onSelect(char, shift) {
     setImmediate(() => {
       if (this.props.onselected) {
-        this.props.onselected(char);
+        this.props.onselected(char, shift);
       }
     });
   }
@@ -125,7 +124,7 @@ CharacterList.defaultProps = {
 };
 
 CharacterList.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.instanceOf(Page)),
+  pages: PropTypes.arrayOf(PropTypes.string),
   progress: PropTypes.number.isRequired,
   current: PropTypes.number,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,

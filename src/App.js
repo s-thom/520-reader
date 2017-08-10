@@ -48,7 +48,7 @@ class App extends Component {
   }
 
   setUser() {
-    let user = parseInt(this.userInput.value);
+    let user = parseInt(this.userInput.value, 10);
 
     if (!user) {
       return;

@@ -66,14 +66,7 @@ class Reader extends Component {
       event('pages-split-finish', { num: this.state.page + 1});
     }
 
-    this.pages.push(
-      <Page 
-        text={result} 
-        identifier={this.state.page} 
-        characters={this.props.characters}
-        oncharclick={(c)=>this.onTextCharacterSelected(c)}
-        key={this.state.page} />
-    );
+    this.pages.push(result);
 
     this.setState({
       ...this.state,
@@ -84,17 +77,18 @@ class Reader extends Component {
     });
   }
 
-  onTextCharacterSelected(character) {
-    this.onCharacterSelected(character);
+  onTextCharacterSelected(character, shift) {
+    this.onCharacterSelected(character, shift);
   }
 
   /**
    * Called when a character is selected
    * 
    * @param {Character} character Selected character
+   * @param {boolean} shift Whether the "shift" key was pressed
    * @memberof Reader
    */
-  onCharacterSelected(character) {
+  onCharacterSelected(character, shift) {
     let charArray;
     let isNowSelected;
 
@@ -131,10 +125,17 @@ class Reader extends Component {
       });
     }
 
+    let showLine = false;
+    if (shift) {
+      showLine = this.state.showBookline;
+    } else {
+      showLine = charArray.filter(a => a).length > 0;
+    }
+
     this.setState({
       ...this.state,
       characters: charArray,
-      showBookline: charArray.filter(a => a).length > 0,
+      showBookline: showLine,
     });
   }
 
@@ -186,7 +187,14 @@ class Reader extends Component {
         onfinish={(t)=>this.onSplitterFinish(t)}
         />
     ) : (
-      this.pages[this.state.page]
+      <Page 
+        text={this.pages[this.state.page]} 
+        identifier={this.state.page} 
+        characters={this.props.characters}
+        oncharclick={(c,s)=>this.onTextCharacterSelected(c,s)}
+        key={this.state.page}
+        selected={this.state.characters}
+      />
     );
 
     // Create the bookline
@@ -199,7 +207,6 @@ class Reader extends Component {
         progress={this.state.maxPage}
         />
     ) : null;
-    let booklineClass = `bookline-container${this.state.showBookline?' bookline-show':''}`;
 
     // Create the character list
     let charList = (!this.state.splitting) ? (
@@ -210,7 +217,7 @@ class Reader extends Component {
           current={this.state.page}
           progress={this.state.maxPage}
           selected={this.state.characters}
-          onselected={(c)=>this.onCharacterSelected(c)}
+          onselected={(c,s)=>this.onCharacterSelected(c,s)}
           vertical
           />
       </div>
@@ -222,10 +229,12 @@ class Reader extends Component {
       .map(c=>c.name)
       .join(', ');
 
+    let readerClass = `Reader${this.state.showBookline?' bookline-show':''}`;
+
     return (
       <div 
         tabIndex={0}
-        className="Reader"
+        className={readerClass}
         onKeyDown={(e)=>this.onKey(e)}
         ref={el => el && el.focus()}>
 
@@ -242,9 +251,11 @@ class Reader extends Component {
 
         {/* List and line */}
         {charList}
-        <div className={booklineClass}>
+        <div className="bookline-container">
           <h2>{`Bookline for ${charName}`}</h2>
-          {bookline}
+          <div className="bookline-wrapper">
+            {bookline}
+          </div>
         </div>
 
         {/* Navigation */}

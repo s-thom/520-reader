@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Character  from '../Character';
 import './BookLine.css';
 
-import {dimensions} from '../util';
-
 
 function Line({
   points,
@@ -80,7 +78,7 @@ class BookLine extends Component {
 
       // Set dimensions for the line
       let width = this.container.clientWidth;
-      let height = dimensions.y / 10;
+      let height = this.container.clientHeight;
       let xStep = width / this.props.pages.length;
       let yStep = height / max;
 
@@ -139,7 +137,6 @@ class BookLine extends Component {
 
   findOccurences(pages, character) {
     let occurences = pages
-      .map(p => p.props.text)
       .map((text) => {
         return character.numberOfOccurrences(text);
       });
@@ -210,7 +207,7 @@ BookLine.defaultProps = {
 };
 
 BookLine.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.element).isRequired,
+  pages: PropTypes.arrayOf(PropTypes.string).isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   progress: PropTypes.number.isRequired,
   current: PropTypes.number
