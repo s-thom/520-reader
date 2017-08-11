@@ -21,10 +21,11 @@ class Page extends Component {
       .filter(t => !!t)
       .map((para, i) => {
         let id = this.props.startId + fragmentCount;
-        fragmentCount += punctuationSplit(para).length;
+        let fragments = punctuationSplit(para);
+        fragmentCount += fragments.length;
 
         return <Paragraph 
-          text={para} 
+          fragments={fragments} 
           identifier={id}
           characters={this.props.characters}
           selected={this.props.selected}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Character  from '../../Character';
-import {createExpression, characterFromName, punctuationSplit} from '../../util';
+import {createExpression, characterFromName} from '../../util';
 import './index.css';
 
 /**
@@ -13,7 +13,7 @@ import './index.css';
  */
 class Paragraph extends Component {
   render() {
-    let elements = punctuationSplit(this.props.text)
+    let elements = this.props.fragments
       .map((text, i) => {
         let items = [];
         if (this.props.characters.length) {
@@ -86,7 +86,7 @@ class Paragraph extends Component {
 }
 
 Paragraph.propTypes = {
-  text: PropTypes.string.isRequired,
+  fragments: PropTypes.arrayOf(PropTypes.string).isRequired,
   identifier: PropTypes.any.isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   oncharclick: PropTypes.func.isRequired,
