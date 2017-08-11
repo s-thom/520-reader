@@ -58,7 +58,7 @@ export function escapeRegex(text) {
 export function createExpression(characters) {
   let exp = characters
     .map(c => c.names)
-    .reduce((p, c) => [...p, ...c])
+    .reduce((p, c) => [...p, ...c], [])
     .join('|');
 
   return new RegExp(exp, 'ig');

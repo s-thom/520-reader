@@ -19,42 +19,48 @@ class PageSplitter extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      items: punctuationSplit(this.props.text.substring(0, MAX_LENGTH)),
-      count: 0,
-      prevString: '',
-      currentString: '',
-      fullString: this.props.text
-    };
+    this.state = this.createNewState(this.props.text);
 
     this.page = null;
   }
+
+  createNewState(text) {
+    let items = punctuationSplit(text.substring(0, MAX_LENGTH));
+
+    return {
+      items,
+      count: 0,
+      prevItems: [],
+      currentItems: [],
+    };
+  }
   
+  /**
+   * Run when the component initially mounts.
+   * Component now has a reference to its container, so can check sizes
+   * 
+   * @memberof PageSplitter
+   */
   componentDidMount() {
     // Limit to 200 characters. May have to increase for larget tablets
     // This just reduces the load on the component
     this.setState({
       ...this.state,
-      currentString: this.state.items[0]
+      count: 0,
+      currentItems: [this.state.items[0]]
     });
   }
 
   componentWillReceiveProps(newProps) {
     // Going to render new page, set initial state
     if (newProps.text === '') {
-      this.doFinish('');
+      this.doFinish('', 0);
       return;
     }
 
     // Limit to 200 characters. May have to increase for larget tablets
     // This just reduces the load on the component
-    this.setState({
-      items: punctuationSplit(newProps.text.substring(0, MAX_LENGTH)),
-      count: 0,
-      prevString: '',
-      currentString: '',
-      fullString: newProps.text
-    });
+    this.setState(this.createNewState(newProps.text));
   }
 
   componentDidUpdate() {
@@ -64,21 +70,21 @@ class PageSplitter extends Component {
     //   The page has all items, or
     //   the page has rendered larger than the container (i.e. there's a scrollbar)
     if (this.state.count === this.state.items.length) {
-      this.doFinish(this.state.prevString);
+      this.doFinish(this.state.prevItems.join(''), this.state.count);
       return;
     }
     if (this.page.scrollHeight > this.page.clientHeight) {
-      this.doFinish(this.state.prevString);
+      this.doFinish(this.state.prevItems.join(''), this.state.count);
       return;
     }
 
     let newCount = this.state.count + 1;
-    // console.log(`nc: ${newCount} -- ${this.items.slice(0, newCount).join('')}`);
 
     this.setState({
+      ...this.state,
       count: newCount,
-      prevString: this.state.currentString,
-      currentString: this.state.items.slice(0, newCount).join('')
+      prevItems: this.state.currentItems,
+      currentItems: this.state.items.slice(0, newCount),
     });
   }
 
@@ -89,20 +95,22 @@ class PageSplitter extends Component {
    * 
    * @memberof PageSplitter
    */
-  doFinish(text) {
+  doFinish(text, count) {
     setImmediate(() => {
-      this.props.onfinish(text);
+      this.props.onfinish(text, count);
     });
   }
 
   render() {
-    let paragraphs = this.state.currentString
+    let paragraphs = this.state.currentItems
+      .join('')
       .split(/\r?\n\r?\n/)
+      .filter(t => !!t)
       .map((para, i) => {
-        let id = `${this.props.identifier}-${i}`;
+        let id = i;
 
         return <Paragraph 
-          text={para} 
+          fragments={[para]} 
           identifier={id}
           characters={[]}
           selected={[]}
