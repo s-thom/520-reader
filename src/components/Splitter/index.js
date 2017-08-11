@@ -26,21 +26,11 @@ class Splitter extends Component {
 
     this.state = {
       page: 0,
-      maxPage: 0,
-      splitting: true,
       remainingText: this.props.text,
       remainingIndex: 0,
-      characters: [],
-      showBookline: false,
     };
 
     this.pages = [];
-
-    this.startPosition = null;
-    this.currPosition = null;
-    this.reachedThreshold = false;
-
-    this.pageContainer = null;
 
     event('pages-split-start');
   }
@@ -53,18 +43,19 @@ class Splitter extends Component {
    * @memberof Splitter
    */
   onSplitterFinish(result) {
-    let stillSplit = this.state.splitting;
     let rest = this.state.remainingText.slice(result.length);
     let nextPage = this.state.page + 1;
 
     if (result === '' || rest === '') {
-      stillSplit = false;
       nextPage = 0;
 
       // eslint-disable-next-line no-console
       console.log(`splitting complete, with ${this.state.page + 1} pages`);
 
       event('pages-split-finish', { num: this.state.page + 1 });
+
+      this.props.onfinish(this.pages);
+      return;
     } else {
       this.pages.push(result);
     }
@@ -72,7 +63,6 @@ class Splitter extends Component {
     this.setState({
       ...this.state,
       page: nextPage,
-      splitting: stillSplit,
       maxPage: 0,
       remainingText: rest
     });
@@ -93,7 +83,8 @@ class Splitter extends Component {
 }
 
 Splitter.propTypes = {
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  onfinish: PropTypes.func.isRequired,
 };
 
 export default Splitter;
