@@ -6,8 +6,7 @@ import PageInfo from '../../PageInfo';
 import { event } from '../../track';
 
 /**
- * Component for the "eBook" reader
- * Handles page display and turning
+ * Component to wrap the splitting process
  * 
  * @class Splitter
  * @extends {Component}
@@ -51,6 +50,7 @@ class Splitter extends Component {
       let result = new PageInfo(text, this.state.remainingIndex);
       this.pages.push(result);
 
+      // Set state for next page
       let nextPage = this.state.page + 1;
       let nextIndex = this.state.remainingIndex + count;
 
@@ -64,16 +64,14 @@ class Splitter extends Component {
   }
 
   render() {
-    // Create the SplitterPage for the current page
-    let page = (
+    // Only displays the SplitterPage (no container)
+    return (
       <SplitterPage
         text={this.state.remainingText}
         identifier={this.state.page}
         onfinish={(t, c) => this.onSplitterFinish(t, c)}
       />
     );
-
-    return (page);
   }
 }
 

@@ -1,4 +1,3 @@
-/* eslint-env browser */
 /**
  * Requests the content at a URL
  * 
@@ -49,7 +48,7 @@ export function escapeRegex(text) {
 }
 
 /**
- * 
+ * Creates a Regular Expression for matching a set of characters
  * 
  * @export
  * @param {Character[]} characters 
@@ -65,7 +64,7 @@ export function createExpression(characters) {
 }
 
 /**
- * 
+ * Searches the list of characters for the one with the given name
  * 
  * @export
  * @param {string} name 
@@ -81,7 +80,7 @@ export function characterFromName(name, characters) {
  *  
  * @export 
  * @param {number[]} arr Array to average 
- * @returns number Average value 
+ * @returns {number} Average value 
  */ 
 export function average(arr) { 
   if (arr.length === 0) { 
@@ -109,31 +108,3 @@ export function primitiveComparator(a, b) {
     return 0;
   }
 }
-
-/**
- * Attaches something to window
- * Should be used sparingly
- * 
- * @export
- * @param {string} name 
- * @param {any} item 
- */
-export function globalize(name, item) {
-  window[name] = item;
-}
-
-/**
- * Document and Window globals
- */
-// @ts-ignore
-export {document, window};
-
-/**
- * The window dimensions
- * Does not update with orientation change
- * TODO: Update with window resizing
- */
-export let dimensions = {
-  x: window.innerWidth,
-  y: window.innerHeight
-};

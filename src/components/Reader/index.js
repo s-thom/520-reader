@@ -7,7 +7,7 @@ import Splitter from '../Splitter';
 import BookLine from '../BookLine';
 import CharacterList from '../CharacterList';
 import Character from '../../Character';
-import {dimensions} from '../../util';
+import {dimensions} from '../../browser';
 import {event} from '../../track';
 import './index.css';
 import leftArrow from '../../res/ic_keyboard_arrow_left_black_24px.svg';
@@ -44,13 +44,14 @@ class Reader extends Component {
   /**
    * Called when the PageSplitter determines the text to be displayed
    * 
-   * @param {string} result 
+   * @param {PageInfo[]} result 
    * 
    * @memberof Reader
    */
   onSplitterFinish(result) {
     this.pages = result;
 
+    // Set initial viewing state
     this.setState({
       ...this.state,
       page: 0,
@@ -95,6 +96,7 @@ class Reader extends Component {
       isNowSelected = true;
     }
 
+    // Fire a tracking event
     if (isNowSelected) {
       event('character-select', {
         character: character.name,
@@ -107,6 +109,7 @@ class Reader extends Component {
       });
     }
 
+    // Set line state, if necessary
     let showLine = false;
     if (shift) {
       showLine = this.state.showBookline;
@@ -161,7 +164,7 @@ class Reader extends Component {
   }
 
   render() {
-    // If splitting, make a PageSplitter, otherwise display the page
+    // If splitting, display a Splitter, otherwise display the page
     let page = this.state.splitting ? (
       <Splitter
         text={this.props.text}
@@ -169,13 +172,12 @@ class Reader extends Component {
       />
     ) : (
       <Page 
-        text={this.pages[this.state.page].text} 
+        info={this.pages[this.state.page]}
         identifier={this.state.page} 
         characters={this.props.characters}
         oncharclick={(c,s)=>this.onTextCharacterSelected(c,s)}
         key={this.state.page}
         selected={this.state.characters}
-        startId={this.pages[this.state.page].id}
       />
     );
 
@@ -205,7 +207,9 @@ class Reader extends Component {
       </div>
     ) : null;
 
+    // Hide navigation while splitting
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
+    // Character names for bookline title
     let charName = this.state.characters
       .filter(c=>c)
       .map(c=>c.name)
@@ -362,12 +366,14 @@ class Reader extends Component {
 
     let xDiff = this.currPosition.clientX - this.startPosition.clientX;
 
+    // Has the dragging threshhold been met?
     if (Math.abs(xDiff) > minDiff) {
       if (!this.reachedThreshold) {
         this.reachedThreshold = true;
       }
     }
 
+    // Move the element if over the threshold
     if (this.reachedThreshold) {
       this.updateTurning(xDiff);
     }

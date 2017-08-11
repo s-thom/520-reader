@@ -69,31 +69,37 @@ class BookLine extends Component {
   }
 
   render() {
+    let {
+      characters,
+      current,
+      progress,
+      pages,
+    } = this.props;
     let content;
-    if (this.container && this.props.characters.filter(a => a).length > 0) {
+    if (this.container && characters.filter(a => a).length > 0) {
       let max = this.findMaximum(
-        this.props.progress,
+        progress,
         // Only find maximum of viewed pages
-        Array.from(this.occurences.values()).slice(0, this.props.progress)
+        Array.from(this.occurences.values()).slice(0, progress)
       );
 
       // Set dimensions for the line
       let width = this.container.clientWidth;
       let height = this.container.clientHeight;
-      let xStep = width / this.props.pages.length;
+      let xStep = width / pages.length;
       let yStep = height / max;
 
-      let currentX = this.props.current * xStep;
-      let progressX = this.props.progress * xStep;
+      let currentX = current * xStep;
+      let progressX = progress * xStep;
 
       let lineCommonProps = {
-        progress: this.props.progress,
+        progress,
         height,
         xStep,
         yStep,
       };
 
-      let lines = this.props.characters
+      let lines = characters
         .map((char, index) => {
           // Don't add lines for placeholder indicies
           if (!char) {

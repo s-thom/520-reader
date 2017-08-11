@@ -17,8 +17,11 @@ class Paragraph extends Component {
       .map((text, i) => {
         let items = [];
         if (this.props.characters.length) {
+          // Create <span>s around character names
           items = this.characterSplit(text, this.props.identifier + i);
         } else {
+          // Just put the text if there's no characters to highlight
+          // Saves computation
           items.push(<span key={this.props.identifier + i}>{text}</span>);
         }
 
