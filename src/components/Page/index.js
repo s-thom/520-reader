@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Character  from '../../Character';
+import Character from '../../Character';
+import PageInfo from '../../PageInfo';
 import Paragraph from '../Paragraph';
 import {punctuationSplit} from '../../util';
 import './index.css';
@@ -17,8 +18,8 @@ class Page extends Component {
     let fragmentCount = 0;
 
     let paragraphs = this.props.text
-      .split(/\r?\n\r?\n/)
-      .filter(t => !!t)
+      .split(/\r?\n\r?\n/) // Split into paragraphs
+      .filter(t => !!t) // Remove empty paragraphs
       .map((para, i) => {
         let id = this.props.startId + fragmentCount;
         let fragments = punctuationSplit(para);

@@ -19,12 +19,20 @@ class PageSplitter extends Component {
   constructor(props) {
     super(props);
 
-    this.state = this.createNewState(this.props.text);
+    this.state = PageSplitter.createNewState(this.props.text);
 
     this.page = null;
   }
 
-  createNewState(text) {
+  /**
+   * Creates a blank state to start working from
+   * 
+   * @static
+   * @param {string} text 
+   * @returns 
+   * @memberof PageSplitter
+   */
+  static createNewState(text) {
     let items = punctuationSplit(text.substring(0, MAX_LENGTH));
 
     return {
@@ -52,15 +60,15 @@ class PageSplitter extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    // Going to render new page, set initial state
+    // Empty text means empty page. No need to waste time rendering it
     if (newProps.text === '') {
       this.doFinish('', 0);
       return;
     }
 
-    // Limit to 200 characters. May have to increase for larget tablets
-    // This just reduces the load on the component
-    this.setState(this.createNewState(newProps.text));
+    // Going to render new page, set initial state
+    // Limit to MAX_LENGTH characters. This just reduces the load on the component
+    this.setState(PageSplitter.createNewState(newProps.text));
   }
 
   componentDidUpdate() {
@@ -78,6 +86,7 @@ class PageSplitter extends Component {
       return;
     }
 
+    // Add another fragment in
     let newCount = this.state.count + 1;
 
     this.setState({
@@ -103,9 +112,9 @@ class PageSplitter extends Component {
 
   render() {
     let paragraphs = this.state.currentItems
-      .join('')
-      .split(/\r?\n\r?\n/)
-      .filter(t => !!t)
+      .join('') // Need a string
+      .split(/\r?\n\r?\n/) // Split into paragraphs
+      .filter(t => !!t) // Remove empty paragraphs
       .map((para, i) => {
         let id = i;
 
