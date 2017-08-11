@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Character  from '../../Character';
-import {createExpression, characterFromName} from '../../util';
+import {createExpression, characterFromName, punctuationSplit} from '../../util';
 import './index.css';
 
 /**
@@ -13,24 +13,21 @@ import './index.css';
  */
 class Paragraph extends Component {
   render() {
-    // TODO: Do name substitution?
-    let lines = this.props.text.split(/\r?\n/);
-    let elements = [];
+    let elements = punctuationSplit(this.props.text)
+      .map((text, i) => {
+        let items = [];
+        if (this.props.characters.length) {
+          items = this.characterSplit(text, this.props.identifier + i);
+        } else {
+          items.push(<span key={this.props.identifier + i}>{text}</span>);
+        }
 
-    for (let i = 0; i < lines.length; i++) {
-      let line = lines[i];
+        if (text.match(/\n$/)) {
+          items.push(<br key={`br-${i}`} />);
+        }
 
-      if (this.props.characters.length) {
-        let items = this.characterSplit(line, i);
-        elements = [...elements, ...items];
-      } else {
-        elements.push(line);
-      }
-
-      if (i < (lines.length - 1)) {
-        elements.push(<br key={`br-${i}`} />);
-      }
-    }
+        return <span key={this.props.identifier + i}>{items}</span>;
+      });
 
     return (
       <p className="Paragraph">

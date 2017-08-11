@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Character  from '../../Character';
 import Paragraph from '../Paragraph';
+import {punctuationSplit} from '../../util';
 import './index.css';
 
 /**
@@ -13,11 +14,14 @@ import './index.css';
  */
 class Page extends Component {
   render() {
+    let fragmentCount = 0;
+
     let paragraphs = this.props.text
       .split(/\r?\n\r?\n/)
       .filter(t => !!t)
       .map((para, i) => {
-        let id = this.props.startId + i;
+        let id = this.props.startId + fragmentCount;
+        fragmentCount += punctuationSplit(para).length;
 
         return <Paragraph 
           text={para} 
@@ -25,7 +29,7 @@ class Page extends Component {
           characters={this.props.characters}
           selected={this.props.selected}
           oncharclick={this.props.oncharclick}
-          key={id} 
+          key={i} 
           />;
       });
 
