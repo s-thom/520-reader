@@ -101,7 +101,7 @@ class PageSplitter extends Component {
       .split(/\r?\n\r?\n/)
       .filter(t => !!t)
       .map((para, i) => {
-        let id = this.props.startId + i;
+        let id = i;
 
         return <Paragraph 
           text={para} 
@@ -126,7 +126,6 @@ class PageSplitter extends Component {
 PageSplitter.propTypes = {
   text: PropTypes.string.isRequired,
   identifier: PropTypes.number.isRequired,
-  startId: PropTypes.number.isRequired,
   onfinish: PropTypes.func.isRequired
 };
 

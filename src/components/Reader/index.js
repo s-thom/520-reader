@@ -186,7 +186,6 @@ class Reader extends Component {
         text={this.state.remainingText}
         identifier={this.state.page} 
         onfinish={(t)=>this.onSplitterFinish(t)}
-        startId={0}
         />
     ) : (
       <Page 
