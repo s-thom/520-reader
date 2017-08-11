@@ -42,7 +42,7 @@ class PageSplitter extends Component {
   componentWillReceiveProps(newProps) {
     // Going to render new page, set initial state
     if (newProps.text === '') {
-      this.doFinish('');
+      this.doFinish('', 0);
       return;
     }
 
@@ -64,11 +64,11 @@ class PageSplitter extends Component {
     //   The page has all items, or
     //   the page has rendered larger than the container (i.e. there's a scrollbar)
     if (this.state.count === this.state.items.length) {
-      this.doFinish(this.state.prevString);
+      this.doFinish(this.state.prevString, this.state.count);
       return;
     }
     if (this.page.scrollHeight > this.page.clientHeight) {
-      this.doFinish(this.state.prevString);
+      this.doFinish(this.state.prevString, this.state.count);
       return;
     }
 
@@ -90,9 +90,9 @@ class PageSplitter extends Component {
    * 
    * @memberof PageSplitter
    */
-  doFinish(text) {
+  doFinish(text, count) {
     setImmediate(() => {
-      this.props.onfinish(text);
+      this.props.onfinish(text, count);
     });
   }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import PageSplitter from '../PageSplitter';
+import PageInfo from '../../PageInfo';
 import { event } from '../../track';
 
 /**
@@ -29,16 +30,14 @@ class Splitter extends Component {
   /**
    * Called when the PageSplitter determines the text to be displayed
    * 
-   * @param {string} result 
+   * @param {string} text 
    * 
    * @memberof Splitter
    */
-  onSplitterFinish(result) {
-    let rest = this.state.remainingText.slice(result.length);
-    let nextPage = this.state.page + 1;
+  onSplitterFinish(text, count) {
+    let rest = this.state.remainingText.slice(text.length);
 
-    if (result === '' || rest === '') {
-      nextPage = 0;
+    if (text === '' || rest === '') {
 
       // eslint-disable-next-line no-console
       console.log(`splitting complete, with ${this.state.page + 1} pages`);
@@ -48,15 +47,20 @@ class Splitter extends Component {
       this.props.onfinish(this.pages);
       return;
     } else {
+      // Add this page's info
+      let result = new PageInfo(text, this.state.remainingIndex);
       this.pages.push(result);
-    }
 
-    this.setState({
-      ...this.state,
-      page: nextPage,
-      maxPage: 0,
-      remainingText: rest
-    });
+      let nextPage = this.state.page + 1;
+      let nextIndex = this.state.remainingIndex + count;
+
+      this.setState({
+        ...this.state,
+        page: nextPage,
+        remainingText: rest,
+        remainingIndex: nextIndex,
+      });
+    }
   }
 
   render() {
@@ -65,7 +69,7 @@ class Splitter extends Component {
       <PageSplitter
         text={this.state.remainingText}
         identifier={this.state.page}
-        onfinish={(t) => this.onSplitterFinish(t)}
+        onfinish={(t, c) => this.onSplitterFinish(t, c)}
       />
     );
 

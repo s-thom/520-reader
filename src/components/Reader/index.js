@@ -169,13 +169,13 @@ class Reader extends Component {
       />
     ) : (
       <Page 
-        text={this.pages[this.state.page]} 
+        text={this.pages[this.state.page].text} 
         identifier={this.state.page} 
         characters={this.props.characters}
         oncharclick={(c,s)=>this.onTextCharacterSelected(c,s)}
         key={this.state.page}
         selected={this.state.characters}
-        startId={0}
+        startId={this.pages[this.state.page].id}
       />
     );
 

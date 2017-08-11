@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Character  from '../../Character';
+import Character from '../../Character';
+import PageInfo from '../../PageInfo';
 import './index.css';
 
 
@@ -137,7 +138,7 @@ class BookLine extends Component {
 
   findOccurences(pages, character) {
     let occurences = pages
-      .map((text) => {
+      .map(({text}) => {
         return character.numberOfOccurrences(text);
       });
 
@@ -207,7 +208,7 @@ BookLine.defaultProps = {
 };
 
 BookLine.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.string).isRequired,
+  pages: PropTypes.arrayOf(PropTypes.instanceOf(PageInfo)).isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   progress: PropTypes.number.isRequired,
   current: PropTypes.number
