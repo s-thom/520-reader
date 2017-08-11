@@ -14,6 +14,7 @@ export function event(name, data = {}) {
   let str = localStorage.getItem('events') || '[]';
   let store = JSON.parse(str);
 
+  // Add new entry
   store.push({
     user: userId,
     event: name,
@@ -35,6 +36,12 @@ export function setUser(id) {
   localStorage.setItem('uid', id.toString());
 }
 
+/**
+ * Reads the user's tracking ID from local storage
+ * 
+ * @export
+ * @returns {number} ID of user
+ */
 export function getStartupUser() {
   userId = parseInt(localStorage.getItem('uid'), 10) || -1;
   return userId;

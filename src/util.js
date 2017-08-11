@@ -48,7 +48,7 @@ export function escapeRegex(text) {
 }
 
 /**
- * 
+ * Creates a Regular Expression for matching a set of characters
  * 
  * @export
  * @param {Character[]} characters 
@@ -64,7 +64,7 @@ export function createExpression(characters) {
 }
 
 /**
- * 
+ * Searches the list of characters for the one with the given name
  * 
  * @export
  * @param {string} name 
@@ -80,7 +80,7 @@ export function characterFromName(name, characters) {
  *  
  * @export 
  * @param {number[]} arr Array to average 
- * @returns number Average value 
+ * @returns {number} Average value 
  */ 
 export function average(arr) { 
   if (arr.length === 0) { 
