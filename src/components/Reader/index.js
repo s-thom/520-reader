@@ -7,7 +7,7 @@ import Splitter from '../Splitter';
 import BookLine from '../BookLine';
 import CharacterList from '../CharacterList';
 import Character from '../../Character';
-import {dimensions} from '../../util';
+import {dimensions} from '../../browser';
 import {event} from '../../track';
 import './index.css';
 import leftArrow from '../../res/ic_keyboard_arrow_left_black_24px.svg';

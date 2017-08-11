@@ -1,4 +1,3 @@
-/* eslint-env browser */
 /**
  * Requests the content at a URL
  * 
@@ -109,31 +108,3 @@ export function primitiveComparator(a, b) {
     return 0;
   }
 }
-
-/**
- * Attaches something to window
- * Should be used sparingly
- * 
- * @export
- * @param {string} name 
- * @param {any} item 
- */
-export function globalize(name, item) {
-  window[name] = item;
-}
-
-/**
- * Document and Window globals
- */
-// @ts-ignore
-export {document, window};
-
-/**
- * The window dimensions
- * Does not update with orientation change
- * TODO: Update with window resizing
- */
-export let dimensions = {
-  x: window.innerWidth,
-  y: window.innerHeight
-};
