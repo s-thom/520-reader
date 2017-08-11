@@ -21,7 +21,7 @@ class PageSplitter extends Component {
 
     this.state = {
       items: punctuationSplit(this.props.text.substring(0, MAX_LENGTH)),
-      count: 0,
+      count: -1,
       prevString: '',
       currentString: '',
       fullString: this.props.text
@@ -50,7 +50,7 @@ class PageSplitter extends Component {
     // This just reduces the load on the component
     this.setState({
       items: punctuationSplit(newProps.text.substring(0, MAX_LENGTH)),
-      count: 0,
+      count: -1,
       prevString: '',
       currentString: '',
       fullString: newProps.text
