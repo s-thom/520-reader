@@ -15,22 +15,29 @@ import './index.css';
  */
 class Page extends Component {
   render() {
+    let {
+      info,
+      characters,
+      selected,
+      oncharclick
+    } = this.props;
+    let {text, id: startId} = info;
     let fragmentCount = 0;
 
-    let paragraphs = this.props.text
+    let paragraphs = text
       .split(/\r?\n\r?\n/) // Split into paragraphs
       .filter(t => !!t) // Remove empty paragraphs
       .map((para, i) => {
-        let id = this.props.startId + fragmentCount;
+        let id = startId + fragmentCount;
         let fragments = punctuationSplit(para);
         fragmentCount += fragments.length;
 
         return <Paragraph 
           fragments={fragments} 
           identifier={id}
-          characters={this.props.characters}
-          selected={this.props.selected}
-          oncharclick={this.props.oncharclick}
+          characters={characters}
+          selected={selected}
+          oncharclick={oncharclick}
           key={i} 
           />;
       });
@@ -46,9 +53,8 @@ class Page extends Component {
 }
 
 Page.propTypes = {
-  text: PropTypes.string.isRequired,
+  info: PropTypes.instanceOf(PageInfo).isRequired,
   identifier: PropTypes.any.isRequired,
-  startId: PropTypes.number.isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   oncharclick: PropTypes.func.isRequired,
   selected: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
