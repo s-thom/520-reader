@@ -17,7 +17,7 @@ class Page extends Component {
       .split(/\r?\n\r?\n/)
       .filter(t => !!t)
       .map((para, i) => {
-        let id = `${this.props.identifier}-${i}`;
+        let id = this.props.startId + i;
 
         return <Paragraph 
           text={para} 
@@ -42,6 +42,7 @@ class Page extends Component {
 Page.propTypes = {
   text: PropTypes.string.isRequired,
   identifier: PropTypes.any.isRequired,
+  startId: PropTypes.number.isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   oncharclick: PropTypes.func.isRequired,
   selected: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,

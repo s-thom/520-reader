@@ -29,6 +29,7 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       remainingText: this.props.text,
+      remainingIndex: 0,
       characters: [],
       showBookline: false,
     };
@@ -185,6 +186,7 @@ class Reader extends Component {
         text={this.state.remainingText}
         identifier={this.state.page} 
         onfinish={(t)=>this.onSplitterFinish(t)}
+        startId={0}
         />
     ) : (
       <Page 
@@ -194,6 +196,7 @@ class Reader extends Component {
         oncharclick={(c,s)=>this.onTextCharacterSelected(c,s)}
         key={this.state.page}
         selected={this.state.characters}
+        startId={0}
       />
     );
 

@@ -76,6 +76,7 @@ class PageSplitter extends Component {
     // console.log(`nc: ${newCount} -- ${this.items.slice(0, newCount).join('')}`);
 
     this.setState({
+      ...this.state,
       count: newCount,
       prevString: this.state.currentString,
       currentString: this.state.items.slice(0, newCount).join('')
@@ -98,8 +99,9 @@ class PageSplitter extends Component {
   render() {
     let paragraphs = this.state.currentString
       .split(/\r?\n\r?\n/)
+      .filter(t => !!t)
       .map((para, i) => {
-        let id = `${this.props.identifier}-${i}`;
+        let id = this.props.startId + i;
 
         return <Paragraph 
           text={para} 
@@ -124,6 +126,7 @@ class PageSplitter extends Component {
 PageSplitter.propTypes = {
   text: PropTypes.string.isRequired,
   identifier: PropTypes.number.isRequired,
+  startId: PropTypes.number.isRequired,
   onfinish: PropTypes.func.isRequired
 };
 
