@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import PageSplitter from '../PageSplitter';
+import SplitterPage from '../SplitterPage';
 import PageInfo from '../../PageInfo';
 import { event } from '../../track';
 
@@ -28,7 +28,7 @@ class Splitter extends Component {
   }
 
   /**
-   * Called when the PageSplitter determines the text to be displayed
+   * Called when the SplitterPage determines the text to be displayed
    * 
    * @param {string} text 
    * 
@@ -64,9 +64,9 @@ class Splitter extends Component {
   }
 
   render() {
-    // Create the PageSplitter for the current page
+    // Create the SplitterPage for the current page
     let page = (
-      <PageSplitter
+      <SplitterPage
         text={this.state.remainingText}
         identifier={this.state.page}
         onfinish={(t, c) => this.onSplitterFinish(t, c)}
