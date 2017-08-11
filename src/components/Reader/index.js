@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
 
 import Page from '../Page';
-import PageSplitter from '../PageSplitter';
+import Splitter from '../Splitter';
 import BookLine from '../BookLine';
 import CharacterList from '../CharacterList';
 import Character from '../../Character';
@@ -28,8 +28,6 @@ class Reader extends Component {
       page: 0,
       maxPage: 0,
       splitting: true,
-      remainingText: this.props.text,
-      remainingIndex: 0,
       characters: [],
       showBookline: false,
     };
@@ -41,8 +39,6 @@ class Reader extends Component {
     this.reachedThreshold = false;
     
     this.pageContainer = null;
-
-    event('pages-split-start');
   }
 
   /**
@@ -53,28 +49,13 @@ class Reader extends Component {
    * @memberof Reader
    */
   onSplitterFinish(result) {
-    let stillSplit = this.state.splitting;
-    let rest = this.state.remainingText.slice(result.length);
-    let nextPage = this.state.page + 1;
-
-    if (result === '' || rest === '') {
-      stillSplit = false;
-      nextPage = 0;
-
-      // eslint-disable-next-line no-console
-      console.log(`splitting complete, with ${this.state.page + 1} pages`);
-
-      event('pages-split-finish', { num: this.state.page + 1});
-    } else {
-      this.pages.push(result);
-    }
+    this.pages = result;
 
     this.setState({
       ...this.state,
-      page: nextPage,
-      splitting: stillSplit,
+      page: 0,
+      splitting: false,
       maxPage: 0,
-      remainingText: rest
     });
   }
 
@@ -182,11 +163,10 @@ class Reader extends Component {
   render() {
     // If splitting, make a PageSplitter, otherwise display the page
     let page = this.state.splitting ? (
-      <PageSplitter
-        text={this.state.remainingText}
-        identifier={this.state.page} 
+      <Splitter
+        text={this.props.text}
         onfinish={(t)=>this.onSplitterFinish(t)}
-        />
+      />
     ) : (
       <Page 
         text={this.pages[this.state.page]} 
