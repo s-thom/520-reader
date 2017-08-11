@@ -1,4 +1,4 @@
-import { window } from './util';
+import { localStorage } from './browser';
 
 let userId = -1;
 
@@ -11,9 +11,10 @@ let userId = -1;
  * @param {any} [data={}] Extra data to include
  */
 export function event(name, data = {}) {
-  let str = window.localStorage.getItem('events') || '[]';
+  let str = localStorage.getItem('events') || '[]';
   let store = JSON.parse(str);
 
+  // Add new entry
   store.push({
     user: userId,
     event: name,
@@ -21,7 +22,7 @@ export function event(name, data = {}) {
     data,
   });
 
-  window.localStorage.setItem('events', JSON.stringify(store));
+  localStorage.setItem('events', JSON.stringify(store));
 }
 
 /**
@@ -32,11 +33,17 @@ export function event(name, data = {}) {
  */
 export function setUser(id) {
   userId = id;
-  window.localStorage.setItem('uid', id.toString());
+  localStorage.setItem('uid', id.toString());
 }
 
+/**
+ * Reads the user's tracking ID from local storage
+ * 
+ * @export
+ * @returns {number} ID of user
+ */
 export function getStartupUser() {
-  userId = parseInt(window.localStorage.getItem('uid'), 10) || -1;
+  userId = parseInt(localStorage.getItem('uid'), 10) || -1;
   return userId;
 }
 
@@ -46,6 +53,6 @@ export function getStartupUser() {
  * @export
  */
 export function reset() {
-  window.localStorage.removeItem('events');
-  window.localStorage.removeItem('uid');
+  localStorage.removeItem('events');
+  localStorage.removeItem('uid');
 }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Character from '../Character';
-import './CharacterList.css';
+import Character from '../../Character';
+import PageInfo from '../../PageInfo';
+import './index.css';
 
-import {primitiveComparator} from '../util';
+import {primitiveComparator} from '../../util';
 
 /**
  * Component to display a list of Characters
@@ -17,7 +18,7 @@ class CharacterList extends Component {
     let curr = this.props.current;
     let page = this.props.pages[curr];
 
-    let characters = this.findCharacters(page);
+    let characters = this.findCharacters(page.text);
     // Add selected, but not present, characters
     if (this.props.selected.length) {
       this.props.selected.forEach((char) => {
@@ -124,7 +125,7 @@ CharacterList.defaultProps = {
 };
 
 CharacterList.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.string),
+  pages: PropTypes.arrayOf(PropTypes.instanceOf(PageInfo)),
   progress: PropTypes.number.isRequired,
   current: PropTypes.number,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,

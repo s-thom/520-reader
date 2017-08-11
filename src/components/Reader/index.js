@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
 
-import Page from './Page';
-import PageSplitter from './PageSplitter';
-import BookLine from './BookLine';
-import CharacterList from './CharacterList';
-import Character from '../Character';
-import {dimensions} from '../util';
-import {event} from '../track';
-import './Reader.css';
-import leftArrow from '../res/ic_keyboard_arrow_left_black_24px.svg';
-import rightArrow from '../res/ic_keyboard_arrow_right_black_24px.svg';
+import Page from '../Page';
+import Splitter from '../Splitter';
+import BookLine from '../BookLine';
+import CharacterList from '../CharacterList';
+import Character from '../../Character';
+import {dimensions} from '../../browser';
+import {event} from '../../track';
+import './index.css';
+import leftArrow from '../../res/ic_keyboard_arrow_left_black_24px.svg';
+import rightArrow from '../../res/ic_keyboard_arrow_right_black_24px.svg';
 
 /**
  * Component for the "eBook" reader
@@ -28,7 +28,6 @@ class Reader extends Component {
       page: 0,
       maxPage: 0,
       splitting: true,
-      remainingText: this.props.text,
       characters: [],
       showBookline: false,
     };
@@ -40,40 +39,24 @@ class Reader extends Component {
     this.reachedThreshold = false;
     
     this.pageContainer = null;
-
-    event('pages-split-start');
   }
 
   /**
    * Called when the PageSplitter determines the text to be displayed
    * 
-   * @param {string} result 
+   * @param {PageInfo[]} result 
    * 
    * @memberof Reader
    */
   onSplitterFinish(result) {
-    let stillSplit = this.state.splitting;
-    let rest = this.state.remainingText.slice(result.length);
-    let nextPage = this.state.page + 1;
+    this.pages = result;
 
-    if (result === '' || rest === '') {
-      stillSplit = false;
-      nextPage = 0;
-
-      // eslint-disable-next-line no-console
-      console.log(`splitting complete, with ${this.state.page + 1} pages`);
-
-      event('pages-split-finish', { num: this.state.page + 1});
-    }
-
-    this.pages.push(result);
-
+    // Set initial viewing state
     this.setState({
       ...this.state,
-      page: nextPage,
-      splitting: stillSplit,
+      page: 0,
+      splitting: false,
       maxPage: 0,
-      remainingText: rest
     });
   }
 
@@ -113,6 +96,7 @@ class Reader extends Component {
       isNowSelected = true;
     }
 
+    // Fire a tracking event
     if (isNowSelected) {
       event('character-select', {
         character: character.name,
@@ -125,6 +109,7 @@ class Reader extends Component {
       });
     }
 
+    // Set line state, if necessary
     let showLine = false;
     if (shift) {
       showLine = this.state.showBookline;
@@ -179,16 +164,15 @@ class Reader extends Component {
   }
 
   render() {
-    // If splitting, make a PageSplitter, otherwise display the page
+    // If splitting, display a Splitter, otherwise display the page
     let page = this.state.splitting ? (
-      <PageSplitter
-        text={this.state.remainingText}
-        identifier={this.state.page} 
+      <Splitter
+        text={this.props.text}
         onfinish={(t)=>this.onSplitterFinish(t)}
-        />
+      />
     ) : (
       <Page 
-        text={this.pages[this.state.page]} 
+        info={this.pages[this.state.page]}
         identifier={this.state.page} 
         characters={this.props.characters}
         oncharclick={(c,s)=>this.onTextCharacterSelected(c,s)}
@@ -223,7 +207,9 @@ class Reader extends Component {
       </div>
     ) : null;
 
+    // Hide navigation while splitting
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
+    // Character names for bookline title
     let charName = this.state.characters
       .filter(c=>c)
       .map(c=>c.name)
@@ -380,12 +366,14 @@ class Reader extends Component {
 
     let xDiff = this.currPosition.clientX - this.startPosition.clientX;
 
+    // Has the dragging threshhold been met?
     if (Math.abs(xDiff) > minDiff) {
       if (!this.reachedThreshold) {
         this.reachedThreshold = true;
       }
     }
 
+    // Move the element if over the threshold
     if (this.reachedThreshold) {
       this.updateTurning(xDiff);
     }

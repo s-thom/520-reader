@@ -1,0 +1,5 @@
+.PageSplitter {
+  /* Keep the PageSplitter in the document flow, but don't actually display anything */
+  /* This speeds up splitting time by a considerable margin */
+   visibility: hidden; 
+}

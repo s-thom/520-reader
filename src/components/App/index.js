@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import {Reader} from './components';
-import Character from './Character';
-import {request} from './util';
-import {event, setUser, getStartupUser} from './track';
-import './App.css';
+import Reader from '../Reader';
+import Character from '../../Character';
+import {request} from '../../util';
+import {event, setUser, getStartupUser} from '../../track';
+import './index.css';
 
 /**
  * Root component
@@ -24,6 +24,7 @@ class App extends Component {
       idTyping: '',
     };
 
+    // Request needed files
     Promise.all([
       request('/looking-glass.txt'),
       request('/characters.json')
@@ -47,6 +48,12 @@ class App extends Component {
     this.ot = this.onType.bind(this);
   }
 
+  /**
+   * Sets the user for event tracking
+   * 
+   * @returns 
+   * @memberof App
+   */
   setUser() {
     let user = parseInt(this.userInput.value, 10);
 
@@ -62,6 +69,12 @@ class App extends Component {
     });
   }
 
+  /**
+   * Stores the current value of the ID input in the state
+   * 
+   * @param {any} event 
+   * @memberof App
+   */
   onType(event) {
     this.setState({
       ...this.state,

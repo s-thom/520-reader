@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Character  from '../Character';
-import './BookLine.css';
+import Character from '../../Character';
+import PageInfo from '../../PageInfo';
+import './index.css';
 
 
 function Line({
@@ -68,31 +69,37 @@ class BookLine extends Component {
   }
 
   render() {
+    let {
+      characters,
+      current,
+      progress,
+      pages,
+    } = this.props;
     let content;
-    if (this.container && this.props.characters.filter(a => a).length > 0) {
+    if (this.container && characters.filter(a => a).length > 0) {
       let max = this.findMaximum(
-        this.props.progress,
+        progress,
         // Only find maximum of viewed pages
-        Array.from(this.occurences.values()).slice(0, this.props.progress)
+        Array.from(this.occurences.values()).slice(0, progress)
       );
 
       // Set dimensions for the line
       let width = this.container.clientWidth;
       let height = this.container.clientHeight;
-      let xStep = width / this.props.pages.length;
+      let xStep = width / pages.length;
       let yStep = height / max;
 
-      let currentX = this.props.current * xStep;
-      let progressX = this.props.progress * xStep;
+      let currentX = current * xStep;
+      let progressX = progress * xStep;
 
       let lineCommonProps = {
-        progress: this.props.progress,
+        progress,
         height,
         xStep,
         yStep,
       };
 
-      let lines = this.props.characters
+      let lines = characters
         .map((char, index) => {
           // Don't add lines for placeholder indicies
           if (!char) {
@@ -137,7 +144,7 @@ class BookLine extends Component {
 
   findOccurences(pages, character) {
     let occurences = pages
-      .map((text) => {
+      .map(({text}) => {
         return character.numberOfOccurrences(text);
       });
 
@@ -207,7 +214,7 @@ BookLine.defaultProps = {
 };
 
 BookLine.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.string).isRequired,
+  pages: PropTypes.arrayOf(PropTypes.instanceOf(PageInfo)).isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   progress: PropTypes.number.isRequired,
   current: PropTypes.number
