@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactSVG from 'react-svg';
 
-import Page from '../Page';
 import PageSplitter from '../PageSplitter';
-import BookLine from '../BookLine';
-import CharacterList from '../CharacterList';
-import Character from '../../Character';
-import { dimensions } from '../../util';
 import { event } from '../../track';
-import './index.css';
-import leftArrow from '../../res/ic_keyboard_arrow_left_black_24px.svg';
-import rightArrow from '../../res/ic_keyboard_arrow_right_black_24px.svg';
 
 /**
  * Component for the "eBook" reader
