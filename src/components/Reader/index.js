@@ -5,8 +5,11 @@ import ReactSVG from 'react-svg';
 import Page from '../Page';
 import Splitter from '../Splitter';
 import BookLine from '../BookLine';
+import Sidebar from '../Sidebar';
 import CharacterList from '../CharacterList';
+import EventList from '../EventList';
 import Character from '../../Character';
+import BookEvent from '../../BookEvent';
 import {dimensions} from '../../browser';
 import {event} from '../../track';
 import './index.css';
@@ -62,6 +65,13 @@ class Reader extends Component {
 
   onTextCharacterSelected(character, shift) {
     this.onCharacterSelected(character, shift);
+  }
+
+  onToggleBookline() {
+    this.setState({
+      ...this.state,
+      showBookline: !this.state.showBookline,
+    });
   }
 
   /**
@@ -193,17 +203,27 @@ class Reader extends Component {
     ) : null;
 
     // Create the character list
-    let charList = (!this.state.splitting) ? (
+    let sidebar = (!this.state.splitting) ? (
       <div className="reader-characters">
-        <CharacterList 
-          pages={this.pages}
-          characters={this.props.characters}
-          current={this.state.page}
-          progress={this.state.maxPage}
-          selected={this.state.characters}
-          onselected={(c,s)=>this.onCharacterSelected(c,s)}
-          vertical
+        <Sidebar 
+          onToggle={() => this.onToggleBookline()}
+        >
+          <CharacterList
+            pages={this.pages}
+            characters={this.props.characters}
+            current={this.state.page}
+            progress={this.state.maxPage}
+            selected={this.state.characters}
+            onselected={(c, s) => this.onCharacterSelected(c, s)}
           />
+          <EventList
+            maxFragment={this.pages[this.state.maxPage + 1] ? this.pages[this.state.maxPage + 1].id : Infinity}
+            current={this.state.page}
+            progress={this.state.maxPage}
+            events={this.props.events}
+            selected={this.state.characters}
+          />
+        </Sidebar>
       </div>
     ) : null;
 
@@ -236,7 +256,7 @@ class Reader extends Component {
         </div>
 
         {/* List and line */}
-        {charList}
+        {sidebar}
         <div className="bookline-container">
           <h2>{`Bookline for ${charName}`}</h2>
           <div className="bookline-wrapper">
@@ -392,7 +412,8 @@ class Reader extends Component {
 
 Reader.propTypes = {
   text: PropTypes.string.isRequired,
-  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired
+  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
+  events: PropTypes.arrayOf(PropTypes.instanceOf(BookEvent)).isRequired,
 };
 
 export default Reader;

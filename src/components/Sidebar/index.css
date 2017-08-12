@@ -1,0 +1,40 @@
+.Sidebar {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  height: calc(100% - 1.5em);
+  -webkit-transition: height 0.2s ease-out;
+  -moz-transition: height 0.2s ease-out;
+  transition: height 0.2s ease-out;
+}
+.bookline-show .Sidebar {
+  height: calc(80% - 1.5em);
+}
+
+.Sidebar-toggle {
+  text-align: right;
+  font-size: 0.75em;
+}
+.Sidebar-toggle-bg {
+  display: inline-block;
+  background-color: #FFFFFF;
+  border-radius: 1em;
+  margin: .25em;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.16), 0 0 3px rgba(0, 0, 0, 0.23);
+  height: 2em;
+  width: 2em;
+}
+.Sidebar-toggle-bg svg {
+  height: 2em;
+  width: 2em;
+  -webkit-transition: transform 0.2s ease-out;
+  -moz-transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+  transform: rotate(0deg);
+}
+.bookline-show .Sidebar-toggle svg {
+  transform: rotate(180deg);
+}
