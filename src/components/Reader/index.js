@@ -6,6 +6,8 @@ import Page from '../Page';
 import Splitter from '../Splitter';
 import BookLine from '../BookLine';
 import Sidebar from '../Sidebar';
+import CharacterList from '../CharacterList';
+import EventList from '../EventList';
 import Character from '../../Character';
 import BookEvent from '../../BookEvent';
 import {dimensions} from '../../browser';
@@ -204,15 +206,22 @@ class Reader extends Component {
     let sidebar = (!this.state.splitting) ? (
       <div className="reader-characters">
         <Sidebar 
-          pages={this.pages}
-          characters={this.props.characters}
-          current={this.state.page}
-          progress={this.state.maxPage}
-          selected={this.state.characters}
-          onselected={(c,s)=>this.onCharacterSelected(c,s)}
           onToggle={() => this.onToggleBookline()}
-          events={this.props.events}
+        >
+          <CharacterList
+            pages={this.pages}
+            characters={this.props.characters}
+            current={this.state.page}
+            progress={this.state.maxPage}
+            selected={this.state.characters}
+            onselected={(c, s) => this.onCharacterSelected(c, s)}
           />
+          <EventList
+            current={this.state.page}
+            progress={this.state.maxPage}
+            events={this.props.events}
+          />
+        </Sidebar>
       </div>
     ) : null;
 
