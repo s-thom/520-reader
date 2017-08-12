@@ -5,7 +5,7 @@ import ReactSVG from 'react-svg';
 import Page from '../Page';
 import Splitter from '../Splitter';
 import BookLine from '../BookLine';
-import CharacterList from '../CharacterList';
+import Sidebar from '../Sidebar';
 import Character from '../../Character';
 import {dimensions} from '../../browser';
 import {event} from '../../track';
@@ -193,16 +193,16 @@ class Reader extends Component {
     ) : null;
 
     // Create the character list
-    let charList = (!this.state.splitting) ? (
+    let sidebar = (!this.state.splitting) ? (
       <div className="reader-characters">
-        <CharacterList 
+        <Sidebar 
           pages={this.pages}
           characters={this.props.characters}
           current={this.state.page}
           progress={this.state.maxPage}
           selected={this.state.characters}
           onselected={(c,s)=>this.onCharacterSelected(c,s)}
-          vertical
+          events={this.props.events}
           />
       </div>
     ) : null;
@@ -236,7 +236,7 @@ class Reader extends Component {
         </div>
 
         {/* List and line */}
-        {charList}
+        {sidebar}
         <div className="bookline-container">
           <h2>{`Bookline for ${charName}`}</h2>
           <div className="bookline-wrapper">
