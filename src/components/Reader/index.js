@@ -64,6 +64,13 @@ class Reader extends Component {
     this.onCharacterSelected(character, shift);
   }
 
+  onToggleBookline() {
+    this.setState({
+      ...this.state,
+      showBookline: !this.state.showBookline,
+    });
+  }
+
   /**
    * Called when a character is selected
    * 
@@ -202,6 +209,7 @@ class Reader extends Component {
           progress={this.state.maxPage}
           selected={this.state.characters}
           onselected={(c,s)=>this.onCharacterSelected(c,s)}
+          onToggle={() => this.onToggleBookline()}
           events={this.props.events}
           />
       </div>
