@@ -23,7 +23,6 @@ class Sidebar extends Component {
           progress={this.props.progress}
           selected={this.props.selected}
           onselected={this.props.onselected}
-          vertical={true}
         />
       </div>
     );
