@@ -28,8 +28,8 @@ class EventList extends Component {
       })
       .map((event) => {
         return (
-          <div>
-            <p>{event.text}</p>
+          <div className="EventList-item">
+            <p className="EventList-item-text">{event.text}</p>
           </div>
         );
       });
