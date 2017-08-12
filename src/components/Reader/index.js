@@ -217,9 +217,11 @@ class Reader extends Component {
             onselected={(c, s) => this.onCharacterSelected(c, s)}
           />
           <EventList
+            maxFragment={this.pages[this.pageContainer.page] ? this.pages[this.pageContainer.page].id - 1 : -1}
             current={this.state.page}
             progress={this.state.maxPage}
             events={this.props.events}
+            selected={this.state.characters}
           />
         </Sidebar>
       </div>

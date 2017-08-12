@@ -186,6 +186,15 @@
     {
       "fragment": 0,
       "text": "The book starts"
+    },
+    {
+      "fragment": 26,
+      "text": "Alice tells off the black kitten for undoing her ball of worsted",
+      "mode": "ANY",
+      "characters": [
+        "Alice",
+        "Black Kitten"
+      ]
     }
   ]
 }
