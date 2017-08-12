@@ -15,11 +15,12 @@ class EventList extends Component {
   render() {
     let characters = this.props.selected
       .filter(c => c);
+    let f = this.props.maxFragment;
 
     // Create items for each event
     let list = this.props.events
       .filter((event) => {
-        if (event.fragment <= this.props.maxFragment) {
+        if (event.fragment >= f) {
           return false;
         }
 
