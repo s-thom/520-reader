@@ -1,0 +1,185 @@
+{
+  "characters": [
+    {
+      "display-name": "Alice",
+      "names": [
+        "Alice"
+      ],
+      "image": "/img/alice.png"
+    },
+    {
+      "display-name": "White Kitten",
+      "names": [
+        "White Kitten",
+        "Snowdrop"
+      ],
+      "image": "/img/white-kitten.png"
+    },
+    {
+      "display-name": "Black Kitten",
+      "names": [
+        "Black Kitten",
+        "Kitty"
+      ],
+      "image": "/img/black-kitten.png"
+    },
+    {
+      "display-name": "Dinah",
+      "names": [
+        "Dinah",
+        "old cat"
+      ],
+      "image": ""
+    },
+    {
+      "display-name": "Red King",
+      "names": [
+        "Red King"
+      ],
+      "image": "/img/red-king.png"
+    },
+    {
+      "display-name": "Red Queen",
+      "names": [
+        "Red Queen"
+      ],
+      "image": "/img/red-queen.png"
+    },
+    {
+      "display-name": "White King",
+      "names": [
+        "White King"
+      ],
+      "image": "/img/white-king.png"
+    },
+    {
+      "display-name": "White Queen",
+      "names": [
+        "White Queen"
+      ],
+      "image": "/img/white-queen.png"
+    },
+    {
+      "display-name": "White Knight",
+      "names": [
+        "White Knight",
+        "the knight"
+      ],
+      "image": "/img/white-knight.png"
+    },
+    {
+      "display-name": "Tiger-lily",
+      "names": [
+        "Tiger-lily"
+      ],
+      "image": "/img/tiger-lily.png"
+    },
+    {
+      "display-name": "The Rose",
+      "names": [
+        "The Rose"
+      ],
+      "image": "/img/rose.png"
+    },
+    {
+      "display-name": "Daisy",
+      "names": [
+        "Daisy"
+      ],
+      "image": ""
+    },
+    {
+      "display-name": "The Guard",
+      "names": [
+        "The Guard"
+      ],
+      "image": "/img/train-guard.png"
+    },
+    {
+      "display-name": "The Gnat",
+      "names": [
+        "the little voice",
+        "the gnat"
+      ],
+      "image": ""
+    },
+    {
+      "display-name": "Tweedledum",
+      "names": [
+        "Tweedledum"
+      ],
+      "image": "/img/dum.png"
+    },
+    {
+      "display-name": "Tweedledee",
+      "names": [
+        "Tweedledee"
+      ],
+      "image": "/img/dee.png"
+    },
+    {
+      "display-name": "The Sheep",
+      "names": [
+        "The Sheep"
+      ],
+      "image": "/img/sheep.png"
+    },
+    {
+      "display-name": "Humpty Dumpty",
+      "names": [
+        "Humpty Dumpty"
+      ],
+      "image": "/img/humpty-dumpty.png"
+    },
+    {
+      "display-name": "Haigha",
+      "names": [
+        "The messenger",
+        "Haigha"
+      ],
+      "image": "/img/hare.png"
+    },
+    {
+      "display-name": "Hatta",
+      "names": [
+        "Hatta"
+      ],
+      "image": "/img/hatter.png"
+    },
+    {
+      "display-name": "The Lion",
+      "names": [
+        "The Lion"
+      ],
+      "image": "/img/lion.png"
+    },
+    {
+      "display-name": "The Unicorn",
+      "names": [
+        "The Unicorn"
+      ],
+      "image": "/img/unicorn.png"
+    },
+    {
+      "display-name": "Red Knight",
+      "names": [
+        "Red Knight"
+      ],
+      "image": ""
+    },
+    {
+      "display-name": "The Frog",
+      "names": [
+        "The Frog"
+      ],
+      "image": ""
+    },
+    {
+      "display-name": "The Pudding",
+      "names": [
+        "The Pudding"
+      ],
+      "image": ""
+    }
+  ]
+}

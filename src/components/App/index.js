@@ -27,9 +27,9 @@ class App extends Component {
     // Request needed files
     Promise.all([
       request('/looking-glass.txt'),
-      request('/characters.json')
+      request('/looking-glass.json')
         .then(JSON.parse)
-        .then((cs) => {
+        .then(({characters: cs}) => {
           return cs.map(c => new Character(c['display-name'], c.names, c.image));
         })
     ])
