@@ -5,5 +5,11 @@
   right: 0;
   top: 0;
   width: 20%;
-  height: 80%;
+  height: calc(100% - 1.5em);
+  -webkit-transition: height 0.2s ease-out;
+  -moz-transition: height 0.2s ease-out;
+  transition: height 0.2s ease-out;
+}
+.bookline-show .Sidebar {
+  height: calc(80% - 1.5em);
 }
