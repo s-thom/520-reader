@@ -181,5 +181,11 @@
       ],
       "image": ""
     }
+  ],
+  "events": [
+    {
+      "fragment": 0,
+      "text": "The book starts"
+    }
   ]
 }

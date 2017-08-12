@@ -392,7 +392,8 @@ class Reader extends Component {
 
 Reader.propTypes = {
   text: PropTypes.string.isRequired,
-  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired
+  characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
+  events: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default Reader;
