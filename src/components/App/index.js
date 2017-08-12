@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Reader from '../Reader';
 import Character from '../../Character';
+import BookEvent from '../../BookEvent';
 import {request} from '../../util';
 import {event, setUser, getStartupUser} from '../../track';
 import './index.css';
@@ -21,24 +22,33 @@ class App extends Component {
       userId: getStartupUser(),
       text: undefined,
       characters: undefined,
+      events: undefined,
       idTyping: '',
     };
 
     // Request needed files
     Promise.all([
       request('/looking-glass.txt'),
-      request('/characters.json')
+      request('/looking-glass.json')
         .then(JSON.parse)
-        .then((cs) => {
-          return cs.map(c => new Character(c['display-name'], c.names, c.image));
+        .then(({characters: cs, events: es}) => {
+          let characters = cs.map(c => new Character(c['display-name'], c.names, c.image));
+
+          let events = es.map(e => new BookEvent(e));
+
+          return {
+            characters,
+            events,
+          };
         })
     ])
-      .then(([text, characters]) => {
+      .then(([text, {characters, events}]) => {
         event('http-load');
         this.setState({
           ...this.state,
           text,
-          characters
+          characters,
+          events
         });
       });
     
