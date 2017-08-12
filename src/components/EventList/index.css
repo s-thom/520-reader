@@ -6,6 +6,7 @@
   -webkit-transition: transform 0.2s ease-out;
   -moz-transition: transform 0.2s ease-out;
   transition: transform 0.2s ease-out;
+  font-size: 0.8em;
 }
 
 .bookline-show .EventList {
