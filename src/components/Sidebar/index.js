@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Character from '../../Character';
 import PageInfo from '../../PageInfo';
 import CharacterList from '../CharacterList';
+import EventList from '../EventList';
 import './index.css';
 
 /**
@@ -23,6 +24,11 @@ class Sidebar extends Component {
           progress={this.props.progress}
           selected={this.props.selected}
           onselected={this.props.onselected}
+        />
+        <EventList
+          current={this.props.current}
+          progress={this.props.progress}
+          events={this.props.events}
         />
       </div>
     );
