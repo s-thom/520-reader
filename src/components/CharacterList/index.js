@@ -61,7 +61,7 @@ class CharacterList extends Component {
         </span>
       );
 
-      let showLabel = !this.props.vertical || this.props.selected.includes(char);
+      let showLabel = this.props.selected.includes(char);
 
       return (
         <div 
