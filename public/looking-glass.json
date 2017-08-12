@@ -190,10 +190,18 @@
     {
       "fragment": 26,
       "text": "Alice tells off the black kitten for undoing her ball of worsted",
-      "mode": "ANY",
+      "mode": "EXACT",
       "characters": [
         "Alice",
         "Black Kitten"
+      ]
+    },
+    {
+      "fragment": 244,
+      "text": "Alice goes through the looking-glass",
+      "mode": "EXACT",
+      "characters": [
+        "Alice"
       ]
     }
   ]

@@ -38,6 +38,20 @@ export default class BookEvent {
         });
 
         return res.length === this.c.length;
+      case 'EXACT':
+        if (this.c.length !== characters.length) {
+          return false;
+        }
+        
+        res = [];
+        // Add all characters found in both arrays
+        this.c.forEach((c) => {
+          if (characters.find(c1 => c1.name === c)) {
+            res.push(c);
+          }
+        });
+
+        return res.length === this.c.length && res.length === characters.length;
       default:
         console.log(`UNKNOWN MODE ${this.m}, ALLOWING`);
         return true;
