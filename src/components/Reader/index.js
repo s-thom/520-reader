@@ -7,6 +7,7 @@ import Splitter from '../Splitter';
 import BookLine from '../BookLine';
 import Sidebar from '../Sidebar';
 import Character from '../../Character';
+import BookEvent from '../../BookEvent';
 import {dimensions} from '../../browser';
 import {event} from '../../track';
 import './index.css';
@@ -401,7 +402,7 @@ class Reader extends Component {
 Reader.propTypes = {
   text: PropTypes.string.isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
-  events: PropTypes.arrayOf(PropTypes.any).isRequired,
+  events: PropTypes.arrayOf(PropTypes.instanceOf(BookEvent)).isRequired,
 };
 
 export default Reader;

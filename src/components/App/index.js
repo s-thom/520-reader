@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Reader from '../Reader';
 import Character from '../../Character';
+import BookEvent from '../../BookEvent';
 import {request} from '../../util';
 import {event, setUser, getStartupUser} from '../../track';
 import './index.css';
@@ -33,7 +34,7 @@ class App extends Component {
         .then(({characters: cs, events: es}) => {
           let characters = cs.map(c => new Character(c['display-name'], c.names, c.image));
 
-          let events = es;
+          let events = es.map(e => new BookEvent(e));
 
           return {
             characters,

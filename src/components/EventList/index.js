@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import BookEvent from '../../BookEvent';
 import './index.css';
 
 /**
@@ -35,7 +36,7 @@ EventList.defaultProps = {
 EventList.propTypes = {
   progress: PropTypes.number.isRequired,
   current: PropTypes.number,
-  events: PropTypes.arrayOf(PropTypes.any).isRequired,
+  events: PropTypes.arrayOf(PropTypes.instanceOf(BookEvent)).isRequired,
 };
 
 export default EventList;
