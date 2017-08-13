@@ -42,6 +42,16 @@ class Reader extends Component {
     this.reachedThreshold = false;
     
     this.pageContainer = null;
+
+    this.osf = this.onSplitterFinish.bind(this);
+    this.ocs = this.onCharacterSelected.bind(this);
+    this.otb = this.onToggleBookline.bind(this);
+    this.okp = this.onKey.bind(this);
+    this.omm = this.mouseMove.bind(this);
+    this.omu = this.mouseUp.bind(this);
+    this.omd = this.mouseDown.bind(this);
+    this.onp = this.nextPage.bind(this);
+    this.opp = this.nextPage.bind(this);
   }
 
   /**
@@ -178,14 +188,14 @@ class Reader extends Component {
     let page = this.state.splitting ? (
       <Splitter
         text={this.props.text}
-        onfinish={(t)=>this.onSplitterFinish(t)}
+        onfinish={this.osf}
       />
     ) : (
       <Page 
         info={this.pages[this.state.page]}
         identifier={this.state.page} 
         characters={this.props.characters}
-        oncharclick={(c,s)=>this.onTextCharacterSelected(c,s)}
+        oncharclick={this.ocs}
         key={this.state.page}
         selected={this.state.characters}
       />
@@ -206,7 +216,7 @@ class Reader extends Component {
     let sidebar = (!this.state.splitting) ? (
       <div className="reader-characters">
         <Sidebar 
-          onToggle={() => this.onToggleBookline()}
+          onToggle={this.otb}
         >
           <CharacterList
             pages={this.pages}
@@ -214,7 +224,7 @@ class Reader extends Component {
             current={this.state.page}
             progress={this.state.maxPage}
             selected={this.state.characters}
-            onselected={(c, s) => this.onCharacterSelected(c, s)}
+            onselected={this.ocs}
           />
           <EventList
             maxFragment={this.pages[this.state.maxPage + 1] ? this.pages[this.state.maxPage + 1].id : Infinity}
@@ -241,16 +251,16 @@ class Reader extends Component {
       <div 
         tabIndex={0}
         className={readerClass}
-        onKeyDown={(e)=>this.onKey(e)}
+        onKeyDown={this.okp}
         ref={el => el && el.focus()}>
 
         {/* Page content */}
         <div 
           className="page-container"
           ref={(c) => this.pageContainer = c}
-          onTouchStart={(e) => this.mouseDown(e)}
-          onTouchEnd={(e) => this.mouseUp(e)}
-          onTouchMove={(e) => this.mouseMove(e)}
+          onTouchStart={this.omd}
+          onTouchEnd={this.omu}
+          onTouchMove={this.omm}
           >
           {page}
         </div>
@@ -268,14 +278,14 @@ class Reader extends Component {
         <div className={navClass}>
           <button 
             className="navigation-button" 
-            onClick={() => this.prevPage()}>
+            onClick={this.opp}>
             <ReactSVG
               path={leftArrow} />
           </button>
           <span>{this.state.page + 1} / {this.pages.length}</span>
           <button 
             className="navigation-button" 
-            onClick={() => this.nextPage()}>
+            onClick={this.onp}>
             <ReactSVG
               path={rightArrow} />
           </button>

@@ -14,6 +14,12 @@ import {primitiveComparator} from '../../util';
  * @extends {Component}
  */
 class CharacterList extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.os = this.onSelect.bind(this);
+  }
+
   render() {
     let curr = this.props.current;
     let page = this.props.pages[curr];
@@ -67,7 +73,7 @@ class CharacterList extends Component {
         <div 
           key={`char-${char.name}`}
           className={charClasses.join(' ')}
-          onClick={(e)=>this.onSelect(char, e.shiftKey)}>
+          onClick={this.os}>
           {charIcon}
           {showLabel && <span className="char-name">{char.name}</span>}
         </div>
