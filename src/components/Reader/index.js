@@ -45,6 +45,7 @@ class Reader extends Component {
 
     this.osf = this.onSplitterFinish.bind(this);
     this.ocs = this.onCharacterSelected.bind(this);
+    this.oes = this.onEventSelected.bind(this);
     this.otb = this.onToggleBookline.bind(this);
     this.okp = this.onKey.bind(this);
     this.omm = this.mouseMove.bind(this);
@@ -82,6 +83,10 @@ class Reader extends Component {
       ...this.state,
       showBookline: !this.state.showBookline,
     });
+  }
+
+  onEventSelected(bookEvent) {
+
   }
 
   /**
@@ -232,6 +237,7 @@ class Reader extends Component {
             progress={this.state.maxPage}
             events={this.props.events}
             selected={this.state.characters}
+            onEventSelected={this.oes}
           />
         </Sidebar>
       </div>
