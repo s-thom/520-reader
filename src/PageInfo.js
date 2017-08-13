@@ -44,7 +44,11 @@ export default class PageInfo {
     return this.n;
   }
 
-  static findPageWithFragment(pages, fragementId) {
-    return pages.find(p => p.id <= fragementId && (p.id + p.numFragments) >= fragementId);
+  hasFragment(fragmentId) {
+    return this.id <= fragmentId && (this.id + this.numFragments) >= fragmentId;
+  }
+
+  static findPageWithFragment(pages, fragmentId) {
+    return pages.find(p => p.hasFragment(fragmentId));
   }
 }
