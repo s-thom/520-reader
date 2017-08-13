@@ -10,6 +10,7 @@ import CharacterList from '../CharacterList';
 import EventList from '../EventList';
 import Character from '../../Character';
 import BookEvent from '../../BookEvent';
+import PageInfo from '../../PageInfo';
 import {dimensions} from '../../browser';
 import {event} from '../../track';
 import './index.css';
@@ -86,7 +87,19 @@ class Reader extends Component {
   }
 
   onEventSelected(bookEvent) {
+    let page = PageInfo.findPageWithFragment(this.pages, bookEvent.fragment);
+    if (!page) {
+      console.log(`page for fragment ${bookEvent.fragment} not found`);
+      return;
+    }
 
+    let index = this.pages.indexOf(page);
+    if (index === -1) {
+      console.log('index for page not found');
+      return;
+    }
+
+    this.setPage(index);
   }
 
   /**

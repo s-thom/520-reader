@@ -47,7 +47,7 @@ class Splitter extends Component {
       return;
     } else {
       // Add this page's info
-      let result = new PageInfo(text, this.state.remainingIndex);
+      let result = new PageInfo(text, this.state.remainingIndex, count);
       this.pages.push(result);
 
       // Set state for next page
