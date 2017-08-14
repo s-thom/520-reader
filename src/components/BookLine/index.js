@@ -13,12 +13,12 @@ function Line({
   xStep,
   yStep
 }) {
-  let progressX = progress * xStep;
+  let progressX = (progress + 1) * xStep;
 
   // Map points to SVG path instructions
   let seenPages = points.slice(0, progress + 1);
   let instructions = seenPages.map((point, index) => {
-    return `L${index * xStep},${height - (point * yStep)}`;
+    return `L${(index + 1) * xStep},${height - (point * yStep)}`;
   });
   let seenInstructions = `M0,${height} ${instructions.join(' ')} L${progressX},${height}`;
 
@@ -80,7 +80,10 @@ class BookLine extends Component {
       let max = this.findMaximum(
         progress,
         // Only find maximum of viewed pages
-        Array.from(this.occurences.values()).slice(0, progress)
+        characters
+          .filter(c => c)
+          .map(c => Array.from(this.occurences.get(c)))
+          .map(a => a.slice(0, (progress + 1)))
       );
 
       // Set dimensions for the line
@@ -89,8 +92,8 @@ class BookLine extends Component {
       let xStep = width / pages.length;
       let yStep = height / max;
 
-      let currentX = current * xStep;
-      let progressX = progress * xStep;
+      let currentX = (current + 1) * xStep;
+      let progressX = (progress + 1) * xStep;
 
       let lineCommonProps = {
         progress,
@@ -163,7 +166,7 @@ class BookLine extends Component {
     // For each character
     return pointses.reduce((max, points) => {
       let curr = points
-        .map((p,i) => (i < progress ? p : 0)) // Ignore pages that haven't been read
+        .map((p,i) => (i <= progress ? p : 0)) // Ignore pages that haven't been read
         .reduce((c, m) => {
           return Math.max(c, m);
         }, 0);
