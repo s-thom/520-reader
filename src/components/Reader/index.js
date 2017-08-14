@@ -277,7 +277,7 @@ class Reader extends Component {
         {/* List and line */}
         {sidebar}
         <div className="bookline-container">
-          <h2>{`Bookline for ${charName}`}</h2>
+          <h2 className="bookline-header">{`Bookline for ${charName}`}</h2>
           <div className="bookline-wrapper">
             {bookline}
           </div>
