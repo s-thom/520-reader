@@ -127,9 +127,9 @@ class BookLine extends Component {
 
       content = (
         <svg className="svg-line" viewBox={`0 0 ${width} ${height}`} height={height}>
+          {lines}
           <path className="svg-path-fade" d={`M${progressX},${height} L${width},${height}`} />
           <rect className="svg-here-line" x={currentX} y={0} width="1" height={height} />
-          {lines}
         </svg>
       );
     } else {
