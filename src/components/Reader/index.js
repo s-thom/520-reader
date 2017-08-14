@@ -7,9 +7,7 @@ import Splitter from '../Splitter';
 import BookLine from '../BookLine';
 import Sidebar from '../Sidebar';
 import CharacterList from '../CharacterList';
-import EventList from '../EventList';
 import Character from '../../Character';
-import BookEvent from '../../BookEvent';
 import PageInfo from '../../PageInfo';
 import {dimensions} from '../../browser';
 import {event} from '../../track';
@@ -244,14 +242,6 @@ class Reader extends Component {
             selected={this.state.characters}
             onselected={this.ocs}
           />
-          <EventList
-            maxFragment={this.pages[this.state.maxPage + 1] ? this.pages[this.state.maxPage + 1].id : Infinity}
-            current={this.state.page}
-            progress={this.state.maxPage}
-            events={this.props.events}
-            selected={this.state.characters}
-            onEventSelected={this.oes}
-          />
         </Sidebar>
       </div>
     ) : null;
@@ -442,7 +432,6 @@ class Reader extends Component {
 Reader.propTypes = {
   text: PropTypes.string.isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
-  events: PropTypes.arrayOf(PropTypes.instanceOf(BookEvent)).isRequired,
 };
 
 export default Reader;
