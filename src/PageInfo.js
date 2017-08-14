@@ -9,11 +9,13 @@ export default class PageInfo {
    * Creates an instance of PageInfo.
    * @param {string} text Text on this page
    * @param {number} startId Initial fragment ID
+   * @param {number} numFragments Number of fragments
    * @memberof PageInfo
    */
-  constructor(text, startId) {
+  constructor(text, startId, numFragments) {
     this.t = text;
     this.i = startId;
+    this.n = numFragments;
   }
 
   /**
@@ -27,7 +29,7 @@ export default class PageInfo {
     return this.t;
   }
 
-/**
+  /**
    * Initial fragment ID
    * 
    * @return {number} Initial fragment ID
@@ -36,5 +38,17 @@ export default class PageInfo {
    */
   get id() {
     return this.i;
+  }
+
+  get numFragments() {
+    return this.n;
+  }
+
+  hasFragment(fragmentId) {
+    return this.id <= fragmentId && (this.id + this.numFragments) >= fragmentId;
+  }
+
+  static findPageWithFragment(pages, fragmentId) {
+    return pages.find(p => p.hasFragment(fragmentId));
   }
 }

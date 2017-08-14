@@ -26,9 +26,9 @@ class EventList extends Component {
 
         return event.matchesCharacters(characters);
       })
-      .map((event) => {
+      .map((event, i) => {
         return (
-          <div className="EventList-item">
+          <div className="EventList-item" onClick={() => this.props.onEventSelected(event)} key={i}>
             <p className="EventList-item-text">{event.text}</p>
           </div>
         );
@@ -53,6 +53,7 @@ EventList.propTypes = {
   current: PropTypes.number,
   events: PropTypes.arrayOf(PropTypes.instanceOf(BookEvent)).isRequired,
   selected: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
+  onEventSelected: PropTypes.func.isRequired,
 };
 
 export default EventList;

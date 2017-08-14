@@ -10,6 +10,7 @@ import CharacterList from '../CharacterList';
 import EventList from '../EventList';
 import Character from '../../Character';
 import BookEvent from '../../BookEvent';
+import PageInfo from '../../PageInfo';
 import {dimensions} from '../../browser';
 import {event} from '../../track';
 import './index.css';
@@ -45,6 +46,7 @@ class Reader extends Component {
 
     this.osf = this.onSplitterFinish.bind(this);
     this.ocs = this.onCharacterSelected.bind(this);
+    this.oes = this.onEventSelected.bind(this);
     this.otb = this.onToggleBookline.bind(this);
     this.okp = this.onKey.bind(this);
     this.omm = this.mouseMove.bind(this);
@@ -82,6 +84,22 @@ class Reader extends Component {
       ...this.state,
       showBookline: !this.state.showBookline,
     });
+  }
+
+  onEventSelected(bookEvent) {
+    let page = PageInfo.findPageWithFragment(this.pages, bookEvent.fragment);
+    if (!page) {
+      console.log(`page for fragment ${bookEvent.fragment} not found`);
+      return;
+    }
+
+    let index = this.pages.indexOf(page);
+    if (index === -1) {
+      console.log('index for page not found');
+      return;
+    }
+
+    this.setPage(index);
   }
 
   /**
@@ -232,6 +250,7 @@ class Reader extends Component {
             progress={this.state.maxPage}
             events={this.props.events}
             selected={this.state.characters}
+            onEventSelected={this.oes}
           />
         </Sidebar>
       </div>
