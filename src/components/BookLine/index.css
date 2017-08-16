@@ -1,9 +1,11 @@
 .BookLine {
   height: 100%;
-  flex-grow: 1;
+  /* flex-grow: 1; */
+  display: flex;
 }
 
 .svg-line {
+  justify-self: end;
   width: 100%;
   display: block;
 }
