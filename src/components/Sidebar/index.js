@@ -16,6 +16,7 @@ class Sidebar extends Component {
     return (
       <div className="Sidebar">
         {this.props.children}
+        <div className="Sidebar-spacer" />
         <div className="Sidebar-toggle">
           <div className="Sidebar-toggle-bg" onClick={this.props.onToggle}>
             <ReactSVG path={upArrow} />
