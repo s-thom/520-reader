@@ -38,3 +38,7 @@
 .bookline-show .Sidebar-toggle svg {
   transform: rotate(180deg);
 }
+
+.Sidebar-spacer {
+  flex-grow: 1;
+}
