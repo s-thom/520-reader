@@ -194,6 +194,12 @@ class Reader extends Component {
       case 'Home':
         this.setPage(0);
         break;
+      case 'End':
+        this.setPage(this.pages.length - 1);
+        break;
+      case 'h':
+        this.setPage(Math.floor(this.pages.length / 2));
+        break;
       default:
         break;
     }
