@@ -1,3 +1,5 @@
+import { XMLHttpRequest } from './browser';
+
 /**
  * Requests the content at a URL
  * 
@@ -20,6 +22,29 @@ export function request(url) {
       reject(err);
     });
     request.send();
+  });
+}
+
+export function post(url, data) {
+  return new Promise((resolve, reject) => {
+    if (typeof data !== 'string') {
+      data = JSON.stringify(data);
+    }
+
+    let request = new XMLHttpRequest();
+    request.open('POST', url);
+
+    request.addEventListener('load', () => {
+      if (request.status === 200) {
+        resolve(request.response);
+      } else {
+        reject(new Error(`Invalid response code ${request.status}`));
+      }
+    });
+    request.addEventListener('error', (err) => {
+      reject(err);
+    });
+    request.send(data);
   });
 }
 

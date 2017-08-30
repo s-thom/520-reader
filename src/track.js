@@ -1,6 +1,10 @@
-import { localStorage } from './browser';
+import { localStorage, setTimeout, clearTimeout } from './browser';
+import { post } from './util';
 
+let destination = 'https://me.sthom.kiwi/data';
 let userId = -1;
+
+let timeout = 0;
 
 /**
  * Stores an event in the browser's localStorage
@@ -23,6 +27,34 @@ export function event(name, data = {}) {
   });
 
   localStorage.setItem('events', JSON.stringify(store));
+
+  // Introduce a timeout to reduce number of requests made
+  if (timeout) {
+    clearTimeout(timeout);
+  }
+  setTimeout(() => {
+    let data = localStorage.getItem('events') || '[]';
+
+    // Reset the local storage in case events happen during the request time
+    localStorage.setItem('events', '[]');
+
+    post(destination, data)
+      .then(() => {
+        console.log('request success');
+        
+      }, () => {
+        console.log('request failed');
+        
+        // Merge local storage with pre-request data
+        let curr = localStorage.getItem('events');
+
+        localStorage.setItem('events', JSON.stringify([
+          ...JSON.parse(data),
+          ...JSON.parse(curr)
+        ]));
+      });
+    
+  }, 5000);
 }
 
 /**

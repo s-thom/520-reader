@@ -6,9 +6,16 @@
 export { document, window };
 
 /**
- * Quick export for localStorage
+ * Quick export for localStorage and XMLHttpReqest
  */
 export let localStorage = window.localStorage;
+export let XMLHttpRequest = window.XMLHttpRequest;
+
+/**
+ * Quick export for timeout functions
+ */
+export let setTimeout = window.setTimeout;
+export let clearTimeout = window.clearTimeout;
 
 /**
  * Attaches something to window
