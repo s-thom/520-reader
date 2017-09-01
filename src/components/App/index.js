@@ -51,6 +51,7 @@ class App extends Component {
 
     this.su = this.setUser.bind(this);
     this.ot = this.onType.bind(this);
+    this.ok = this.onKey.bind(this);
   }
 
   /**
@@ -87,29 +88,41 @@ class App extends Component {
     });
   }
 
+  onKey({key}) {
+    switch (key) {
+      case 'Enter':
+        this.su();
+        break;
+    
+      default:
+        break;
+    }
+  }
+
   render() {
     let el;
     let isUserSet = this.state.userId !== -1;
     let buttonAttr = {
-      disabled: !this.state.idTyping,
+      disabled: !parseInt(this.state.idTyping, 10),
     };
     let appClass = `App${isUserSet ? ' reader-active': ''}`;
 
     if (!isUserSet) {
       let setUser = (
         <div className="App-ready-box">
-          <p>Thank you for participating in this study. You will have received an anonymous participant ID from the study supervisor. Please enter it in the box below.</p>
+          <p>Thank you for participating in this study. Please enter your participant ID. You'll only have to do this once.</p>
           <p>
             <input
+              tabIndex={1}
               className="App-ready-pid"
               type="text"
               placeholder="Participant ID"
+              onKeyPress={this.ok}
               onChange={this.ot}
               value={this.state.idTyping}
               ref={e => this.userInput = e}
             />
           </p>
-          <p>When you're ready to start reading, click the button below. There will be a short delay as the eBook reader starts up. Read at your own pace. </p>
           <button className="App-ready-button" onClick={this.su} {...buttonAttr}>Get Started</button>
         </div>
       );
