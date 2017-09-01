@@ -38,7 +38,7 @@ export function event(name, data = {}) {
     // Reset the local storage in case events happen during the request time
     localStorage.setItem('events', '[]');
 
-    post(destination, data)
+    post(destination, {data})
       .then(() => {
         console.log('request success');
         
