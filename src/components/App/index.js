@@ -51,6 +51,7 @@ class App extends Component {
 
     this.su = this.setUser.bind(this);
     this.ot = this.onType.bind(this);
+    this.ok = this.onKey.bind(this);
   }
 
   /**
@@ -87,11 +88,22 @@ class App extends Component {
     });
   }
 
+  onKey({key}) {
+    switch (key) {
+      case 'Enter':
+        this.su();
+        break;
+    
+      default:
+        break;
+    }
+  }
+
   render() {
     let el;
     let isUserSet = this.state.userId !== -1;
     let buttonAttr = {
-      disabled: !this.state.idTyping,
+      disabled: !parseInt(this.state.idTyping, 10),
     };
     let appClass = `App${isUserSet ? ' reader-active': ''}`;
 
@@ -101,9 +113,11 @@ class App extends Component {
           <p>Thank you for participating in this study. Please enter your participant ID. You'll only have to do this once.</p>
           <p>
             <input
+              tabIndex={1}
               className="App-ready-pid"
               type="text"
               placeholder="Participant ID"
+              onKeyPress={this.ok}
               onChange={this.ot}
               value={this.state.idTyping}
               ref={e => this.userInput = e}
