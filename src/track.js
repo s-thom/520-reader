@@ -32,7 +32,7 @@ export function event(name, data = {}) {
   if (timeout) {
     clearTimeout(timeout);
   }
-  setTimeout(() => {
+  timeout = setTimeout(() => {
     let data = localStorage.getItem('events') || '[]';
 
     // Reset the local storage in case events happen during the request time
