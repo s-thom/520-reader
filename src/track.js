@@ -1,7 +1,7 @@
 import { localStorage, setTimeout, clearTimeout } from './browser';
 import { post } from './util';
 
-let destination = 'https://me.sthom.kiwi/data';
+let destination = 'https://me.sthom.kiwi:8088/data';
 let userId = -1;
 
 let timeout = 0;
@@ -32,7 +32,7 @@ export function event(name, data = {}) {
   if (timeout) {
     clearTimeout(timeout);
   }
-  setTimeout(() => {
+  timeout = setTimeout(() => {
     let data = localStorage.getItem('events') || '[]';
 
     // Reset the local storage in case events happen during the request time
