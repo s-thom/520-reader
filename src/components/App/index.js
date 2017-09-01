@@ -98,7 +98,7 @@ class App extends Component {
     if (!isUserSet) {
       let setUser = (
         <div className="App-ready-box">
-          <p>Thank you for participating in this study. You will have received an anonymous participant ID from the study supervisor. Please enter it in the box below.</p>
+          <p>Thank you for participating in this study. Please enter your participant ID. You'll only have to do this once.</p>
           <p>
             <input
               className="App-ready-pid"
@@ -109,7 +109,6 @@ class App extends Component {
               ref={e => this.userInput = e}
             />
           </p>
-          <p>When you're ready to start reading, click the button below. There will be a short delay as the eBook reader starts up. Read at your own pace. </p>
           <button className="App-ready-button" onClick={this.su} {...buttonAttr}>Get Started</button>
         </div>
       );
