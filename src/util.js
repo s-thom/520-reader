@@ -27,12 +27,18 @@ export function request(url) {
 
 export function post(url, data) {
   return new Promise((resolve, reject) => {
+    let isJson = false;
     if (typeof data !== 'string') {
       data = JSON.stringify(data);
+      isJson = true;
     }
 
     let request = new XMLHttpRequest();
     request.open('POST', url);
+
+    if (isJson) {
+      request.setRequestHeader('Content-Type', 'application/json');
+    }
 
     request.addEventListener('load', () => {
       if (request.status === 200) {

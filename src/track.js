@@ -33,7 +33,7 @@ export function event(name, data = {}) {
     clearTimeout(timeout);
   }
   timeout = setTimeout(() => {
-    let data = localStorage.getItem('events') || '[]';
+    let data = JSON.parse(localStorage.getItem('events')) || [];
 
     // Reset the local storage in case events happen during the request time
     localStorage.setItem('events', '[]');
