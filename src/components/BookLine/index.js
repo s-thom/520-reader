@@ -54,6 +54,9 @@ class BookLine extends Component {
     this.componentWillReceiveProps(props);
 
     this.container = null;
+    this.line = null;
+
+    this.oc = this.onClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,6 +69,15 @@ class BookLine extends Component {
         this.occurences.set(char, this.findOccurences(nextProps.pages, char));
       }
     });
+  }
+
+  onClick(event) {
+    if (!this.line) {
+      console.log('line in bad state for nav');
+      return;
+    }
+
+    console.log('bookline clicked');
   }
 
   render() {
@@ -126,7 +138,13 @@ class BookLine extends Component {
         });
 
       content = (
-        <svg className="svg-line" viewBox={`0 0 ${width} ${height}`} height={height}>
+        <svg
+          ref={e => this.line = e}
+          className="svg-line"
+          viewBox={`0 0 ${width} ${height}`}
+          height={height}
+          onClick={this.oc}
+        >
           {lines}
           <path className="svg-path-fade" d={`M${progressX},${height} L${width},${height}`} />
           <rect className="svg-here-line" x={currentX} y={0} width="1" height={height} />
