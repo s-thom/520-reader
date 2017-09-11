@@ -75,7 +75,7 @@ class CharacterList extends Component {
           className={charClasses.join(' ')}
           onClick={() => this.os(char)}>
           {charIcon}
-          {showLabel && <span className="char-name">{char.name}</span>}
+          {showLabel && <span className="char-name"><span className="char-label">{char.name}</span></span>}
         </div>
       );
     });
