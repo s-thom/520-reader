@@ -10,7 +10,7 @@ import CharacterList from '../CharacterList';
 import Character from '../../Character';
 import PageInfo from '../../PageInfo';
 import {dimensions} from '../../browser';
-import {event} from '../../track';
+import {event, getPage, setPage} from '../../track';
 import './index.css';
 import leftArrow from '../../res/ic_keyboard_arrow_left_black_24px.svg';
 import rightArrow from '../../res/ic_keyboard_arrow_right_black_24px.svg';
@@ -67,7 +67,7 @@ class Reader extends Component {
     // Set initial viewing state
     this.setState({
       ...this.state,
-      page: 0,
+      page: getPage(),
       splitting: false,
       maxPage: 0,
     });
@@ -340,6 +340,8 @@ class Reader extends Component {
     }
 
     event('new-page', {page});
+
+    setPage(page);
 
     this.setState({
       ...this.state,
