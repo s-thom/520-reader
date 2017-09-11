@@ -51,7 +51,7 @@ class Reader extends Component {
     this.omu = this.mouseUp.bind(this);
     this.omd = this.mouseDown.bind(this);
     this.onp = this.nextPage.bind(this);
-    this.opp = this.nextPage.bind(this);
+    this.opp = this.prevPage.bind(this);
   }
 
   /**
