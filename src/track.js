@@ -55,4 +55,25 @@ export function getStartupUser() {
 export function reset() {
   localStorage.removeItem('events');
   localStorage.removeItem('uid');
+  localStorage.removeItem('page');
+}
+
+/**
+ * Retrieves the stored page number from localStorage
+ * 
+ * @export
+ * @returns {number} Current saved page
+ */
+export function getPage() {
+  return parseInt(localStorage.getItem('page'), 10) || 0;
+}
+
+/**
+ * Stores the given page number in localStorage
+ * 
+ * @export
+ * @param {number} page Page number to store
+ */
+export function setPage(page) {
+  localStorage.setItem('page', page.toString());
 }

@@ -61,6 +61,15 @@
   padding-right: 0.5em;
 }
 
+.Reader:not(.bookline-show) .char-name {
+  padding-left: 0;
+}
+
+
+.Reader:not(.bookline-show) .char-label {
+  display: none;
+}
+
 .char.selected-0 {
   background-color: #7FB6FF;
 }

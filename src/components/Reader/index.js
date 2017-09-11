@@ -10,7 +10,7 @@ import CharacterList from '../CharacterList';
 import Character from '../../Character';
 import PageInfo from '../../PageInfo';
 import {dimensions} from '../../browser';
-import {event} from '../../track';
+import {event, getPage, setPage} from '../../track';
 import './index.css';
 import leftArrow from '../../res/ic_keyboard_arrow_left_black_24px.svg';
 import rightArrow from '../../res/ic_keyboard_arrow_right_black_24px.svg';
@@ -51,7 +51,8 @@ class Reader extends Component {
     this.omu = this.mouseUp.bind(this);
     this.omd = this.mouseDown.bind(this);
     this.onp = this.nextPage.bind(this);
-    this.opp = this.nextPage.bind(this);
+    this.opp = this.prevPage.bind(this);
+    this.obp = this.onBooklinePageSelected.bind(this);
   }
 
   /**
@@ -64,12 +65,14 @@ class Reader extends Component {
   onSplitterFinish(result) {
     this.pages = result;
 
+    let highestPage = getPage();
+
     // Set initial viewing state
     this.setState({
       ...this.state,
-      page: 0,
+      page: highestPage,
       splitting: false,
-      maxPage: 0,
+      maxPage: highestPage,
     });
   }
 
@@ -160,6 +163,10 @@ class Reader extends Component {
     });
   }
 
+  onBooklinePageSelected(page) {
+    this.setPage(page);
+  }
+
   /**
    * Called when a key is pressed
    * 
@@ -231,6 +238,7 @@ class Reader extends Component {
         characters={this.state.characters}
         current={this.state.page}
         progress={this.state.maxPage}
+        onPageSelect={this.obp}
         />
     ) : null;
 
@@ -341,6 +349,8 @@ class Reader extends Component {
 
     event('new-page', {page});
 
+    setPage(page);
+
     this.setState({
       ...this.state,
       page: page,
@@ -406,7 +416,7 @@ class Reader extends Component {
    * @memberof Reader
    */
   mouseMove(event) {
-    let minDiff = dimensions.x / 8;
+    let minDiff = dimensions.x / 15;
     this.currPosition = event.touches[0];
 
     let xDiff = this.currPosition.clientX - this.startPosition.clientX;
