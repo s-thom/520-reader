@@ -65,12 +65,14 @@ class Reader extends Component {
   onSplitterFinish(result) {
     this.pages = result;
 
+    let highestPage = getPage();
+
     // Set initial viewing state
     this.setState({
       ...this.state,
-      page: getPage(),
+      page: highestPage,
       splitting: false,
-      maxPage: 0,
+      maxPage: highestPage,
     });
   }
 
