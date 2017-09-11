@@ -52,6 +52,7 @@ class Reader extends Component {
     this.omd = this.mouseDown.bind(this);
     this.onp = this.nextPage.bind(this);
     this.opp = this.prevPage.bind(this);
+    this.obp = this.onBooklinePageSelected.bind(this);
   }
 
   /**
@@ -160,6 +161,10 @@ class Reader extends Component {
     });
   }
 
+  onBooklinePageSelected(page) {
+    this.setPage(page);
+  }
+
   /**
    * Called when a key is pressed
    * 
@@ -231,6 +236,7 @@ class Reader extends Component {
         characters={this.state.characters}
         current={this.state.page}
         progress={this.state.maxPage}
+        onPageSelect={this.obp}
         />
     ) : null;
 
