@@ -78,7 +78,9 @@ class BookLine extends Component {
     }
 
     let position = event.nativeEvent.offsetX;
-    let page = Math.floor(this.props.pages.length * (position / this.line.clientWidth));  
+    let page = Math.floor(this.props.pages.length * (position / this.line.clientWidth));
+
+    this.props.onPageSelect(page);
   }
 
   render() {
@@ -239,7 +241,8 @@ BookLine.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.instanceOf(PageInfo)).isRequired,
   characters: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   progress: PropTypes.number.isRequired,
-  current: PropTypes.number
+  current: PropTypes.number,
+  onPageSelect: PropTypes.func.isRequired,
 };
 
 export default BookLine;
