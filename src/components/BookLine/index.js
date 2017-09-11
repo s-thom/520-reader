@@ -77,7 +77,8 @@ class BookLine extends Component {
       return;
     }
 
-    console.log('bookline clicked');
+    let position = event.nativeEvent.offsetX;
+    let page = Math.floor(this.props.pages.length * (position / this.line.clientWidth));  
   }
 
   render() {
