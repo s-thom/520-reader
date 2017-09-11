@@ -406,7 +406,7 @@ class Reader extends Component {
    * @memberof Reader
    */
   mouseMove(event) {
-    let minDiff = dimensions.x / 8;
+    let minDiff = dimensions.x / 15;
     this.currPosition = event.touches[0];
 
     let xDiff = this.currPosition.clientX - this.startPosition.clientX;
