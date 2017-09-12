@@ -19,6 +19,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      requireButton: fscreen.fullscreenEnabled,
       userId: getStartupUser(),
       text: undefined,
       characters: undefined,
@@ -53,6 +54,7 @@ class App extends Component {
     this.su = this.setUser.bind(this);
     this.ot = this.onType.bind(this);
     this.ok = this.onKey.bind(this);
+    this.cr = this.continueReading.bind(this);
   }
 
   /**
@@ -73,6 +75,10 @@ class App extends Component {
     this.getStarted(user);
   }
 
+  continueReading() {
+    this.getStarted(this.state.userId);
+  }
+
   /**
    * Requests fullscreen and changes state
    * 
@@ -84,13 +90,13 @@ class App extends Component {
     const changeMode = () => {
       this.setState({
         ...this.state,
-        userId: user
+        userId: user,
+        requireButton: false,
       });
     };
 
     if (!fscreen.fullscreenEnabled) {
       console.log('no fs');
-      
       // Fullscreen not allowed, just continue
       changeMode();
       return;
@@ -168,6 +174,19 @@ class App extends Component {
       el = (
         <div className="App-ready-modal">
           {setUser}
+          <h1>Through the Looking Glass</h1>
+          <h2>and What Alice Found There</h2>
+          <h3>Lewis Carroll</h3>
+          <p>Text from <a href="http://www.gutenberg.org/1/12/">Project Gutenberg</a></p>
+        </div>
+      );
+    } else if (this.state.requireButton) {
+      el = (
+        <div className="App-ready-modal">
+          <div className="App-ready-box">
+            <p>Welcome back, Participant {this.state.userId}. Thank you for participating in this study.</p>
+            <button className="App-ready-button" onClick={this.cr}>Continue Reading</button>
+          </div>
           <h1>Through the Looking Glass</h1>
           <h2>and What Alice Found There</h2>
           <h3>Lewis Carroll</h3>
