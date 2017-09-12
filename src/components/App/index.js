@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fscreen from 'fscreen';
 
 import Reader from '../Reader';
 import Character from '../../Character';
@@ -69,10 +70,47 @@ class App extends Component {
 
     setUser(user);
 
-    this.setState({
-      ...this.state,
-      userId: user
-    });
+    this.getStarted(user);
+  }
+
+  /**
+   * Requests fullscreen and changes state
+   * 
+   * @param {any} user 
+   * @returns 
+   * @memberof App
+   */
+  getStarted(user) {
+    const changeMode = () => {
+      this.setState({
+        ...this.state,
+        userId: user
+      });
+    };
+
+    if (!fscreen.fullscreenEnabled) {
+      console.log('no fs');
+      
+      // Fullscreen not allowed, just continue
+      changeMode();
+      return;
+    }
+    
+
+    fscreen.onfullscreenchange = () => {
+      console.log('fullscreen');
+      
+      fscreen.onfullscreenchange = null;
+      changeMode();
+    };
+    fscreen.onfullscreenerror = () => {
+      console.log('fullscreen error');
+      
+      fscreen.onfullscreenerror = null;
+      changeMode();
+    };
+
+    fscreen.requestFullscreen(this.root);
   }
 
   /**
