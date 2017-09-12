@@ -149,7 +149,7 @@ class App extends Component {
     let buttonAttr = {
       disabled: !parseInt(this.state.idTyping, 10),
     };
-    let appClass = `App${isUserSet ? ' reader-active': ''}`;
+    let appClass = 'App';
 
     if (!isUserSet) {
       let setUser = (
@@ -201,6 +201,7 @@ class App extends Component {
         </div>
       );
     } else {
+      appClass += ' reader-active';
       el = <div className="App-reader-container"><Reader {...this.state} /></div>;
     }
 
