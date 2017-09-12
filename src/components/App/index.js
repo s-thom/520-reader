@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fscreen from 'fscreen';
 
 import Reader from '../Reader';
 import Character from '../../Character';
@@ -18,6 +19,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      requireButton: fscreen.fullscreenEnabled,
       userId: getStartupUser(),
       text: undefined,
       characters: undefined,
@@ -52,6 +54,7 @@ class App extends Component {
     this.su = this.setUser.bind(this);
     this.ot = this.onType.bind(this);
     this.ok = this.onKey.bind(this);
+    this.cr = this.continueReading.bind(this);
   }
 
   /**
@@ -69,10 +72,51 @@ class App extends Component {
 
     setUser(user);
 
-    this.setState({
-      ...this.state,
-      userId: user
-    });
+    this.getStarted(user);
+  }
+
+  continueReading() {
+    this.getStarted(this.state.userId);
+  }
+
+  /**
+   * Requests fullscreen and changes state
+   * 
+   * @param {any} user 
+   * @returns 
+   * @memberof App
+   */
+  getStarted(user) {
+    const changeMode = () => {
+      this.setState({
+        ...this.state,
+        userId: user,
+        requireButton: false,
+      });
+    };
+
+    if (!fscreen.fullscreenEnabled) {
+      console.log('no fs');
+      // Fullscreen not allowed, just continue
+      changeMode();
+      return;
+    }
+    
+
+    fscreen.onfullscreenchange = () => {
+      console.log('fullscreen');
+      
+      fscreen.onfullscreenchange = null;
+      changeMode();
+    };
+    fscreen.onfullscreenerror = () => {
+      console.log('fullscreen error');
+      
+      fscreen.onfullscreenerror = null;
+      changeMode();
+    };
+
+    fscreen.requestFullscreen(this.root);
   }
 
   /**
@@ -105,7 +149,7 @@ class App extends Component {
     let buttonAttr = {
       disabled: !parseInt(this.state.idTyping, 10),
     };
-    let appClass = `App${isUserSet ? ' reader-active': ''}`;
+    let appClass = 'App';
 
     if (!isUserSet) {
       let setUser = (
@@ -136,6 +180,19 @@ class App extends Component {
           <p>Text from <a href="http://www.gutenberg.org/1/12/">Project Gutenberg</a></p>
         </div>
       );
+    } else if (this.state.requireButton) {
+      el = (
+        <div className="App-ready-modal">
+          <div className="App-ready-box">
+            <p>Welcome back, Participant {this.state.userId}. Thank you for participating in this study.</p>
+            <button className="App-ready-button" onClick={this.cr}>Continue Reading</button>
+          </div>
+          <h1>Through the Looking Glass</h1>
+          <h2>and What Alice Found There</h2>
+          <h3>Lewis Carroll</h3>
+          <p>Text from <a href="http://www.gutenberg.org/1/12/">Project Gutenberg</a></p>
+        </div>
+      );
     } else if (!(this.state.text && this.state.characters)) {
       el = (
         <div>
@@ -144,6 +201,7 @@ class App extends Component {
         </div>
       );
     } else {
+      appClass += ' reader-active';
       el = <div className="App-reader-container"><Reader {...this.state} /></div>;
     }
 
