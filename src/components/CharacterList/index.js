@@ -40,6 +40,10 @@ class CharacterList extends Component {
       });
     }
 
+    if (this.props.invert) {
+      characters = this.props.characters.filter(c => !characters.includes(c));
+    }
+
     // Sort list by name alphabetically
     // It makes more snese than the order in the JSON
     characters.sort((a, b) => primitiveComparator(a.name, b.name));
@@ -140,7 +144,8 @@ CharacterList.propTypes = {
   selected: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   onselected: PropTypes.func,
   wrap: PropTypes.bool,
-  vertical: PropTypes.bool
+  vertical: PropTypes.bool,
+  invert: PropTypes.bool,
 };
 
 export default CharacterList;
