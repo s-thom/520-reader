@@ -25,6 +25,13 @@
   overflow-y: auto;
   position: relative;
 }
+.Sidebar-scrollable::-webkit-scrollbar {
+  display:none;
+}
+.Sidebar-scrollable::-moz-scrollbar {
+  display: none;
+}
+
 
 .Sidebar-toggle {
   text-align: right;
