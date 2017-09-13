@@ -14,6 +14,18 @@
   height: calc(80% - 1.5em);
 }
 
+.Sidebar-divider {
+  border-bottom: 1px #DDDDDD solid;
+  position: absolute;
+  width: 1.75em;
+  right: 0;
+}
+
+.Sidebar-scrollable {
+  overflow-y: auto;
+  position: relative;
+}
+
 .Sidebar-toggle {
   text-align: right;
   font-size: 0.75em;

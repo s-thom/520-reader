@@ -11,6 +11,7 @@
 .para-char {
   position: relative;
   cursor: pointer;
+  background-color: transparent;
 }
 .para-char::before {
   position: absolute;

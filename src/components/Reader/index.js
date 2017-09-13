@@ -256,6 +256,7 @@ class Reader extends Component {
             selected={this.state.characters}
             onselected={this.ocs}
           />
+          <div className="Sidebar-divider" />
           <CharacterList
             pages={this.pages}
             characters={this.props.characters.filter(c => !this.state.characters.includes(c))}
