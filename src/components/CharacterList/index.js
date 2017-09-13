@@ -80,11 +80,17 @@ class CharacterList extends Component {
 
       let showLabel = this.props.selected.includes(char);
 
+      let styles = {
+        backgroundColor: (showLabel && char.color) || '#fff',
+      };
+
       return (
         <div 
           key={`char-${char.name}`}
           className={charClasses.join(' ')}
-          onClick={() => this.os(char)}>
+          onClick={() => this.os(char)}
+          style={styles}
+        >
           {charIcon}
           {showLabel && <span className="char-name"><span className="char-label">{char.name}</span></span>}
         </div>
