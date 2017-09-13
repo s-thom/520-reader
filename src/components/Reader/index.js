@@ -272,11 +272,6 @@ class Reader extends Component {
 
     // Hide navigation while splitting
     let navClass = `navigation${this.state.splitting?' hidden':''}`;
-    // Character names for bookline title
-    let charName = this.state.characters
-      .filter(c=>c)
-      .map(c=>c.name)
-      .join(', ');
 
     let readerClass = `Reader${this.state.showBookline?' bookline-show':''}`;
 
@@ -301,7 +296,7 @@ class Reader extends Component {
         {/* List and line */}
         {sidebar}
         <div className="bookline-container">
-          <h2 className="bookline-header">{`Bookline for ${charName}`}</h2>
+          <h2 className="bookline-header">Bookline</h2>
           <div className="bookline-wrapper">
             {bookline}
           </div>
