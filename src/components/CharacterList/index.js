@@ -63,7 +63,14 @@ class CharacterList extends Component {
           alt={char.name} />
       ) : (
         <span className="char-icon char-initial">
-          <span className="char-initial-content">{char.name[0].toUpperCase()}</span>
+          <span className="char-initial-content">{
+            char
+              .name
+              .split(' ')
+              .map(s => s[0])
+              .join('')
+              .toUpperCase()
+          }</span>
         </span>
       );
 
