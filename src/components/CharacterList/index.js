@@ -22,27 +22,8 @@ class CharacterList extends Component {
 
   render() {
     let curr = this.props.current;
-    let page = this.props.pages[curr];
 
-    let characters = this.findCharacters(page.text);
-    // Add selected, but not present, characters
-    if (this.props.selected.length) {
-      this.props.selected.forEach((char) => {
-        // Make sure to not add the filler spots in the selected array
-        if (!char) {
-          return;
-        }
-
-        // Don't add duplicate characters
-        if (!characters.includes(char)) {
-          characters.unshift(char);
-        }
-      });
-    }
-
-    if (this.props.invert) {
-      characters = this.props.characters.filter(c => !characters.includes(c));
-    }
+    let characters = this.props.characters;
 
     // Sort list by name alphabetically
     // It makes more snese than the order in the JSON
@@ -108,19 +89,6 @@ class CharacterList extends Component {
         {list}
       </div>
     );
-  }
-
-  /**
-   * Finds which characters occur in the text
-   * 
-   * @param {string} text Text to search
-   * @returns {Character[]} Characters that are in the text
-   * @memberof CharacterList
-   */
-  findCharacters(text) {
-    return this.props.characters.filter((character) => {
-      return character.numberOfOccurrences(text) > 0;
-    });
   }
 
   /**

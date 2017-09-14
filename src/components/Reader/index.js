@@ -253,21 +253,11 @@ class Reader extends Component {
         >
           <CharacterList
             pages={this.pages}
-            characters={this.props.characters}
+            characters={this.state.seenCharacters}
             current={this.state.page}
             progress={this.state.maxPage}
             selected={this.state.characters}
             onselected={this.ocs}
-          />
-          <div className="Sidebar-divider" />
-          <CharacterList
-            pages={this.pages}
-            characters={this.props.characters.filter(c => !this.state.characters.includes(c))}
-            current={this.state.page}
-            progress={this.state.maxPage}
-            selected={[]}
-            onselected={this.ocs}
-            invert={true}
           />
         </Sidebar>
       </div>
