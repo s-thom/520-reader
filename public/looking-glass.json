@@ -5,7 +5,8 @@
       "names": [
         "Alice"
       ],
-      "image": "/img/alice.png"
+      "image": "/img/alice.png",
+      "color": "#ffaaef"
     },
     {
       "display-name": "White Kitten",
@@ -13,7 +14,8 @@
         "White Kitten",
         "Snowdrop"
       ],
-      "image": "/img/white-kitten.png"
+      "image": "/img/white-kitten.png",
+      "color": "#D6D6D6"
     },
     {
       "display-name": "Black Kitten",
@@ -21,7 +23,8 @@
         "Black Kitten",
         "Kitty"
       ],
-      "image": "/img/black-kitten.png"
+      "image": "/img/black-kitten.png",
+      "color": "#FF4E44"
     },
     {
       "display-name": "Dinah",
@@ -29,35 +32,40 @@
         "Dinah",
         "old cat"
       ],
-      "image": ""
+      "image": "",
+      "color": "#c1b6bf"
     },
     {
       "display-name": "Red King",
       "names": [
         "Red King"
       ],
-      "image": "/img/red-king.png"
+      "image": "/img/red-king.png",
+      "color": "#ea3535"
     },
     {
       "display-name": "Red Queen",
       "names": [
         "Red Queen"
       ],
-      "image": "/img/red-queen.png"
+      "image": "/img/red-queen.png",
+      "color": "#E9342A"
     },
     {
       "display-name": "White King",
       "names": [
         "White King"
       ],
-      "image": "/img/white-king.png"
+      "image": "/img/white-king.png",
+      "color": "#e8e8e8"
     },
     {
       "display-name": "White Queen",
       "names": [
         "White Queen"
       ],
-      "image": "/img/white-queen.png"
+      "image": "/img/white-queen.png",
+      "color": "#cecece"
     },
     {
       "display-name": "White Knight",
@@ -65,35 +73,40 @@
         "White Knight",
         "the knight"
       ],
-      "image": "/img/white-knight.png"
+      "image": "/img/white-knight.png",
+      "color": "#e8f2f2"
     },
     {
       "display-name": "Tiger-lily",
       "names": [
         "Tiger-lily"
       ],
-      "image": "/img/tiger-lily.png"
+      "image": "/img/tiger-lily.png",
+      "color": "#FC5B01"
     },
     {
       "display-name": "The Rose",
       "names": [
         "The Rose"
       ],
-      "image": "/img/rose.png"
+      "image": "/img/rose.png",
+      "color": "#ffe2f4"
     },
     {
       "display-name": "Daisy",
       "names": [
         "Daisy"
       ],
-      "image": ""
+      "image": "",
+      "color": "#ED81C6"
     },
     {
       "display-name": "The Guard",
       "names": [
         "The Guard"
       ],
-      "image": "/img/train-guard.png"
+      "image": "/img/train-guard.png",
+      "color": "#958de8"
     },
     {
       "display-name": "The Gnat",
@@ -101,35 +114,40 @@
         "the little voice",
         "the gnat"
       ],
-      "image": ""
+      "image": "",
+      "color": "#BD8A5F"
     },
     {
       "display-name": "Tweedledum",
       "names": [
         "Tweedledum"
       ],
-      "image": "/img/dum.png"
+      "image": "/img/dum.png",
+      "color": "#F6A875"
     },
     {
       "display-name": "Tweedledee",
       "names": [
         "Tweedledee"
       ],
-      "image": "/img/dee.png"
+      "image": "/img/dee.png",
+      "color": "#DD9972"
     },
     {
       "display-name": "The Sheep",
       "names": [
         "The Sheep"
       ],
-      "image": "/img/sheep.png"
+      "image": "/img/sheep.png",
+      "color": "#cecece"
     },
     {
       "display-name": "Humpty Dumpty",
       "names": [
         "Humpty Dumpty"
       ],
-      "image": "/img/humpty-dumpty.png"
+      "image": "/img/humpty-dumpty.png",
+      "color": "#C6CC61"
     },
     {
       "display-name": "Haigha",
@@ -137,72 +155,64 @@
         "The messenger",
         "Haigha"
       ],
-      "image": "/img/hare.png"
+      "image": "/img/hare.png",
+      "color": "#b983c6"
     },
     {
       "display-name": "Hatta",
       "names": [
         "Hatta"
       ],
-      "image": "/img/hatter.png"
+      "image": "/img/hatter.png",
+      "color": "#a77bb2"
     },
     {
       "display-name": "The Lion",
       "names": [
         "The Lion"
       ],
-      "image": "/img/lion.png"
+      "image": "/img/lion.png",
+      "color": "#e5c169"
     },
     {
       "display-name": "The Unicorn",
       "names": [
         "The Unicorn"
       ],
-      "image": "/img/unicorn.png"
+      "image": "/img/unicorn.png",
+      "color": "#f780c3"
     },
     {
       "display-name": "Red Knight",
       "names": [
         "Red Knight"
       ],
-      "image": ""
+      "image": "",
+      "color": "#d6393c"
     },
     {
       "display-name": "The Frog",
       "names": [
         "The Frog"
       ],
-      "image": ""
+      "image": "",
+      "color": "#55cc67"
     },
     {
       "display-name": "The Pudding",
       "names": [
         "The Pudding"
       ],
-      "image": ""
-    }
-  ],
-  "events": [
+      "image": "",
+      "color": "#b77f54"
+    }, 
     {
-      "fragment": 0,
-      "text": "The book starts"
-    },
-    {
-      "fragment": 26,
-      "text": "Alice tells off the black kitten for undoing her ball of worsted",
-      "mode": "EXACT",
-      "characters": [
-        "Alice",
-        "Black Kitten"
-      ]
-    },
-    {
-      "fragment": 244,
-      "text": "Alice goes through the looking-glass",
-      "mode": "EXACT",
-      "characters": [
-        "Alice"
-      ]
+      "display-name": "The Jabberwock",
+      "names": [
+        "The Jabberwock"
+      ],
+      "image": "",
+      "color": "#a8675c"
     }
   ]
 }

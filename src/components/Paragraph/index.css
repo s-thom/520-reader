@@ -11,12 +11,13 @@
 .para-char {
   position: relative;
   cursor: pointer;
+  background-color: transparent;
 }
-.para-char::before {
+.para-char-highlight {
   position: absolute;
   height: 0.1em;
   width: 100%;
-  background-color: #2b2b2b;
+  background-color: inherit;
   opacity: 0.1;
   content: ' ';
   left: 0;
@@ -26,43 +27,17 @@
   transition: opacity 0.2s, background-color 0.2s, height 0.2s;
   z-index: -1;
 }
-.para-char:hover::before {
+.para-char.selected:hover .para-char-highlight {
   opacity: 0.3;
 }
 
-.para-char.selected::before {
+.para-char.selected .para-char-highlight {
   opacity: 0.5;
 }
-.para-char.selected:hover::before {
+.para-char.selected:hover .para-char-highlight {
   opacity: 0.8;
 }
 
-.bookline-show .para-char.selected::before {
+.bookline-show .para-char.selected .para-char-highlight {
   height: 100%;
-}
-
-/* Coloured lines */
-.para-char.selected-0::before {
-  background-color: #7FB6FF;
-}
-.para-char.selected-1::before {
-  background-color: #FF4E44;
-}
-.para-char.selected-2::before {
-  background-color: #84CD6D;
-}
-.para-char.selected-3::before {
-  background-color: #C382CC;
-}
-.para-char.selected-4::before {
-  background-color: #C6CC61;
-}
-.para-char.selected-5::before {
-  background-color: #70CCA5;
-}
-.para-char.selected-6::before {
-  background-color: #CC8693;
-}
-.para-char.selected-7::before {
-  background-color: #CC9859;
 }

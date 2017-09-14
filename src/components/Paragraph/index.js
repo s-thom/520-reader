@@ -68,12 +68,21 @@ class Paragraph extends Component {
 
       let paraClass = `para-char${selectedIndex > -1 ? ` selected selected-${selectedIndex}` : ''}`;
 
+      let styles = {
+        backgroundColor: selectedIndex > -1 ? char.color || '#2b2b2b' : '#2b2b2b',
+      };
+
       items.push(
         <span 
           key={`${index}-${items.length}`}
           className={paraClass} 
-          onClick={(e)=>this.props.oncharclick(char, e.shiftKey)}>
+          onClick={(e)=>this.props.oncharclick(char, e.shiftKey)}
+        >
           {match[0]}
+          <span 
+            className="para-char-highlight"
+            style={styles}  
+          />
         </span>
       );
 
