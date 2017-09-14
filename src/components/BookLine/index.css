@@ -15,7 +15,8 @@
   /* fill: #4CB3F7;
   stroke: #0079D1; */
   stroke-width: 0.5;
-  opacity: 0.5;
+  /* opacity: 0.5; */
+  mix-blend-mode: multiply;
 }
 
 .svg-path-fade {
