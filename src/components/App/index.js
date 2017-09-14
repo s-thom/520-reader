@@ -31,7 +31,7 @@ class App extends Component {
       request('/looking-glass.json')
         .then(JSON.parse)
         .then(({characters: cs}) => {
-          let characters = cs.map(c => new Character(c['display-name'], c.names, c.image));
+          let characters = cs.map(c => new Character(c['display-name'], c.names, c.image, c.color));
 
           return {
             characters,

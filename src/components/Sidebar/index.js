@@ -15,7 +15,9 @@ class Sidebar extends Component {
   render() {
     return (
       <div className="Sidebar">
-        {this.props.children}
+        <div className="Sidebar-scrollable">
+          {this.props.children}
+        </div>
         <div className="Sidebar-spacer" />
         <div className="Sidebar-toggle">
           <div className="Sidebar-toggle-bg" onClick={this.props.onToggle}>
