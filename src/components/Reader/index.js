@@ -11,6 +11,7 @@ import Character from '../../Character';
 import PageInfo from '../../PageInfo';
 import {dimensions} from '../../browser';
 import {event, getPage, setPage} from '../../track';
+import {charactersInText} from '../../util';
 import './index.css';
 import leftArrow from '../../res/ic_keyboard_arrow_left_black_24px.svg';
 import rightArrow from '../../res/ic_keyboard_arrow_right_black_24px.svg';
@@ -31,6 +32,7 @@ class Reader extends Component {
       maxPage: 0,
       splitting: true,
       characters: [],
+      seenCharacters: [],
       showBookline: false,
     };
 
@@ -73,6 +75,7 @@ class Reader extends Component {
       page: highestPage,
       splitting: false,
       maxPage: highestPage,
+      seenCharacters: charactersInText(this.props.characters, this.pages[highestPage].text),
     });
   }
 
@@ -352,6 +355,14 @@ class Reader extends Component {
       return;
     }
 
+    let unseenCharacters = this.props.characters
+      .filter(c => !this.state.seenCharacters.includes(c));
+    let newCharacters = charactersInText(unseenCharacters, this.pages[page].text);
+    let seenCharacters = [
+      ...this.state.seenCharacters,
+      ...newCharacters,
+    ];
+
     event('new-page', {page});
 
     setPage(page);
@@ -359,7 +370,8 @@ class Reader extends Component {
     this.setState({
       ...this.state,
       page: page,
-      maxPage: Math.max(page, this.state.maxPage)
+      maxPage: Math.max(page, this.state.maxPage),
+      seenCharacters,
     });
   }
 
