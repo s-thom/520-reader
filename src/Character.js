@@ -6,12 +6,14 @@ export default class Character {
    * @param {string} name Display name for the character
    * @param {string[]} names Array of possible names for the character that appear in the text
    * @param {string} image URL of an image representing the character
+   * @param {string} color Colour to display character as
    * @memberof Character
    */
-  constructor(name, names, image) {
+  constructor(name, names, image, color) {
     this._name = name;
     this._names = names;
     this._image = image;
+    this._color = color;
 
     // Store regular expression, so it only is created once
     // Since the list of names is not mutable, it will not change
@@ -49,6 +51,16 @@ export default class Character {
    */
   get imageUrl() {
     return this._image;
+  }
+
+  /**
+   * Get sthe colour of this character
+   * 
+   * @readonly
+   * @memberof Character
+   */
+  get color() {
+    return this._color;
   }
 
   /**

@@ -106,6 +106,11 @@ export function characterFromName(name, characters) {
   return characters.find(c => c.names.find(n => n.toLowerCase() === name.toLowerCase()));
 }
 
+export function charactersInText(characters, text) {
+  return characters
+    .filter((c) => c.numberOfOccurrences(text) > 0);
+}
+
 /** 
  * Finds the average of an array of numbers 
  *  

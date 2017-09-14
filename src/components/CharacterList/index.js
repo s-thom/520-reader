@@ -22,23 +22,8 @@ class CharacterList extends Component {
 
   render() {
     let curr = this.props.current;
-    let page = this.props.pages[curr];
 
-    let characters = this.findCharacters(page.text);
-    // Add selected, but not present, characters
-    if (this.props.selected.length) {
-      this.props.selected.forEach((char) => {
-        // Make sure to not add the filler spots in the selected array
-        if (!char) {
-          return;
-        }
-
-        // Don't add duplicate characters
-        if (!characters.includes(char)) {
-          characters.unshift(char);
-        }
-      });
-    }
+    let characters = this.props.characters;
 
     // Sort list by name alphabetically
     // It makes more snese than the order in the JSON
@@ -63,17 +48,30 @@ class CharacterList extends Component {
           alt={char.name} />
       ) : (
         <span className="char-icon char-initial">
-          <span className="char-initial-content">{char.name[0].toUpperCase()}</span>
+          <span className="char-initial-content">{
+            char
+              .name
+              .split(' ')
+              .map(s => s[0])
+              .join('')
+              .toUpperCase()
+          }</span>
         </span>
       );
 
       let showLabel = this.props.selected.includes(char);
 
+      let styles = {
+        backgroundColor: (showLabel && char.color) || '#fff',
+      };
+
       return (
         <div 
           key={`char-${char.name}`}
           className={charClasses.join(' ')}
-          onClick={() => this.os(char)}>
+          onClick={() => this.os(char)}
+          style={styles}
+        >
           {charIcon}
           {showLabel && <span className="char-name"><span className="char-label">{char.name}</span></span>}
         </div>
@@ -91,19 +89,6 @@ class CharacterList extends Component {
         {list}
       </div>
     );
-  }
-
-  /**
-   * Finds which characters occur in the text
-   * 
-   * @param {string} text Text to search
-   * @returns {Character[]} Characters that are in the text
-   * @memberof CharacterList
-   */
-  findCharacters(text) {
-    return this.props.characters.filter((character) => {
-      return character.numberOfOccurrences(text) > 0;
-    });
   }
 
   /**
@@ -133,7 +118,8 @@ CharacterList.propTypes = {
   selected: PropTypes.arrayOf(PropTypes.instanceOf(Character)).isRequired,
   onselected: PropTypes.func,
   wrap: PropTypes.bool,
-  vertical: PropTypes.bool
+  vertical: PropTypes.bool,
+  invert: PropTypes.bool,
 };
 
 export default CharacterList;

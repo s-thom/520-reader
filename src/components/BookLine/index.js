@@ -11,7 +11,8 @@ function Line({
   progress,
   height,
   xStep,
-  yStep
+  yStep,
+  color
 }) {
   let progressX = (progress + 1) * xStep;
 
@@ -22,8 +23,11 @@ function Line({
   });
   let seenInstructions = `M0,${height} ${instructions.join(' ')} L${progressX},${height}`;
 
+  let styles = {
+    fill: color || '#4CB3F7',
+  };
 
-  return  <path className="svg-path" d={seenInstructions} />;
+  return  <path className="svg-path" d={seenInstructions} style={styles} />;
 }
 
 Line.propTypes = {
@@ -32,6 +36,7 @@ Line.propTypes = {
   height: PropTypes.number,
   xStep: PropTypes.number,
   yStep: PropTypes.number,
+  color: PropTypes.string,
 };
 
 /**
@@ -135,7 +140,7 @@ class BookLine extends Component {
               className={containerClass}
               key={`line-${char.name}`}>
               {/* Create the book line for this character */}
-              <Line points={this.occurences.get(char)} {...lineCommonProps} />
+              <Line points={this.occurences.get(char)} color={char.color} {...lineCommonProps} />
             </g>
           );
         });

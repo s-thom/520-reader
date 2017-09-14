@@ -69,28 +69,3 @@
 .Reader:not(.bookline-show) .char-label {
   display: none;
 }
-
-.char.selected-0 {
-  background-color: #7FB6FF;
-}
-.char.selected-1 {
-  background-color: #FF4E44;
-}
-.char.selected-2 {
-  background-color: #84CD6D;
-}
-.char.selected-3 {
-  background-color: #C382CC;
-}
-.char.selected-4 {
-  background-color: #C6CC61;
-}
-.char.selected-5 {
-  background-color: #70CCA5;
-}
-.char.selected-6 {
-  background-color: #CC8693;
-}
-.char.selected-7 {
-  background-color: #CC9859;
-}
