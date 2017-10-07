@@ -48,7 +48,7 @@ export function setUser(id) {
  * @returns {number} ID of user
  */
 export function getStartupUser() {
-  userId = parseInt(localStorage.getItem('uid'), 10) || -1;
+  userId = parseInt(localStorage.getItem('uid'), 10) || userId;
   return userId;
 }
 

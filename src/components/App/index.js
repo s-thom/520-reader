@@ -27,8 +27,8 @@ class App extends Component {
 
     // Request needed files
     Promise.all([
-      request('/looking-glass.txt'),
-      request('/looking-glass.json')
+      request('./looking-glass.txt'),
+      request('./looking-glass.json')
         .then(JSON.parse)
         .then(({characters: cs}) => {
           let characters = cs.map(c => new Character(c['display-name'], c.names, c.image, c.color));
