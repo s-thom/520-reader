@@ -1,6 +1,6 @@
 import { localStorage } from './browser';
 
-let userId = -1;
+let userId = 93;
 
 /**
  * Stores an event in the browser's localStorage
@@ -11,6 +11,10 @@ let userId = -1;
  * @param {any} [data={}] Extra data to include
  */
 export function event(name, data = {}) {
+  // Not actually in the study, but for some reason I forgot to add this return earlier
+  return;
+  
+  /*
   let str = localStorage.getItem('events') || '[]';
   let store = JSON.parse(str);
 
@@ -23,6 +27,7 @@ export function event(name, data = {}) {
   });
 
   localStorage.setItem('events', JSON.stringify(store));
+  */
 }
 
 /**
