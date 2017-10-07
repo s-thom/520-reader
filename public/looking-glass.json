@@ -5,7 +5,7 @@
       "names": [
         "Alice"
       ],
-      "image": "/img/alice.png",
+      "image": "img/alice.png",
       "color": "#ffaaef"
     },
     {
@@ -14,7 +14,7 @@
         "White Kitten",
         "Snowdrop"
       ],
-      "image": "/img/white-kitten.png",
+      "image": "img/white-kitten.png",
       "color": "#D6D6D6"
     },
     {
@@ -23,7 +23,7 @@
         "Black Kitten",
         "Kitty"
       ],
-      "image": "/img/black-kitten.png",
+      "image": "img/black-kitten.png",
       "color": "#FF4E44"
     },
     {
@@ -40,7 +40,7 @@
       "names": [
         "Red King"
       ],
-      "image": "/img/red-king.png",
+      "image": "img/red-king.png",
       "color": "#ea3535"
     },
     {
@@ -48,7 +48,7 @@
       "names": [
         "Red Queen"
       ],
-      "image": "/img/red-queen.png",
+      "image": "img/red-queen.png",
       "color": "#E9342A"
     },
     {
@@ -56,7 +56,7 @@
       "names": [
         "White King"
       ],
-      "image": "/img/white-king.png",
+      "image": "img/white-king.png",
       "color": "#e8e8e8"
     },
     {
@@ -64,7 +64,7 @@
       "names": [
         "White Queen"
       ],
-      "image": "/img/white-queen.png",
+      "image": "img/white-queen.png",
       "color": "#cecece"
     },
     {
@@ -73,7 +73,7 @@
         "White Knight",
         "the knight"
       ],
-      "image": "/img/white-knight.png",
+      "image": "img/white-knight.png",
       "color": "#e8f2f2"
     },
     {
@@ -81,7 +81,7 @@
       "names": [
         "Tiger-lily"
       ],
-      "image": "/img/tiger-lily.png",
+      "image": "img/tiger-lily.png",
       "color": "#FC5B01"
     },
     {
@@ -89,7 +89,7 @@
       "names": [
         "The Rose"
       ],
-      "image": "/img/rose.png",
+      "image": "img/rose.png",
       "color": "#ffe2f4"
     },
     {
@@ -105,7 +105,7 @@
       "names": [
         "The Guard"
       ],
-      "image": "/img/train-guard.png",
+      "image": "img/train-guard.png",
       "color": "#958de8"
     },
     {
@@ -122,7 +122,7 @@
       "names": [
         "Tweedledum"
       ],
-      "image": "/img/dum.png",
+      "image": "img/dum.png",
       "color": "#F6A875"
     },
     {
@@ -130,7 +130,7 @@
       "names": [
         "Tweedledee"
       ],
-      "image": "/img/dee.png",
+      "image": "img/dee.png",
       "color": "#DD9972"
     },
     {
@@ -138,7 +138,7 @@
       "names": [
         "The Sheep"
       ],
-      "image": "/img/sheep.png",
+      "image": "img/sheep.png",
       "color": "#cecece"
     },
     {
@@ -146,7 +146,7 @@
       "names": [
         "Humpty Dumpty"
       ],
-      "image": "/img/humpty-dumpty.png",
+      "image": "img/humpty-dumpty.png",
       "color": "#C6CC61"
     },
     {
@@ -155,7 +155,7 @@
         "The messenger",
         "Haigha"
       ],
-      "image": "/img/hare.png",
+      "image": "img/hare.png",
       "color": "#b983c6"
     },
     {
@@ -163,7 +163,7 @@
       "names": [
         "Hatta"
       ],
-      "image": "/img/hatter.png",
+      "image": "img/hatter.png",
       "color": "#a77bb2"
     },
     {
@@ -171,7 +171,7 @@
       "names": [
         "The Lion"
       ],
-      "image": "/img/lion.png",
+      "image": "img/lion.png",
       "color": "#e5c169"
     },
     {
@@ -179,7 +179,7 @@
       "names": [
         "The Unicorn"
       ],
-      "image": "/img/unicorn.png",
+      "image": "img/unicorn.png",
       "color": "#f780c3"
     },
     {
